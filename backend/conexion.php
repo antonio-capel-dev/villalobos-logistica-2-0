@@ -1,6 +1,11 @@
 <?php 
 declare(strict_types=1);
 
+// Iniciamos la sesión aquí para que esté disponible en toda la aplicación
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $DB_HOST = 'localhost';
 $DB_NAME = 'villalobos_logistica_2';
 $DB_USER = 'root';
@@ -18,7 +23,7 @@ try {
     );
 }   catch (PDOException $e) {
     http_response_code(500);
-    die(json_encode(['ok'=>false, 'eroor'=>'DB error']));
+    die(json_encode(['ok'=>false, 'error'=>'Error de conexión a la base de datos']));
 }
 
 

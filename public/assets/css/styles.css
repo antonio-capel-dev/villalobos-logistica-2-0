@@ -552,3 +552,612 @@ img {
     gap: 2rem;
   }
 }
+
+/* =========================================
+   ESTILOS REFACTORIZADOS DEL PANEL (CASTELLANO)
+   ========================================= */
+
+/* Utilidades generales */
+.fondo-panel {
+    background-color: #f1f5f9;
+}
+
+.alineacion-izquierda {
+    text-align: left;
+}
+
+.alineacion-derecha {
+    text-align: right;
+}
+
+.alineacion-centro {
+    text-align: center;
+}
+
+.texto-secundario {
+    color: #64748b;
+}
+
+.margen-inferior-doble {
+    margin-bottom: 2rem;
+}
+
+.margen-superior-simple {
+    margin-top: 1.5rem;
+}
+
+.texto-pequeno {
+    font-size: 0.85rem;
+}
+
+.enlace-primario {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Auth / Login */
+.contenedor-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.tarjeta-login {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.tarjeta-login img {
+    width: 180px;
+    margin-bottom: 1.5rem;
+}
+
+/* Formularios */
+.grupo-formulario {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.etiqueta-formulario {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #334155;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.control-formulario {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+/* Mensajes Frecuentes */
+.mensaje {
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: none;
+    font-weight: 600;
+}
+
+.mensaje-error {
+    color: #991b1b;
+    background-color: #fee2e2;
+}
+
+.mensaje-exito {
+    color: #065f46;
+    background-color: #d1fae5;
+}
+
+/* Panel Layout / Dashboard */
+.contenedor-principal {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.cabecera-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cabecera-tarjeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tarjeta {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.insignia-rol {
+    background: var(--primary);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.separador-panel {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.grupo-botones {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Botones Adicionales */
+.boton {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.boton-ancho {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.boton-primario {
+    background-color: var(--primary);
+    color: white;
+}
+.boton-primario:hover {
+    background-color: var(--primary-dark);
+}
+
+.boton-secundario {
+    background-color: transparent;
+    color: var(--dark);
+    border: 2px solid var(--dark);
+}
+.boton-secundario:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.boton-contorno {
+    background-color: transparent;
+    color: var(--dark);
+    border: 1px solid #cbd5e1;
+}
+.boton-contorno:hover {
+    background-color: #f1f5f9;
+}
+
+.boton-pequeno {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.boton-peligro {
+    background-color: #ef4444;
+    color: white;
+}
+.boton-peligro:hover {
+    background-color: #dc2626;
+}
+
+/* Cuadrículas Formularios Panel */
+.cuadricula-formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Tablas Data */
+.contenedor-tabla {
+    overflow-x: auto;
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    color: #334155;
+}
+
+.tabla-datos th, .tabla-datos td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-datos th {
+    background-color: #f1f5f9;
+    font-weight: 600;
+}
+
+.tabla-datos tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Insignias Estado */
+.insignia-estado {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.estado-pendiente {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.estado-entregado {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+.estado-en_ruta {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.estado-cancelado {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+/* =========================================================
+   MODAL DE EDICIÓN
+   ========================================================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.6);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.modal-contenido {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalEntrada 0.2s ease-out;
+}
+
+@keyframes modalEntrada {
+    from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-cabecera h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.boton-cerrar-modal {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    transition: color 0.2s;
+}
+
+.boton-cerrar-modal:hover {
+    color: #ef4444;
+}
+
+.modal-cuerpo {
+    padding: 1.5rem;
+}
+
+/* Botón Editar en tabla */
+.boton-editar {
+    background-color: #3b82f6;
+    color: white;
+    margin-right: 0.4rem;
+}
+
+.boton-editar:hover {
+    background-color: #2563eb;
+}
+
+/* =========================================================
+   TARJETAS KPI - DASHBOARD
+   ========================================================= */
+.grid-kpi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tarjeta-kpi {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.kpi-icono {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.kpi-etiqueta {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.kpi-valor {
+    margin: 0.1rem 0 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+/* =========================================================
+   WIDGET DE CHAT FLOTANTE
+   ========================================================= */
+
+/* Contenedor raíz: pegado a la esquina inferior derecha */
+#chatWidget {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+/* Botón burbuja circular */
+#chatBoton {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(29, 78, 216, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#chatBoton:hover {
+    background-color: #128c7e;
+    transform: scale(1.08);
+}
+
+/* Panel de conversación */
+#chatPanel {
+    width: 320px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* hidden en HTML lo oculta; si no tiene hidden se muestra como flex */
+#chatPanel[hidden] { display: none; }
+
+/* Cabecera azul con logo y estado "en línea" */
+.chat-cabecera {
+    background: #25d366;
+    color: white;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.chat-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: white;
+    padding: 3px;
+}
+
+.chat-nombre-empresa {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.chat-estado {
+    margin: 0;
+    font-size: 0.75rem;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Punto verde animado de "en línea" */
+.chat-punto-verde {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Zona donde se apilan los mensajes */
+.chat-mensajes {
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: #f8fafc;
+    min-height: 200px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+/* Burbuja base */
+.chat-burbuja {
+    max-width: 80%;
+    padding: 0.55rem 0.85rem;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Bot: alineada a la izquierda, azul claro */
+.chat-burbuja-bot {
+    align-self: flex-start;
+    background: #dbeafe;
+    color: #1e3a5f;
+    border-bottom-left-radius: 4px;
+}
+
+/* Usuario: alineada a la derecha, azul oscuro */
+.chat-burbuja-usuario {
+    align-self: flex-end;
+    background: #dcf8c6;
+    color: #1a1a1a;
+    border-bottom-right-radius: 4px;
+}
+
+/* Zona de escritura inferior */
+.chat-entrada {
+    display: flex;
+    border-top: 1px solid #e2e8f0;
+    background: white;
+}
+
+.chat-input {
+    flex: 1;
+    border: none;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    outline: none;
+    font-family: inherit;
+}
+
+.chat-boton-enviar {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.chat-boton-enviar:hover {
+    background: #128c7e;
+}
+
+/* ===================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   Posicionado abajo a la izquierda para no chocar
+   con el chat widget que está abajo a la derecha
+=================================================== */
+#whatsappBoton {
+    /* Posición fija: siempre visible al hacer scroll */
+    position: fixed;
+    bottom: 1.5rem;      /* 24px desde el borde inferior */
+    left: 1.5rem;        /* 24px desde el borde izquierdo */
+    z-index: 999;        /* Por encima de todo el contenido */
+
+    /* Tamaño y forma circular */
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+
+    /* Color verde oficial de WhatsApp */
+    background-color: #25d366;
+    color: white;
+
+    /* Centrar el icono dentro del círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Icono más grande para que se vea bien */
+    font-size: 1.8rem;
+
+    /* Sin subrayado (es un enlace <a>) */
+    text-decoration: none;
+
+    /* Sombra para que destaque sobre el fondo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+
+    /* Animación suave al pasar el ratón */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#whatsappBoton:hover {
+    background-color: #128c7e;  /* Verde oscuro WhatsApp al hover */
+    transform: scale(1.1);      /* Se agranda ligeramente */
+}
