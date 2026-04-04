@@ -1937,3 +1937,16 @@ select.control-formulario {
   color: #1e293b !important;
 }
 .cta-btn-tel:hover { color: #1e293b !important; }
+
+/* Proceso: iconos blancos, numeros azul sutil, sin rojo */
+.proceso-icono {
+  color: #fff !important;
+  border-color: rgba(255,255,255,.25) !important;
+  background: rgba(255,255,255,.07) !important;
+}
+.proceso-numero {
+  background: #2563eb !important;
+}
+.proceso-flecha {
+  color: rgba(255,255,255,.35) !important;
+}
