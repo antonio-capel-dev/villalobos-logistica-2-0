@@ -1470,3 +1470,137 @@ select.control-formulario {
   object-fit: cover;
   flex-shrink: 0;
 }
+
+/* ===== QUIENES SOMOS ===== */
+.quienes-somos-seccion {
+  background: #fff;
+  padding: 5rem 0 3rem;
+}
+.quienes-wrapper {
+  display: flex;
+  gap: 3.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.quienes-texto {
+  flex: 1 1 400px;
+}
+.quienes-pretitulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--primary-color, #e63946);
+  margin-bottom: 0.5rem;
+}
+.quienes-titulo {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+.quienes-texto p {
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.quienes-checks {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.quienes-checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #334155;
+  font-size: 0.95rem;
+}
+.quienes-checks li i {
+  color: var(--primary-color, #e63946);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.quienes-cta {
+  margin-top: 0.5rem;
+}
+.quienes-foto-wrap {
+  flex: 1 1 340px;
+}
+.quienes-foto {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  max-height: 400px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+}
+
+/* Franja de cifras */
+.quienes-cifras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  background: var(--primary-color, #e63946);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.cifra-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: #fff;
+}
+.cifra-numero {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.cifra-label {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* Sectores */
+.quienes-sectores {
+  text-align: center;
+}
+.sectores-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+.sectores-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.sectores-tags span {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .quienes-wrapper { flex-direction: column; }
+  .quienes-cifras { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .quienes-cifras { grid-template-columns: 1fr 1fr; }
+}
