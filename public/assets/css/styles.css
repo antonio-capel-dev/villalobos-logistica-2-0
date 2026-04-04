@@ -1968,3 +1968,23 @@ select.control-formulario {
 #contacto.section {
   padding-top: 3rem !important;
 }
+
+/* Contact grid: forzar 2 columnas y altura controlada */
+.contact-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem !important;
+  align-items: start !important;
+}
+.contenedor-mapa-blanco {
+  height: 380px !important;
+  min-height: unset !important;
+}
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .contenedor-mapa-blanco {
+    height: 260px !important;
+  }
+}
