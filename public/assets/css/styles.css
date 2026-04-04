@@ -1950,3 +1950,21 @@ select.control-formulario {
 .proceso-flecha {
   color: rgba(255,255,255,.35) !important;
 }
+
+/* Reducir espacio entre cabecera contacto y formulario */
+#contacto .section-header,
+#contacto .cabecera-cta {
+  margin-bottom: 1.5rem !important;
+  padding-bottom: 0 !important;
+}
+#contacto .section-header h3,
+#contacto .cabecera-cta h3 {
+  margin-bottom: 0.4rem !important;
+}
+#contacto .section-header p,
+#contacto .cabecera-cta p {
+  margin-bottom: 0 !important;
+}
+#contacto.section {
+  padding-top: 3rem !important;
+}
