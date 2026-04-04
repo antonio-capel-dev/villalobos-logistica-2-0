@@ -1653,3 +1653,77 @@ select.control-formulario {
   flex-direction: column !important;
   gap: 0.3rem !important;
 }
+
+/* ===== VALIDACIÃ“N DE FORMULARIO INLINE ===== */
+
+/* Estado error */
+.control-formulario.campo-error {
+  border-color: #ef4444 !important;
+  background: #fff5f5 !important;
+  box-shadow: 0 0 0 3px rgba(239,68,68,.12) !important;
+}
+
+/* Estado ok */
+.control-formulario.campo-ok {
+  border-color: #22c55e !important;
+  background: #f0fdf4 !important;
+  box-shadow: 0 0 0 3px rgba(34,197,94,.1) !important;
+}
+
+/* Mensajes helper bajo cada campo */
+.campo-helper {
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+  display: block;
+  min-height: 1rem;
+}
+.helper-error { color: #ef4444; }
+.helper-ok    { color: #16a34a; }
+
+/* Shake al intentar enviar con errores */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-6px); }
+  30%       { transform: translateX(6px); }
+  45%       { transform: translateX(-4px); }
+  60%       { transform: translateX(4px); }
+  75%       { transform: translateX(-2px); }
+  90%       { transform: translateX(2px); }
+}
+.formulario-shake {
+  animation: shake 0.45s ease-in-out;
+}
+
+/* Tarjeta de Ã©xito */
+.tarjeta-exito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.08);
+  animation: fadeInUp 0.4s ease;
+}
+.tarjeta-exito-icono {
+  font-size: 3.5rem;
+  color: #22c55e;
+}
+.tarjeta-exito h4 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+.tarjeta-exito p {
+  color: #475569;
+  margin: 0;
+  max-width: 360px;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
