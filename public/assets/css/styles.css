@@ -1927,3 +1927,13 @@ select.control-formulario {
 .service-card:nth-child(1) { border-top: 4px solid #e63946; }
 .service-card:nth-child(2) { border-top: 4px solid #2563eb; }
 .service-card:nth-child(3) { border-top: 4px solid #16a34a; }
+
+/* CTA urgente: azul oscuro en vez de rojo */
+.cta-urgente-seccion {
+  background: #1e293b !important;
+}
+.cta-btn-tel {
+  background: #fff !important;
+  color: #1e293b !important;
+}
+.cta-btn-tel:hover { color: #1e293b !important; }
