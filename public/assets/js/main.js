@@ -1,163 +1,66 @@
-// public/assets/js/main.js
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ---------------------------------------------------------
-    // 1. NAVEGACIÓN MÓVIL (MENÚ HAMBURGUESA)
-    // ---------------------------------------------------------
-    const botonMenuMovil = document.querySelector('.mobile-menu-toggle');
-    const navegacionPrincipal = document.querySelector('.main-nav');
-
-    if (botonMenuMovil && navegacionPrincipal) {
-        botonMenuMovil.addEventListener('click', () => {
-            navegacionPrincipal.classList.toggle('active');
-        });
+    const btnMenu = document.querySelector('.mobile-menu-toggle');
+    const navPrincipal = document.querySelector('.main-nav');
+    if (btnMenu && navPrincipal) {
+        btnMenu.addEventListener('click', () => navPrincipal.classList.toggle('active'));
     }
 
-    // ---------------------------------------------------------
-    // 2. FORMULARIO ASÍNCRONO DE CONTACTO
-    // ---------------------------------------------------------
-    const formularioContacto = document.getElementById("formularioContacto");
+    const formulario = document.getElementById("formularioContacto");
+    if (!formulario) return;
 
-    if (!formularioContacto) return;
+    const reglas = {
+        nombre:       { regex: /^[a-zA-ZÀ-ÿ\s]{3,}$/,          error: 'Mínimo 3 letras, sin números' },
+        telefono:     { regex: /^[6789]\d{8}$/,                  error: 'Teléfono español no válido (9 dígitos)' },
+        correo:       { regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,     error: 'Formato de email no válido' },
+        tipoServicio: { regex: /.+/,                              error: 'Selecciona un tipo de servicio' }
+    };
 
-    const contenedorMensaje = document.getElementById("mensajeContacto");
-    const botonEnviar       = document.getElementById("botonEnviarContacto");
+    function validarCampo(input) {
+        const regla = reglas[input.id];
+        const mensaje = input.closest('.grupo-formulario').querySelector('.mensaje');
+        if (!regla) return true;
 
-    // --- Utilidades de validación por campo ---
-
-    const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const REGEX_TEL   = /^[+\d\s\-().]{7,}$/;
-
-    function marcarError(campo, mensaje) {
-        campo.classList.remove('campo-ok');
-        campo.classList.add('campo-error');
-        let helper = campo.parentElement.querySelector('.campo-helper');
-        if (!helper) {
-            helper = document.createElement('span');
-            helper.className = 'campo-helper';
-            campo.parentElement.appendChild(helper);
-        }
-        helper.textContent = mensaje;
-        helper.classList.remove('helper-ok');
-        helper.classList.add('helper-error');
+        const valido = regla.regex.test(input.value.trim());
+        input.classList.toggle('campo-error', !valido);
+        input.classList.toggle('campo-ok', valido);
+        mensaje.textContent = valido ? '✓ Correcto' : regla.error;
+        mensaje.className = 'mensaje ' + (valido ? 'helper-ok' : 'helper-error');
+        return valido;
     }
 
-    function marcarOk(campo) {
-        campo.classList.remove('campo-error');
-        campo.classList.add('campo-ok');
-        let helper = campo.parentElement.querySelector('.campo-helper');
-        if (!helper) {
-            helper = document.createElement('span');
-            helper.className = 'campo-helper';
-            campo.parentElement.appendChild(helper);
-        }
-        helper.textContent = '✓ Correcto';
-        helper.classList.remove('helper-error');
-        helper.classList.add('helper-ok');
-    }
-
-    function limpiarEstado(campo) {
-        campo.classList.remove('campo-error', 'campo-ok');
-        const helper = campo.parentElement.querySelector('.campo-helper');
-        if (helper) helper.textContent = '';
-    }
-
-    function validarCampo(campo) {
-        const val = campo.value.trim();
-        const id  = campo.id;
-
-        if (campo.required && !val) {
-            marcarError(campo, 'Este campo es obligatorio');
-            return false;
-        }
-        if (id === 'correo' && val && !REGEX_EMAIL.test(val)) {
-            marcarError(campo, 'Formato de email no válido');
-            return false;
-        }
-        if (id === 'telefono' && val && !REGEX_TEL.test(val)) {
-            marcarError(campo, 'Introduce un teléfono válido');
-            return false;
-        }
-        if (val) marcarOk(campo);
-        return true;
-    }
-
-    // Validación en tiempo real al salir de cada campo (blur)
     const camposObligatorios = ['nombre', 'telefono', 'correo', 'tipoServicio'];
-    const camposOpcionales   = ['origen', 'destino', 'detalleMensaje'];
-    const todosCampos = [...camposObligatorios, ...camposOpcionales];
 
-    todosCampos.forEach(id => {
+    camposObligatorios.forEach(id => {
         const el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener('blur', () => validarCampo(el));
-        el.addEventListener('input', () => {
-            if (el.classList.contains('campo-error')) validarCampo(el);
-        });
+        if (el) el.addEventListener('input', () => validarCampo(el));
     });
 
-    // Shake animation al intentar enviar con errores
-    function sacudirFormulario() {
-        formularioContacto.classList.add('formulario-shake');
-        formularioContacto.addEventListener('animationend', () => {
-            formularioContacto.classList.remove('formulario-shake');
-        }, { once: true });
-    }
+    const contenedorMensaje = document.getElementById("mensajeContacto");
+    const botonEnviar = document.getElementById("botonEnviarContacto");
 
-    // Estado de éxito: oculta el form y muestra card de gracias
-    function mostrarExito() {
-        formularioContacto.style.display = 'none';
-        let card = document.getElementById('tarjeta-exito');
-        if (!card) {
-            card = document.createElement('div');
-            card.id = 'tarjeta-exito';
-            card.className = 'tarjeta-exito';
-            card.innerHTML = `
-                <i class="fas fa-circle-check tarjeta-exito-icono"></i>
-                <h4>¡Mensaje recibido!</h4>
-                <p>Le contactaremos en menos de 24 horas. Gracias por confiar en Villalobos Logística.</p>
-                <button class="btn btn-primary" id="btnNuevaMensaje">Enviar otro mensaje</button>
-            `;
-            formularioContacto.parentElement.appendChild(card);
-            document.getElementById('btnNuevaMensaje').addEventListener('click', () => {
-                card.remove();
-                formularioContacto.style.display = '';
-                formularioContacto.reset();
-                todosCampos.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) limpiarEstado(el);
-                });
-            });
-        }
-    }
-
-    // Submit
-    formularioContacto.addEventListener("submit", function(evento) {
-        evento.preventDefault();
+    formulario.addEventListener("submit", function(e) {
+        e.preventDefault();
         ocultarMensaje(contenedorMensaje);
 
-        // Validar todos los campos obligatorios
-        let hayErrores = false;
-        camposObligatorios.forEach(id => {
-            const el = document.getElementById(id);
-            if (el && !validarCampo(el)) hayErrores = true;
-        });
+        const errores = camposObligatorios
+            .map(id => document.getElementById(id))
+            .filter(el => el && !validarCampo(el));
 
-        if (hayErrores) {
-            sacudirFormulario();
-            // Scroll al primer campo con error
-            const primerError = formularioContacto.querySelector('.campo-error');
-            if (primerError) primerError.focus();
+        if (errores.length > 0) {
+            formulario.classList.add('formulario-shake');
+            formulario.addEventListener('animationend', () => {
+                formulario.classList.remove('formulario-shake');
+            }, { once: true });
+            errores[0].focus();
             return;
         }
 
-        // Estado de carga en el botón
         const textoOriginal = botonEnviar.innerHTML;
         botonEnviar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
         botonEnviar.disabled = true;
 
-        const datosParaEnviar = {
+        const datos = {
             nombre:   document.getElementById("nombre").value.trim(),
             telefono: document.getElementById("telefono").value.trim(),
             email:    document.getElementById("correo").value.trim(),
@@ -170,13 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch('../backend/api/contacto.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datosParaEnviar)
+            body: JSON.stringify(datos)
         })
-        .then(res => {
-            if (!res.ok && res.status !== 400 && res.status !== 500)
-                throw new Error("Error servidor: " + res.status);
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             botonEnviar.innerHTML = textoOriginal;
             botonEnviar.disabled = false;
@@ -184,15 +83,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 mostrarExito();
             } else {
                 mostrarMensaje(contenedorMensaje, "error", data.error || "Error en la validación.");
-                sacudirFormulario();
             }
         })
-        .catch(err => {
+        .catch(() => {
             botonEnviar.innerHTML = textoOriginal;
             botonEnviar.disabled = false;
-            console.error("Fetch error:", err);
             mostrarMensaje(contenedorMensaje, "error", "Error de conexión. Inténtelo más tarde.");
-            sacudirFormulario();
         });
     });
+
+    function mostrarExito() {
+        formulario.style.display = 'none';
+        const card = document.createElement('div');
+        card.className = 'tarjeta-exito';
+        card.innerHTML = `
+            <i class="fas fa-circle-check tarjeta-exito-icono"></i>
+            <h4>¡Mensaje recibido!</h4>
+            <p>Le contactaremos en menos de 24 horas. Gracias por confiar en Villalobos Logística.</p>
+            <button class="btn btn-primary" id="btnNuevoMensaje">Enviar otro mensaje</button>
+        `;
+        formulario.parentElement.appendChild(card);
+        document.getElementById('btnNuevoMensaje').addEventListener('click', () => {
+            card.remove();
+            formulario.style.display = '';
+            formulario.reset();
+            camposObligatorios.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.remove('campo-ok', 'campo-error');
+                const msg = el.closest('.grupo-formulario')?.querySelector('.mensaje');
+                if (msg) msg.textContent = '';
+            });
+        });
+    }
+
 });
