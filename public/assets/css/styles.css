@@ -1612,3 +1612,44 @@ select.control-formulario {
 .quienes-checks li i {
   color: #22c55e !important;
 }
+
+/* ===== OVERRIDE: seccion contacto fondo claro ===== */
+#contacto.cta,
+#contacto.seccion-cta-dinamica {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+}
+#contacto .section-header h3,
+#contacto .cabecera-cta h3 {
+  color: #1e293b !important;
+}
+#contacto .section-header p,
+#contacto .cabecera-cta p {
+  color: #475569 !important;
+}
+
+/* ===== Campos del formulario: mas padding y altura ===== */
+.control-formulario {
+  padding: 0.85rem 1rem !important;
+  font-size: 0.95rem !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.control-formulario:focus {
+  border-color: var(--primary-color, #e63946) !important;
+  box-shadow: 0 0 0 3px rgba(230,57,70,.12) !important;
+  outline: none !important;
+}
+.etiqueta-formulario {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  margin-bottom: 0.4rem !important;
+  display: block !important;
+}
+.grupo-formulario {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+}
