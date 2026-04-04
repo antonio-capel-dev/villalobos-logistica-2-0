@@ -1,96 +1,70 @@
-<?php
+﻿<?php
 header("Content-Type: application/json; charset=UTF-8");
-
 require_once '../conexion.php';
-
-// Cargamos los 3 ficheros de PHPMailer (descargados a mano en backend/phpmailer/)
 require_once '../phpmailer/Exception.php';
 require_once '../phpmailer/PHPMailer.php';
 require_once '../phpmailer/SMTP.php';
-
-// Usamos el namespace de PHPMailer para poder escribir "new PHPMailer" sin el nombre largo
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$response = array();
-
-// Solo aceptamos POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['ok' => false, 'error' => 'Método no soportado.']);
+    echo json_encode(['ok' => false, 'error' => 'Metodo no soportado.']);
     exit;
 }
-
-// Recibimos el JSON del fetch
 $data = json_decode(file_get_contents("php://input"), true);
+$nombre   = isset($data['nombre'])   ? trim($data['nombre'])   : '';
+$telefono = isset($data['telefono']) ? trim($data['telefono']) : '';
+$email    = isset($data['email'])    ? trim($data['email'])    : '';
+$servicio = isset($data['servicio']) ? trim($data['servicio']) : '';
+$origen   = isset($data['origen'])   ? trim($data['origen'])   : '';
+$destino  = isset($data['destino'])  ? trim($data['destino'])  : '';
+$mensaje  = isset($data['mensaje'])  ? trim($data['mensaje'])  : '';
 
-$nombre  = isset($data['nombre'])  ? trim($data['nombre'])  : '';
-$email   = isset($data['email'])   ? trim($data['email'])   : '';
-$mensaje = isset($data['mensaje']) ? trim($data['mensaje']) : '';
-
-// Validación en servidor
-if (empty($nombre) || empty($email) || empty($mensaje)) {
+if (empty($nombre) || empty($telefono) || empty($email) || empty($servicio)) {
     http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Todos los campos son obligatorios.']);
+    echo json_encode(['ok' => false, 'error' => 'Complete: nombre, telefono, email y tipo de servicio.']);
     exit;
 }
-
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'El formato del correo electrónico es inválido.']);
+    echo json_encode(['ok' => false, 'error' => 'El formato del correo es invalido.']);
     exit;
 }
 
-try {
-    // PASO 1: Guardar en la base de datos (esto es lo prioritario)
-    $query = "INSERT INTO mensajes_contacto (nombre, email, mensaje) VALUES (:nombre, :email, :mensaje)";
-    $stmt  = $pdo->prepare($query);
-    $stmt->execute([':nombre' => $nombre, ':email' => $email, ':mensaje' => $mensaje]);
+$mensajeCompleto = "Servicio: $servicio\n";
+if ($origen)  $mensajeCompleto .= "Origen: $origen\n";
+if ($destino) $mensajeCompleto .= "Destino: $destino\n";
+if ($mensaje) $mensajeCompleto .= "Detalles: $mensaje\n";
+$mensajeCompleto .= "Telefono: $telefono";
 
-    // PASO 2: Intentar enviar email con PHPMailer
-    // Si falla el email, el mensaje ya está guardado en BD — no se pierde el lead
-    $mailEnviado = false;
+try {
+    $stmt = $pdo->prepare("INSERT INTO mensajes_contacto (nombre, email, mensaje) VALUES (:nombre, :email, :mensaje)");
+    $stmt->execute([':nombre' => $nombre, ':email' => $email, ':mensaje' => $mensajeCompleto]);
 
     try {
-        $mail = new PHPMailer(true); // true = lanza excepciones si algo falla
-
-        // --- CONFIGURACIÓN SMTP ---
+        $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host       = 'sandbox.smtp.mailtrap.io'; // Mailtrap: servidor de pruebas
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'a5cce6e9289318';  // ← pega aquí tu Username de Mailtrap
-        $mail->Password   = 'b3eecf41fef210';   // ← pega aquí tu Password de Mailtrap
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Mailtrap acepta TLS
-        $mail->Port       = 2525; // Puerto de Mailtrap
-        $mail->CharSet    = 'UTF-8';
-
-        // --- REMITENTE Y DESTINATARIO ---
-        $mail->setFrom('no-reply@villalobos.local', 'Web Villalobos Logística');
-        $mail->addAddress('info@villaloboslogistica.com', 'Villalobos Logística'); // ← correo destino
-
-        // --- CONTENIDO DEL EMAIL ---
-        $mail->Subject = 'Nuevo mensaje de contacto desde la web';
-        $mail->Body    =
-            "Has recibido un nuevo mensaje desde el formulario web:\n\n" .
-            "Nombre:  " . $nombre  . "\n" .
-            "Email:   " . $email   . "\n" .
-            "Mensaje: " . $mensaje . "\n";
-
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'a5cce6e9289318';
+        $mail->Password = 'b3eecf41fef210';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 2525;
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom('no-reply@villalobos.local', 'Web Villalobos Logistica');
+        $mail->addAddress('info@villaloboslogistica.com', 'Villalobos Logistica');
+        $mail->Subject = "Nueva solicitud: $servicio - $nombre";
+        $mail->Body = "NUEVA SOLICITUD DE PRESUPUESTO\n================================\n\nNombre:   $nombre\nTelefono: $telefono\nEmail:    $email\n\nServicio: $servicio\nOrigen:   " . ($origen ?: 'No indicado') . "\nDestino:  " . ($destino ?: 'No indicado') . "\n\nDetalles:\n" . ($mensaje ?: 'Sin detalles adicionales');
         $mail->send();
-        $mailEnviado = true;
-
     } catch (Exception $e) {
-        // El email falló pero el lead está guardado en BD — no bloqueamos al usuario
-        error_log("PHPMailer error: " . $e->getMessage());
+        error_log("PHPMailer: " . $e->getMessage());
     }
 
-    // Respondemos éxito al usuario (la BD siempre guarda, email es bonus)
     http_response_code(201);
-    echo json_encode(['ok' => true, 'mensaje' => 'Formulario enviado con éxito. Le contactaremos pronto.']);
-
+    echo json_encode(['ok' => true, 'mensaje' => 'Solicitud enviada. Le contactaremos pronto.']);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'No se pudo enviar el mensaje por un fallo del sistema.']);
+    echo json_encode(['ok' => false, 'error' => 'Error del servidor.']);
 }
 ?>

@@ -31,14 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
             // Limpiamos alertas previas apoyándonos en utilidades.js
             ocultarMensaje(contenedorMensaje);
 
-            // Obtenemos y limpiamos los valores de entrada
-            const valorNombre = document.getElementById("nombre").value.trim();
-            const valorCorreo = document.getElementById("correo").value.trim();
-            const valorMensaje = document.getElementById("detalleMensaje").value.trim();
+            // Obtenemos y limpiamos los valores de todos los campos
+            const valorNombre    = document.getElementById("nombre").value.trim();
+            const valorTelefono  = document.getElementById("telefono").value.trim();
+            const valorCorreo    = document.getElementById("correo").value.trim();
+            const valorServicio  = document.getElementById("tipoServicio").value.trim();
+            const valorOrigen    = document.getElementById("origen").value.trim();
+            const valorDestino   = document.getElementById("destino").value.trim();
+            const valorMensaje   = document.getElementById("detalleMensaje").value.trim();
 
-            // A) Validación de Cliente (Front-End)
-            if (!valorNombre || !valorCorreo || !valorMensaje) {
-                mostrarMensaje(contenedorMensaje, "error", "Por favor, indique todos los campos obligatorios.");
+            // A) Validación de Cliente (Front-End) - campos obligatorios
+            if (!valorNombre || !valorTelefono || !valorCorreo || !valorServicio) {
+                mostrarMensaje(contenedorMensaje, "error", "Por favor, complete: nombre, teléfono, correo y tipo de servicio.");
                 return;
             }
 
@@ -54,11 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
             botonEnviar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             botonEnviar.disabled = true;
 
-            // C) Construcción del payload JSON
+            // C) Construcción del payload JSON con todos los campos del negocio
             const datosParaEnviar = {
-                nombre: valorNombre,
-                email: valorCorreo,
-                mensaje: valorMensaje
+                nombre:   valorNombre,
+                telefono: valorTelefono,
+                email:    valorCorreo,
+                servicio: valorServicio,
+                origen:   valorOrigen,
+                destino:  valorDestino,
+                mensaje:  valorMensaje
             };
 
             // D) Petición Asíncrona (Fetch API)
