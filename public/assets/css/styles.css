@@ -1604,3 +1604,11 @@ select.control-formulario {
 @media (max-width: 480px) {
   .quienes-cifras { grid-template-columns: 1fr 1fr; }
 }
+
+/* ===== OVERRIDE: cifras banner y ticks quienes somos ===== */
+.quienes-cifras {
+  background: #1e293b !important;
+}
+.quienes-checks li i {
+  color: #22c55e !important;
+}
