@@ -1,17 +1,22 @@
 <?php
-// public/index.php
+// public/index.php — Punto de entrada único (Front Controller)
 
 require_once '../app/config/config.php';
 
-// Simple Router for Demo purposes
-// In a full MVC this would instantiate Core\App
-$request = $_SERVER['REQUEST_URI'];
+// Autoload: carga automáticamente las clases según su namespace
+spl_autoload_register(function (string $clase): void {
+    // Convierte "Core\Router" -> "app/core/Router.php"
+    // Convierte "Controllers\HomeController" -> "app/controllers/HomeController.php"
+    // Convierte "Models\PorteModel" -> "app/models/PorteModel.php"
+    $partes = explode('\\', $clase);
+    $carpeta = strtolower($partes[0]);   // core / controllers / models
+    $archivo = $partes[1] . '.php';
 
-// Basic static serving for now
-// NOTE: For the demo, we just render the home view directly
-// Later we will implement the proper Controller dispatching
+    $ruta = APP_ROOT . '/' . $carpeta . '/' . $archivo;
+    if (file_exists($ruta)) {
+        require_once $ruta;
+    }
+});
 
-$pageTitle = 'Inicio';
-$viewContent = '../app/views/public/home.php';
-
-require_once '../app/views/layouts/main.php';
+// Delegar al router
+Core\Router::despachar();

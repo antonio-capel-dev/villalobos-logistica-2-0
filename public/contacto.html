@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Contacto y Presupuestos - Villalobos Logística 2.0</title>
+    <meta name="description" content="Contacta con Villalobos Logística en Málaga para presupuestos de transporte de mercancías. Formulario de contacto y ubicación física." />
+    <meta name="author" content="Antonio Capel" />
+    
+    <link rel="canonical" href="https://www.villaloboslogistica.com/contacto.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- Leaflet pre-load para el mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="top-bar">
+        <div class="container" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+            <a href="tel:630518441" aria-label="Llamar al móvil 1"><i class="fas fa-phone-alt"></i> 630 518 441</a>
+            <a href="tel:625038039" aria-label="Llamar al móvil 2"><i class="fas fa-phone-alt"></i> 625 038 039</a>
+            <span style="color: white; font-size: 0.9rem; margin-top: auto; margin-bottom: auto;"><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n, 29004 Málaga</span>
+            <a href="mailto:info@villaloboslogistica.com" aria-label="Enviar correo"><i class="fas fa-envelope"></i> info@villaloboslogistica.com</a>
+        </div>
+      </div>
+
+      <div class="header-container">
+        <div class="logo">
+          <a href="index.html" aria-label="Inicio">
+            <img src="./assets/img/logo.png" alt="Logotipo de Villalobos Logística">
+            <div class="logo-text">
+                <span class="logo-title">Villalobos</span>
+                <span class="logo-subtitle">Logística</span>
+            </div>
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="quienes-somos.html">Quiénes somos</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="galeria.html">Galería de imágenes</a></li>
+            <li><a href="contacto.html" class="btn btn-primary" style="background-color: var(--primary-dark);">Contacto</a></li>
+            <li><a href="../panel/login.php" class="btn btn-outline" title="Acceso al panel de empleados y clientes">Acceso Privado</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-toggle" aria-label="Abrir menú">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+      <section id="contacto" class="section cta seccion-cta-dinamica">
+          <div class="container contenedor-cta-relativo">
+              <div class="section-header cabecera-cta">
+                  <h3>Contacto y Presupuestos</h3>
+                  <p>Cuéntenos qué necesita y le responderemos en menos de 24h.</p>
+              </div>
+              <div class="contact-grid">
+                  <div class="contact-info-box contenedor-mapa-blanco">
+                      <div id="mapa" style="width: 100%; height: 100%; min-height: 400px; border-radius: 8px;" title="Ubicación de Villalobos Logística"></div>
+                  </div>
+                  
+                  <form id="formularioContacto" class="formulario-contacto formulario-contacto-blanco">
+                      <div id="mensajeContacto" class="mensaje"></div>
+                      
+                      <div class="grupo-formulario">
+                          <label for="nombre" class="etiqueta-formulario">Nombre Completo *</label>
+                          <input type="text" id="nombre" class="control-formulario" placeholder="Ej. Juan Pérez" required />
+                      </div>
+                      <div class="grupo-formulario">
+                          <label for="correo" class="etiqueta-formulario">Correo Electrónico *</label>
+                          <input type="email" id="correo" class="control-formulario" placeholder="juan@ejemplo.com" required />
+                      </div>
+                      <div class="grupo-formulario">
+                          <label for="detalleMensaje" class="etiqueta-formulario">Detalles del Transporte *</label>
+                          <textarea id="detalleMensaje" class="control-formulario" placeholder="Origen, destino, tipo de carga..." required></textarea>
+                      </div>
+                      <button type="submit" id="botonEnviarContacto" class="btn btn-primary btn-lg boton-ancho boton-accion-cta" aria-label="Enviar la solicitud de contacto">Enviar Solicitud</button>
+                  </form>
+              </div>
+          </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h3>Villalobos Logística</h3>
+          <p>Tu socio de confianza en transporte y logística en Málaga.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Enlaces</h4>
+          <ul>
+            <li><a href="#">Aviso Legal</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n. 29004, Málaga</p>
+          <p><i class="fas fa-phone-alt"></i> 630 518 441 | 625 038 039</p>
+          <p><i class="fas fa-envelope"></i> info@villaloboslogistica.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Villalobos Logística. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <a href="https://wa.me/34625038039" id="whatsappBoton" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" title="Escríbenos por WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="chatWidget">
+      <button id="chatBoton" aria-label="Abrir chat de contacto" title="¿Hablamos?"><i class="fas fa-robot" id="chatIconoAbierto"></i><i class="fas fa-times" id="chatIconoCerrado" hidden></i></button>
+      <div id="chatPanel" hidden>
+        <div class="chat-cabecera"><img src="./assets/img/logo.png" alt="" aria-hidden="true" class="chat-logo"><div><p class="chat-nombre-empresa">Villalobos Logística</p><p class="chat-estado"><span class="chat-punto-verde"></span> En línea</p></div></div>
+        <div id="chatMensajes" class="chat-mensajes" aria-live="polite"></div>
+        <div class="chat-entrada"><input type="text" id="chatInput" class="chat-input" placeholder="Escribe aquí..." aria-label="Escribe tu respuesta" autocomplete="off"><button id="chatEnviar" class="chat-boton-enviar" aria-label="Enviar mensaje"><i class="fas fa-paper-plane"></i></button></div>
+      </div>
+    </div>
+
+    <script src="./assets/js/mapa.js"></script>
+    <script src="./assets/js/utilidades.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/chat.js"></script>
+  </body>
+</html>

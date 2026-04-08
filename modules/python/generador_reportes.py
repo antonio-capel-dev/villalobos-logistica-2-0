@@ -1,28 +1,29 @@
-# modules/python/generador_reportes.py
-# Genera un CSV con los portes reales de la base de datos.
-# Elemento diferenciador del TFG: módulo Python conectado a MySQL.
+#!/usr/bin/env python3
+"""
+generador_reportes.py — Villalobos Logística
+Exporta los portes de la base de datos a un CSV.
+"""
 
 import csv
 import datetime
 import pymysql
 
-# --- CONFIGURACIÓN DE LA BASE DE DATOS ---
-# Mismos datos que conexion.php
 DB_HOST = 'localhost'
 DB_NAME = 'villalobos_logistica_2'
 DB_USER = 'root'
 DB_PASS = ''
 
+
 def conectar():
-    """Abre y devuelve la conexión a MySQL."""
     return pymysql.connect(
         host=DB_HOST,
         user=DB_USER,
         password=DB_PASS,
         database=DB_NAME,
         charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor  # devuelve filas como diccionarios
+        cursorclass=pymysql.cursors.DictCursor
     )
+
 
 def generar_reporte():
     print("Iniciando generador de reportes — Villalobos Logística")
@@ -31,9 +32,8 @@ def generar_reporte():
 
     try:
         with conexion.cursor() as cursor:
-            # Consulta real: portes con nombre de cliente y conductor
             cursor.execute("""
-                SELECT 
+                SELECT
                     p.id,
                     p.fecha_programada,
                     p.origen,
@@ -49,7 +49,6 @@ def generar_reporte():
                 ORDER BY p.fecha_programada DESC
             """)
             portes = cursor.fetchall()
-
     finally:
         conexion.close()
 
@@ -57,20 +56,16 @@ def generar_reporte():
         print("No hay portes en la base de datos.")
         return
 
-    # Nombre del fichero con la fecha de hoy
-    fecha_hoy = datetime.date.today().strftime('%Y-%m-%d')
+    fecha_hoy     = datetime.date.today().strftime('%Y-%m-%d')
     nombre_fichero = f'reporte_{fecha_hoy}.csv'
 
-    # Escribir el CSV
     with open(nombre_fichero, mode='w', newline='', encoding='utf-8') as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=portes[0].keys())
-        escritor.writeheader()    # escribe la fila de cabeceras
-        escritor.writerows(portes) # escribe todas las filas de datos
+        escritor.writeheader()
+        escritor.writerows(portes)
 
-    print(f"Reporte generado: {nombre_fichero}")
-    print(f"Total de portes exportados: {len(portes)}")
+    print(f"Reporte generado: {nombre_fichero} ({len(portes)} portes)")
 
-    # Mostrar resumen por estado
     resumen = {}
     for p in portes:
         estado = p['estado']
@@ -79,6 +74,7 @@ def generar_reporte():
     print("\nResumen por estado:")
     for estado, total in resumen.items():
         print(f"  {estado}: {total}")
+
 
 if __name__ == "__main__":
     generar_reporte()

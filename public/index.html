@@ -48,7 +48,7 @@ e html>
                 "postalCode": "29004",
                 "addressCountry": "ES"
             },
-            "openingHours": "Mo-Fr 08:00-18:00",
+            "openingHours": "Mo-Fr 09:00-14:00,Mo-Fr 15:00-18:00",
             "priceRange": "€€",
             "areaServed": {
                 "@type": "GeoCircle",
@@ -66,27 +66,41 @@ e html>
             "reviewCount": "25",
             "bestRating": "5"
         },
-        "review": [
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": "Juan Sepulveda"},
-                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
-                "reviewBody": "Muy grata experiencia en la contratacion de sus servicios"
+        "review": [{
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Juan Sepulveda"
             },
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": "Sparo Jack"},
-                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
-                "reviewBody": "Competentes, serio y puntual"
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
             },
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": "Angel Vicente"},
-                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
-                "reviewBody": "Servicio rapido y gente competente"
-            }
-        ]
-    }
+            "reviewBody": "Muy grata experiencia en la contratacion de sus servicios"
+        }, {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Sparo Jack"
+            },
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+            },
+            "reviewBody": "Competentes, serio y puntual"
+        }, {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Angel Vicente"
+            },
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+            },
+            "reviewBody": "Servicio rapido y gente competente"
+        }]
+        }
     </script>
 
     <!-- Hoja de estilos de Leaflet (Mapa) -->
@@ -186,288 +200,300 @@ e html>
                  class="btn-resena">
                 <i class="fab fa-google"></i> Escribe una reseña
               </a>
+                    </div>
+
+                    <!-- Panel derecho: cards de reseñas -->
+                    <div class="testimonios-cards">
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <img src="./assets/img/avatares/juan-sepulveda.png" alt="Juan Sepúlveda" class="testimonio-avatar-img">
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Juan Sepúlveda</span>
+                                    <span class="testimonio-fecha">2018 · 13 reseñas</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                            <p class="testimonio-texto">"Muy grata experiencia en la contratación de sus servicios"</p>
+                        </div>
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <img src="./assets/img/avatares/sparo-jack.png" alt="Sparo Jack" class="testimonio-avatar-img">
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Sparo Jack</span>
+                                    <span class="testimonio-fecha">2024 · Local Guide · 27 reseñas</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                            <p class="testimonio-texto">"Competentes, serio y puntual"</p>
+                        </div>
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <img src="./assets/img/avatares/angelVicente.png" alt="Angel Vicente" class="testimonio-avatar-img">
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Angel Vicente</span>
+                                    <span class="testimonio-fecha">2020 · Local Guide · 89 reseñas</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                            <p class="testimonio-texto">"Servicio rápido y gente competente"</p>
+                        </div>
+
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <div class="testimonio-avatar" style="background:#6366f1;">A</div>
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Anto García Martínez</span>
+                                    <span class="testimonio-fecha">2022 · 1 reseña</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                        </div>
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <div class="testimonio-avatar" style="background:#f59e0b;">J</div>
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Jose Luis Calvo</span>
+                                    <span class="testimonio-fecha">2022 · Local Guide · 109 reseñas</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                        </div>
+
+                        <div class="testimonio-card-google">
+                            <div class="testimonio-header">
+                                <div class="testimonio-avatar" style="background:#10b981;">J</div>
+                                <div class="testimonio-meta">
+                                    <span class="testimonio-nombre">Javier Nuñez</span>
+                                    <span class="testimonio-fecha">2022 · 1 reseña</span>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                            </div>
+                            <div class="testimonio-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-check-circle testimonio-verificado"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- fin testimonios-cards -->
+                </div>
+                <!-- fin testimonios-wrapper -->
             </div>
+        </section>
 
-            <!-- Panel derecho: cards de reseñas -->
-            <div class="testimonios-cards">
 
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <img src="./assets/img/avatares/juan-sepulveda.png" alt="Juan Sepúlveda" class="testimonio-avatar-img">
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Juan Sepúlveda</span>
-                    <span class="testimonio-fecha">2018 · 13 reseñas</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
+        <!-- Sección Quiénes Somos -->
+        <section id="quienes-somos" class="section quienes-somos-seccion">
+            <div class="container">
+
+                <!-- Layout 2 columnas: texto + foto -->
+                <div class="quienes-wrapper">
+
+                    <!-- Columna texto -->
+                    <div class="quienes-texto">
+                        <p class="quienes-pretitulo">Empresa familiar de transporte en Málaga</p>
+                        <h2 class="quienes-titulo">Más de 20 años con tradición familiar en el transporte</h2>
+                        <p>En <strong>Villalobos Logística</strong> contamos con una amplia experiencia en el servicio de transporte de mercancías. Procedemos de una familia con más de cuatro décadas de tradición dedicada al transporte, aunque nuestra compañía
+                            fue creada en el año 2001.</p>
+                        <p>No escatimamos ni esfuerzos ni medios en crecer día a día y dar el mejor servicio posible, el mismo que hoy día nos hace estar orgullosos de nuestra cartera de clientes, por la que crecemos y luchamos a diario. Desde nuestras instalaciones
+                            en el <strong>Polígono Guadalhorce de Málaga</strong>, gestionamos cualquier tipo de transporte con tonelajes desde 1 t hasta las 24 t.</p>
+                        <p>Nuestros clientes pueden disponer de carretillas elevadoras, transpaletas y estanterías para almacenar las mercancías que necesiten. Destacamos por la <strong>puntualidad, la atención personalizada</strong> y la resolución rápida
+                            y eficaz de cualquier tipo de transporte o almacenaje.</p>
+
+                        <!-- Checkmarks de diferenciadores -->
+                        <ul class="quienes-checks">
+                            <li><i class="fas fa-check-circle"></i> Flota propia: camiones grúa, caja abierta y cerrada</li>
+                            <li><i class="fas fa-check-circle"></i> Almacén con carretillas elevadoras y transpaletas eléctricas</li>
+                            <li><i class="fas fa-check-circle"></i> Entregas en el centro histórico de Málaga</li>
+                            <li><i class="fas fa-check-circle"></i> Ámbito local, provincial y nacional</li>
+                            <li><i class="fas fa-check-circle"></i> Transportes urgentes y servicios rápidos</li>
+                        </ul>
+
+                        <a href="#contacto" class="btn btn-primary quienes-cta">
+                            <i class="fas fa-paper-plane"></i> Solicitar Presupuesto
+                        </a>
+                    </div>
+
+                    <!-- Columna foto -->
+                    <div class="quienes-foto-wrap">
+                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota de camiones Villalobos Logística Málaga" class="quienes-foto" loading="lazy">
+                    </div>
+
                 </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
+                <!-- fin quienes-wrapper -->
+
+                <!-- Franja de cifras -->
+                <div class="quienes-cifras">
+                    <div class="cifra-item">
+                        <span class="cifra-numero">+20</span>
+                        <span class="cifra-label">años de experiencia</span>
+                    </div>
+                    <div class="cifra-item">
+                        <span class="cifra-numero">1–24 t</span>
+                        <span class="cifra-label">capacidad de carga</span>
+                    </div>
+                    <div class="cifra-item">
+                        <span class="cifra-numero">Málaga</span>
+                        <span class="cifra-label">y toda la península</span>
+                    </div>
+                    <div class="cifra-item">
+                        <span class="cifra-numero">2001</span>
+                        <span class="cifra-label">año de fundación</span>
+                    </div>
                 </div>
-                <p class="testimonio-texto">"Muy grata experiencia en la contratación de sus servicios"</p>
-              </div>
 
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <img src="./assets/img/avatares/sparo-jack.png" alt="Sparo Jack" class="testimonio-avatar-img">
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Sparo Jack</span>
-                    <span class="testimonio-fecha">2024 · Local Guide · 27 reseñas</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
+                <!-- Sectores: prueba de autoridad para SEO -->
+                <div class="quienes-sectores">
+                    <p class="sectores-titulo">Sectores a los que servimos</p>
+                    <div class="sectores-grid">
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-helmet-safety"></i></div>
+                            <span>Construcción</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-elevator"></i></div>
+                            <span>Ascensores</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-droplet"></i></div>
+                            <span>Suministros hidráulicos</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-pallet"></i></div>
+                            <span>Paquetería y palets</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-screwdriver-wrench"></i></div>
+                            <span>Bricolaje y maderas</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-utensils"></i></div>
+                            <span>Alimentación seca</span>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-icono"><i class="fas fa-store"></i></div>
+                            <span>Mobiliario comercial</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
-                </div>
-                <p class="testimonio-texto">"Competentes, serio y puntual"</p>
-              </div>
 
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <img src="./assets/img/avatares/angelVicente.png" alt="Angel Vicente" class="testimonio-avatar-img">
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Angel Vicente</span>
-                    <span class="testimonio-fecha">2020 · Local Guide · 89 reseñas</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
-                </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
-                </div>
-                <p class="testimonio-texto">"Servicio rápido y gente competente"</p>
-              </div>
-
-            
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <div class="testimonio-avatar" style="background:#6366f1;">A</div>
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Anto García Martínez</span>
-                    <span class="testimonio-fecha">2022 · 1 reseña</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
-                </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
-                </div>
-              </div>
-
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <div class="testimonio-avatar" style="background:#f59e0b;">J</div>
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Jose Luis Calvo</span>
-                    <span class="testimonio-fecha">2022 · Local Guide · 109 reseñas</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
-                </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
-                </div>
-              </div>
-
-              <div class="testimonio-card-google">
-                <div class="testimonio-header">
-                  <div class="testimonio-avatar" style="background:#10b981;">J</div>
-                  <div class="testimonio-meta">
-                    <span class="testimonio-nombre">Javier Nuñez</span>
-                    <span class="testimonio-fecha">2022 · 1 reseña</span>
-                  </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png"
-                       alt="Google" class="testimonio-google-icon">
-                </div>
-                <div class="testimonio-stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <i class="fas fa-check-circle testimonio-verificado"></i>
-                </div>
-              </div>
-
-              </div><!-- fin testimonios-cards -->
-          </div><!-- fin testimonios-wrapper -->
-        </div>
-      </section>
-
-
-      <!-- Sección Quiénes Somos -->
-      <section id="quienes-somos" class="section quienes-somos-seccion">
-        <div class="container">
-
-          <!-- Layout 2 columnas: texto + foto -->
-          <div class="quienes-wrapper">
-
-            <!-- Columna texto -->
-            <div class="quienes-texto">
-              <p class="quienes-pretitulo">Empresa familiar de transporte en Málaga</p>
-              <h2 class="quienes-titulo">Más de 20 años con tradición familiar en el transporte</h2>
-              <p>En <strong>Villalobos Logística</strong> contamos con una amplia experiencia en el servicio de transporte de mercancías. Procedemos de una familia con más de cuatro décadas de tradición dedicada al transporte, aunque nuestra compañía fue creada en el año 2001.</p>
-              <p>No escatimamos ni esfuerzos ni medios en crecer día a día y dar el mejor servicio posible, el mismo que hoy día nos hace estar orgullosos de nuestra cartera de clientes, por la que crecemos y luchamos a diario. Desde nuestras instalaciones en el <strong>Polígono Guadalhorce de Málaga</strong>, gestionamos cualquier tipo de transporte con tonelajes desde 1 t hasta las 24 t.</p>
-              <p>Nuestros clientes pueden disponer de carretillas elevadoras, transpaletas y estanterías para almacenar las mercancías que necesiten. Destacamos por la <strong>puntualidad, la atención personalizada</strong> y la resolución rápida y eficaz de cualquier tipo de transporte o almacenaje.</p>
-
-              <!-- Checkmarks de diferenciadores -->
-              <ul class="quienes-checks">
-                <li><i class="fas fa-check-circle"></i> Flota propia: camiones grúa, porta-contenedores, caja abierta y cerrada</li>
-                <li><i class="fas fa-check-circle"></i> Almacén con carretillas elevadoras y transpaletas eléctricas</li>
-                <li><i class="fas fa-check-circle"></i> Reparto en el centro histórico de Málaga</li>
-                <li><i class="fas fa-check-circle"></i> Ámbito local, provincial y nacional</li>
-                <li><i class="fas fa-check-circle"></i> Transportes urgentes y servicios rápidos</li>
-              </ul>
-
-              <a href="#contacto" class="btn btn-primary quienes-cta">
-                <i class="fas fa-paper-plane"></i> Solicitar Presupuesto
-              </a>
             </div>
-
-            <!-- Columna foto -->
-            <div class="quienes-foto-wrap">
-              <img src="./assets/img/web-p/flota-camiones.webp"
-                   alt="Flota de camiones Villalobos Logística Málaga"
-                   class="quienes-foto"
-                   loading="lazy">
-            </div>
-
-          </div><!-- fin quienes-wrapper -->
-
-          <!-- Franja de cifras -->
-          <div class="quienes-cifras">
-            <div class="cifra-item">
-              <span class="cifra-numero">+20</span>
-              <span class="cifra-label">años de experiencia</span>
-            </div>
-            <div class="cifra-item">
-              <span class="cifra-numero">1–24 t</span>
-              <span class="cifra-label">capacidad de carga</span>
-            </div>
-            <div class="cifra-item">
-              <span class="cifra-numero">Málaga</span>
-              <span class="cifra-label">y toda la península</span>
-            </div>
-            <div class="cifra-item">
-              <span class="cifra-numero">2001</span>
-              <span class="cifra-label">año de fundación</span>
-            </div>
-          </div>
-
-          <!-- Sectores: prueba de autoridad para SEO -->
-          <div class="quienes-sectores">
-            <p class="sectores-titulo">Sectores a los que servimos</p>
-            <div class="sectores-tags">
-              <span><i class="fas fa-helmet-safety"></i> Construcción</span>
-              <span><i class="fas fa-elevator"></i> Ascensores</span>
-              <span><i class="fas fa-droplet"></i> Suministros hidráulicos</span>
-              <span><i class="fas fa-pallet"></i> Paquetería y palets</span>
-              <span><i class="fas fa-ship"></i> Navieras y aeropuertos</span>
-              <span><i class="fas fa-wine-bottle"></i> Distribución de bebidas</span>
-              <span><i class="fas fa-screwdriver-wrench"></i> Bricolaje y maderas</span>
-              <span><i class="fas fa-utensils"></i> Alimentación</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
+        </section>
 
         <!-- Sección de Servicios -->
         <!-- Sección Cómo Trabajamos -->
-      <section class="section proceso-seccion">
-        <div class="container">
-          <div class="proceso-header">
-            <h2 class="proceso-titulo">¿Cómo trabajamos?</h2>
-          </div>
-          <div class="proceso-pasos">
+        <section class="section proceso-seccion">
+            <div class="container">
+                <div class="proceso-header">
+                    <h2 class="proceso-titulo">¿Cómo trabajamos?</h2>
+                </div>
+                <div class="proceso-pasos">
 
-            <div class="proceso-paso">
-              <div class="proceso-icono">
-                <i class="fas fa-phone-alt"></i>
-                <span class="proceso-numero">1</span>
-              </div>
-              <h3>Nos contactas</h3>
-              <p>Llama, escribe por WhatsApp o rellena el formulario. Te respondemos en menos de 1 hora.</p>
+                    <div class="proceso-paso">
+                        <div class="proceso-icono">
+                            <i class="fas fa-phone-alt"></i>
+                            <span class="proceso-numero">1</span>
+                        </div>
+                        <h3>Nos contactas</h3>
+                        <p>Llama, escribe por WhatsApp o rellena el formulario. Te respondemos con la mayor brevedad posible.</p>
+                    </div>
+
+                    <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
+
+                    <div class="proceso-paso">
+                        <div class="proceso-icono">
+                            <i class="fas fa-file-invoice"></i>
+                            <span class="proceso-numero">2</span>
+                        </div>
+                        <h3>Presupuesto gratis</h3>
+                        <p>Te enviamos un presupuesto personalizado sin compromiso, adaptado a tu carga y destino.</p>
+                    </div>
+
+                    <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
+
+                    <div class="proceso-paso">
+                        <div class="proceso-icono">
+                            <i class="fas fa-boxes-stacked"></i>
+                            <span class="proceso-numero">3</span>
+                        </div>
+                        <h3>Recogemos tu mercancía</h3>
+                        <p>Nuestra flota se desplaza hasta tu ubicación en Málaga o cualquier punto de la península.</p>
+                    </div>
+
+                    <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
+
+                    <div class="proceso-paso">
+                        <div class="proceso-icono">
+                            <i class="fas fa-circle-check"></i>
+                            <span class="proceso-numero">4</span>
+                        </div>
+                        <h3>Entrega garantizada</h3>
+                        <p>Entregamos a tiempo y en perfectas condiciones.</p>
+                    </div>
+
+                </div>
             </div>
+        </section>
 
-            <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
-
-            <div class="proceso-paso">
-              <div class="proceso-icono">
-                <i class="fas fa-file-invoice"></i>
-                <span class="proceso-numero">2</span>
-              </div>
-              <h3>Presupuesto gratis</h3>
-              <p>Te enviamos un presupuesto personalizado sin compromiso, adaptado a tu carga y destino.</p>
-            </div>
-
-            <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
-
-            <div class="proceso-paso">
-              <div class="proceso-icono">
-                <i class="fas fa-boxes-stacked"></i>
-                <span class="proceso-numero">3</span>
-              </div>
-              <h3>Recogemos tu mercancía</h3>
-              <p>Nuestra flota se desplaza hasta tu ubicación en Málaga o cualquier punto de la península.</p>
-            </div>
-
-            <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
-
-            <div class="proceso-paso">
-              <div class="proceso-icono">
-                <i class="fas fa-circle-check"></i>
-                <span class="proceso-numero">4</span>
-              </div>
-              <h3>Entrega garantizada</h3>
-              <p>Entregamos a tiempo y en perfectas condiciones. Te notificamos en cada paso del proceso.</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section id="servicios" class="section services bg-light">
+        <section id="servicios" class="section services bg-light">
             <div class="container">
                 <div class="section-header">
                     <h2>Nuestros Servicios</h2>
                     <p>Le damos el mejor servicio con una flota adaptada a sus necesidades.</p>
                 </div>
 
-                
+
 
                 <div class="services-grid" style="margin-bottom: 3rem;">
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/almacen-con-torito.webp"
-                             alt="Almacenaje y Gestión Villalobos Logística"
-                             class="service-foto">
+                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacenaje y Gestión Villalobos Logística" class="service-foto">
                         <div class="service-card-contenido">
                             <h4>Almacenaje y Gestión</h4>
-                            <ul style="text-align: left; padding-left: 1.5rem; margin-top: 1rem; line-height: 1.6;">
+                            <ul>
                                 <li>Almacenajes por días, semanas o por tiempo indefinido.</li>
                                 <li>Gestión documental de la mercancía.</li>
-                                <li>Alquiler de pequeños contenedores para almacenaje.</li>
                             </ul>
                             <a href="#contacto" class="btn btn-primary service-cta">Solicitar Presupuesto</a>
                         </div>
                     </article>
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/descargando-cajas.webp"
-                             alt="Distribución y Reparto Villalobos Logística"
-                             class="service-foto">
+                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="Distribución y Reparto Villalobos Logística" class="service-foto">
                         <div class="service-card-contenido">
                             <h4>Distribución y Reparto</h4>
-                            <ul style="text-align: left; padding-left: 1.5rem; margin-top: 1rem; line-height: 1.6;">
+                            <ul>
                                 <li>Distribución general y transporte de palets.</li>
                                 <li>Servicio de reparto al centro histórico de Málaga.</li>
                                 <li>Transporte y entrega de la mercancía.</li>
@@ -478,15 +504,13 @@ e html>
                     </article>
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/camion-grande-lateral.webp"
-                             alt="Flota Especializada Villalobos Logística"
-                             class="service-foto">
+                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Flota Especializada Villalobos Logística" class="service-foto">
                         <div class="service-card-contenido">
                             <h4>Flota Especializada</h4>
-                            <ul style="text-align: left; padding-left: 1.5rem; margin-top: 1rem; line-height: 1.6;">
-                                <li>Camiones caja cerrada equipados con plataforma elevadora.</li>
-                                <li>Caja abierta y vehículos de gran capacidad.</li>
+                            <ul>
+                                <li>Camiones de caja abierta y cerrada equipados con plataforma elevadora.</li>
                                 <li>Portes de todo tipo con camiones plataforma elevadora y grúa.</li>
+                                <li>Carga lateral, trasera y techo.</li>
                             </ul>
                             <a href="#contacto" class="btn btn-primary service-cta">Solicitar Presupuesto</a>
                         </div>
@@ -497,180 +521,239 @@ e html>
             </div>
         </section>
 
-<!-- Sección de Galería de Imágenes -->
+        <!-- Sección de Galería de Imágenes -->
         <!-- Franja CTA urgente -->
-      <section class="cta-urgente-seccion">
-        <div class="container cta-urgente-inner">
-          <div class="cta-urgente-texto">
-            <h2>¿Necesitas un porte hoy?</h2>
-            <p>Servicio urgente disponible en Málaga y provincia. Llama ahora y te damos solución inmediata.</p>
-          </div>
-          <div class="cta-urgente-botones">
-            <a href="tel:+34630518441" class="cta-btn-tel">
-              <i class="fas fa-phone-alt"></i> 630 518 441
-            </a>
-            <a href="https://wa.me/34625038039" target="_blank" rel="noopener noreferrer" class="cta-btn-wa">
-              <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section id="galeria" class="section galeria-seccion">
-        <div class="container">
-          <div class="section-header">
-            <h2>Nuestra Flota y Servicios</h2>
-            <p>Imágenes reales de nuestros vehículos e instalaciones en Málaga</p>
-          </div>
-          <div class="galeria-masonry">
-
-            <div class="galeria-item galeria-grande">
-              <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota completa de camiones Villalobos Logística Málaga" loading="lazy">
-              <div class="galeria-overlay"><span>Flota completa</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacén con carretilla elevadora" loading="lazy">
-              <div class="galeria-overlay"><span>Almacén Polígono Guadalhorce</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Camión Villalobos Logística" loading="lazy">
-              <div class="galeria-overlay"><span>Transporte nacional</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/descargando-cajas.webp" alt="Descarga de mercancías" loading="lazy">
-              <div class="galeria-overlay"><span>Distribución y reparto</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/camion-grua.webp" alt="Camión grúa autocargante" loading="lazy">
-              <div class="galeria-overlay"><span>Camión grúa</span></div>
-            </div>
-
-            <div class="galeria-item galeria-grande">
-              <img src="./assets/img/web-p/almacen-cajas.webp" alt="Almacén con mercancías" loading="lazy">
-              <div class="galeria-overlay"><span>Almacenaje flexible</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/furgoneta-lateral.webp" alt="Furgoneta de reparto" loading="lazy">
-              <div class="galeria-overlay"><span>Reparto centro histórico</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/dos-comiones-grandes.webp" alt="Dos camiones grandes" loading="lazy">
-              <div class="galeria-overlay"><span>Flota de gran tonelaje</span></div>
-            </div>
-
-            <div class="galeria-item">
-              <img src="./assets/img/web-p/torito-elevador.webp" alt="Torito elevador en almacén" loading="lazy">
-              <div class="galeria-overlay"><span>Equipamiento propio</span></div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-        <section id="contacto" class="section cta seccion-cta-dinamica">
-            <div class="container contenedor-cta-relativo">
-                <div class="section-header cabecera-cta">
-                    <h2>Contacto y Presupuestos</h2>
-                    <p>Cuéntenos qué necesita y le responderemos en menos de 24h.</p>
+        <section class="cta-urgente-seccion">
+            <div class="container cta-urgente-inner">
+                <div class="cta-urgente-texto">
+                    <h2>¿Necesitas un porte hoy?</h2>
+                    <p>Servicio urgente disponible en Málaga y provincia. Llama ahora y te damos solución inmediata.</p>
                 </div>
-                <div class="contact-grid">
-                    <div class="contact-info-box contenedor-mapa-blanco">
-                        <!-- Contenedor del Mapa Interactivo (Leaflet) -->
-                        <div id="mapa" style="width: 100%; height: 380px; border-radius: 8px;" title="Ubicación de Villalobos Logística"></div>
+                <div class="cta-urgente-botones">
+                    <a href="tel:+34630518441" class="cta-btn-tel">
+                        <i class="fas fa-phone-alt"></i> 630 518 441
+                    </a>
+                    <a href="https://wa.me/34625038039" target="_blank" rel="noopener noreferrer" class="cta-btn-wa">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="section galeria-seccion">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nuestra Flota y Servicios</h2>
+                    <p>Imágenes reales de nuestros vehículos e instalaciones en Málaga</p>
+                </div>
+                <div class="galeria-masonry">
+
+                    <div class="galeria-item galeria-grande">
+                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota completa de camiones Villalobos Logística Málaga" loading="lazy">
+                        <div class="galeria-overlay"><span>Flota completa</span></div>
                     </div>
 
-                    <form id="formularioContacto" class="formulario-contacto formulario-contacto-blanco">
-                        <div id="mensajeContacto" class="mensaje"></div>
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacén con carretilla elevadora" loading="lazy">
+                        <div class="galeria-overlay"><span>Almacén Polígono Guadalhorce</span></div>
+                    </div>
 
-                        <!-- Grid 2 columnas en desktop, 1 en movil -->
-                        <div class="formulario-grid">
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Camión Villalobos Logística" loading="lazy">
+                        <div class="galeria-overlay"><span>Transporte nacional</span></div>
+                    </div>
 
-                            <!-- Fila 1: Nombre + Telefono -->
-                            <div class="grupo-formulario">
-                                <label for="nombre" class="etiqueta-formulario">
-                                    <i class="fas fa-user"></i> Nombre y Apellidos *
-                                </label>
-                                <input type="text" id="nombre" class="control-formulario"
-                                       placeholder="Ej. Juan Pérez" required autocomplete="name">
-                                <small class="mensaje"></small>
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="Descarga de mercancías" loading="lazy">
+                        <div class="galeria-overlay"><span>Distribución y reparto</span></div>
+                    </div>
+
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/camion-grua.webp" alt="Camión grúa autocargante" loading="lazy">
+                        <div class="galeria-overlay"><span>Camión grúa</span></div>
+                    </div>
+
+                    <div class="galeria-item galeria-grande">
+                        <img src="./assets/img/web-p/almacen-cajas.webp" alt="Almacén con mercancías" loading="lazy">
+                        <div class="galeria-overlay"><span>Almacenaje flexible</span></div>
+                    </div>
+
+
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/dos-comiones-grandes.webp" alt="Dos camiones grandes" loading="lazy">
+                        <div class="galeria-overlay"><span>Flota de gran tonelaje</span></div>
+                    </div>
+
+                    <div class="galeria-item">
+                        <img src="./assets/img/web-p/torito-elevador.webp" alt="Torito elevador en almacén" loading="lazy">
+                        <div class="galeria-overlay"><span>Equipamiento propio</span></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section seccion-contacto">
+            <div class="container">
+
+                <div class="contacto-cabecera">
+                    <span class="contacto-pretitulo">Estamos aqui para ayudarte</span>
+                    <h2>Contacto y Presupuestos</h2>
+                    <p>3 pasos rapidos y te llamamos. Sin compromiso.</p>
+                </div>
+
+                <div class="contacto-grid">
+
+                    <div class="contacto-col-info">
+                        <div id="mapa" style="width:100%;height:240px;border-radius:12px;" title="Ubicacion Villalobos Logistica"></div>
+                        <div class="contacto-datos">
+                            <div class="contacto-dato-item">
+                                <div class="contacto-dato-icono"><i class="fas fa-map-marker-alt"></i></div>
+                                <div><strong>Direccion</strong><span>Poligono Guadalhorce, s/n &mdash; 29004 Malaga</span></div>
                             </div>
-                            <div class="grupo-formulario">
-                                <label for="telefono" class="etiqueta-formulario">
-                                    <i class="fas fa-phone"></i> Teléfono *
-                                </label>
-                                <input type="tel" id="telefono" class="control-formulario"
-                                       placeholder="Ej. 630 518 441" required autocomplete="tel">
-                                <small class="mensaje"></small>
+                            <div class="contacto-dato-item">
+                                <div class="contacto-dato-icono"><i class="fas fa-phone-alt"></i></div>
+                                <div><strong>Telefono</strong><span><a href="tel:630518441">630 518 441</a> &nbsp;/&nbsp; <a href="tel:625038039">625 038 039</a></span></div>
+                            </div>
+                            <div class="contacto-dato-item">
+                                <div class="contacto-dato-icono"><i class="fas fa-envelope"></i></div>
+                                <div><strong>Email</strong><span><a href="mailto:info@villaloboslogistica.com">info@villaloboslogistica.com</a></span></div>
+                            </div>
+                            <div class="contacto-dato-item">
+                                <div class="contacto-dato-icono"><i class="fas fa-clock"></i></div>
+                                <div><strong>Horario</strong><span>Lun&ndash;Vie: 9:00&ndash;14:00 &nbsp;|&nbsp; 15:00&ndash;18:00</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contacto-col-form">
+                        <form id="formularioContacto" novalidate>
+                            <div id="mensajeContacto" class="mensaje"></div>
+
+                            <div class="form-progreso" aria-label="Progreso del formulario">
+                                <div class="form-progreso-paso activo" data-paso="1">
+                                    <div class="progreso-circulo">1</div>
+                                    <span>Servicio</span>
+                                </div>
+                                <div class="form-progreso-linea"></div>
+                                <div class="form-progreso-paso" data-paso="2">
+                                    <div class="progreso-circulo">2</div>
+                                    <span>Detalles</span>
+                                </div>
+                                <div class="form-progreso-linea"></div>
+                                <div class="form-progreso-paso" data-paso="3">
+                                    <div class="progreso-circulo">3</div>
+                                    <span>Contacto</span>
+                                </div>
                             </div>
 
-                            <!-- Fila 2: Email + Tipo de servicio -->
-                            <div class="grupo-formulario">
-                                <label for="correo" class="etiqueta-formulario">
-                                    <i class="fas fa-envelope"></i> Correo Electrónico *
-                                </label>
-                                <input type="email" id="correo" class="control-formulario"
-                                       placeholder="juan@ejemplo.com" required autocomplete="email">
-                                <small class="mensaje"></small>
-                            </div>
-                            <div class="grupo-formulario">
-                                <label for="tipoServicio" class="etiqueta-formulario">
-                                    <i class="fas fa-truck"></i> Tipo de Servicio *
-                                </label>
-                                <select id="tipoServicio" class="control-formulario" required>
-                                    <option value="" disabled selected>Seleccione un servicio...</option>
-                                    <option value="Transporte de mercancías">Transporte de mercancías</option>
-                                    <option value="Almacenaje">Almacenaje</option>
-                                    <option value="Distribución y reparto">Distribución y reparto</option>
-                                    <option value="Camión grúa">Camión grúa</option>
-                                    <option value="Mudanza">Mudanza</option>
-                                    <option value="Otro">Otro</option>
-                                </select>
-                                <small class="mensaje"></small>
+                            <div class="form-paso activo" id="form-paso-1">
+                                <p class="form-paso-titulo"><i class="fas fa-hand-pointer"></i> Que tipo de servicio necesitas?</p>
+                                <input type="hidden" id="tipoServicio">
+                                <div class="servicio-selector">
+                                    <button type="button" class="servicio-opcion" data-valor="Transporte de mercancias">
+                                        <i class="fas fa-truck"></i><span>Transporte</span>
+                                    </button>
+                                    <button type="button" class="servicio-opcion" data-valor="Almacenaje">
+                                        <i class="fas fa-warehouse"></i><span>Almacenaje</span>
+                                    </button>
+                                    <button type="button" class="servicio-opcion" data-valor="Distribucion y reparto">
+                                        <i class="fas fa-boxes"></i><span>Distribucion</span>
+                                    </button>
+                                    <button type="button" class="servicio-opcion" data-valor="Camion grua">
+                                        <i class="fas fa-truck-moving"></i><span>Camion grua</span>
+                                    </button>
+                                    <button type="button" class="servicio-opcion" data-valor="Mudanza">
+                                        <i class="fas fa-couch"></i><span>Mudanza</span>
+                                    </button>
+                                    <button type="button" class="servicio-opcion" data-valor="Otro">
+                                        <i class="fas fa-ellipsis-h"></i><span>Otro</span>
+                                    </button>
+                                </div>
+                                <div id="errorServicio" class="helper-error" style="display:none;margin-bottom:.5rem;">Selecciona un tipo de servicio para continuar.</div>
+                                <div class="ruta-campos">
+                                    <div class="grupo-formulario">
+                                        <label for="origen" class="etiqueta-formulario"><i class="fas fa-location-dot"></i> Origen</label>
+                                        <input type="text" id="origen" class="control-formulario" placeholder="Ciudad de recogida">
+                                    </div>
+                                    <div class="ruta-flecha"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="grupo-formulario">
+                                        <label for="destino" class="etiqueta-formulario"><i class="fas fa-flag-checkered"></i> Destino</label>
+                                        <input type="text" id="destino" class="control-formulario" placeholder="Ciudad de entrega">
+                                    </div>
+                                </div>
+                                <!-- Estimador de precio (Módulo Python) -->
+                                <div id="precio-estimado" class="precio-estimado" hidden>
+                                    <div class="precio-estimado-inner">
+                                        <span class="precio-est-label"><i class="fas fa-route"></i> Estimación orientativa</span>
+                                        <span class="precio-est-km" id="precioKm"></span>
+                                        <span class="precio-est-precio" id="precioValor"></span>
+                                        <span class="precio-est-nota">Precio final según peso y tipo de carga</span>
+                                    </div>
+                                </div>
+                                <div id="precio-cargando" class="precio-cargando" hidden>
+                                    <i class="fas fa-spinner fa-spin"></i> Calculando distancia&hellip;
+                                </div>
+
+                                <button type="button" class="btn btn-primary btn-lg boton-ancho btn-siguiente" data-siguiente="2">
+                                    Siguiente <i class="fas fa-arrow-right"></i>
+                                </button>
                             </div>
 
-                            <!-- Fila 3: Origen + Destino -->
-                            <div class="grupo-formulario">
-                                <label for="origen" class="etiqueta-formulario">
-                                    <i class="fas fa-map-marker-alt"></i> Origen
-                                </label>
-                                <input type="text" id="origen" class="control-formulario"
-                                       placeholder="Ciudad o dirección de recogida">
-                                <small class="mensaje"></small>
-                            </div>
-                            <div class="grupo-formulario">
-                                <label for="destino" class="etiqueta-formulario">
-                                    <i class="fas fa-map-marker-alt" style="color: var(--primary-color)"></i> Destino
-                                </label>
-                                <input type="text" id="destino" class="control-formulario"
-                                       placeholder="Ciudad o dirección de entrega">
-                                <small class="mensaje"></small>
+                            <div class="form-paso" id="form-paso-2">
+                                <p class="form-paso-titulo"><i class="fas fa-clipboard-list"></i> Cuentanos mas sobre el envio</p>
+                                <div class="grupo-formulario">
+                                    <label for="detalleMensaje" class="etiqueta-formulario">Tipo de carga, peso, fecha estimada...</label>
+                                    <textarea id="detalleMensaje" class="control-formulario" rows="6" placeholder="Ej: Maquinaria industrial, aprox. 400 kg. Recogida la semana que viene en Malaga capital, entrega en Sevilla..."></textarea>
+                                </div>
+                                <div class="form-paso-nav">
+                                    <button type="button" class="btn btn-outline btn-anterior" data-anterior="1"><i class="fas fa-arrow-left"></i> Atras</button>
+                                    <button type="button" class="btn btn-primary btn-siguiente" data-siguiente="3">Siguiente <i class="fas fa-arrow-right"></i></button>
+                                </div>
                             </div>
 
-                            <!-- Fila 4: Detalles (ancho completo) -->
-                            <div class="grupo-formulario grupo-ancho-completo">
-                                <label for="detalleMensaje" class="etiqueta-formulario">
-                                    <i class="fas fa-clipboard-list"></i> Detalles adicionales
-                                </label>
-                                <textarea id="detalleMensaje" class="control-formulario"
-                                          placeholder="Tipo de carga, peso aproximado, fechas, instrucciones especiales..."></textarea>
-                                <small class="mensaje"></small>
+                            <div class="form-paso" id="form-paso-3">
+                                <p class="form-paso-titulo"><i class="fas fa-user-circle"></i> A donde te enviamos el presupuesto?</p>
+                                <div class="formulario-grid">
+                                    <div class="grupo-formulario">
+                                        <label for="nombre" class="etiqueta-formulario"><i class="fas fa-user"></i> Nombre *</label>
+                                        <input type="text" id="nombre" class="control-formulario" placeholder="Tu nombre completo" required autocomplete="name">
+                                        <small class="mensaje"></small>
+                                    </div>
+                                    <div class="grupo-formulario">
+                                        <label for="telefono" class="etiqueta-formulario"><i class="fas fa-phone"></i> Telefono *</label>
+                                        <input type="tel" id="telefono" class="control-formulario" placeholder="630 518 441" required autocomplete="tel">
+                                        <small class="mensaje"></small>
+                                    </div>
+                                    <div class="grupo-formulario grupo-ancho-completo">
+                                        <label for="correo" class="etiqueta-formulario"><i class="fas fa-envelope"></i> Correo Electronico *</label>
+                                        <input type="email" id="correo" class="control-formulario" placeholder="tu@correo.com" required autocomplete="email">
+                                        <small class="mensaje"></small>
+                                    </div>
+                                    <div class="grupo-formulario grupo-ancho-completo">
+                                        <label class="rgpd-etiqueta">
+                                            <input type="checkbox" id="rgpd" required>
+                                            <span>He leido y acepto la <a href="politica-privacidad.html" target="_blank">Politica de Privacidad</a> y el tratamiento de mis datos para recibir el presupuesto.</span>
+                                        </label>
+                                        <small id="rgpd-error" class="helper-error" style="display:none">Debes aceptar la politica de privacidad.</small>
+                                    </div>
+                                </div>
+                                <div class="form-paso-nav">
+                                    <button type="button" class="btn btn-outline btn-anterior" data-anterior="2"><i class="fas fa-arrow-left"></i> Atras</button>
+                                    <button type="submit" id="botonEnviarContacto" class="btn btn-primary btn-cta-final">
+                                        <i class="fas fa-paper-plane"></i> Solicitar Presupuesto Gratis
+                                    </button>
+                                </div>
+                                <div class="contacto-garantias">
+                                    <span><i class="fas fa-check-circle"></i> Respuesta con la mayor brevedad</span>
+                                    <span><i class="fas fa-check-circle"></i> Sin compromiso</span>
+                                    <span><i class="fas fa-lock"></i> Datos protegidos</span>
+                                </div>
                             </div>
 
-                        </div><!-- fin formulario-grid -->
+                        </form>
+                    </div>
 
-                        <button type="submit" id="botonEnviarContacto"
-                                class="btn btn-primary btn-lg boton-ancho boton-accion-cta"
-                                aria-label="Enviar solicitud de presupuesto">
-                            <i class="fas fa-paper-plane"></i> Solicitar Presupuesto Gratis
-                        </button>
-
-                    </form>
                 </div>
             </div>
         </section>
@@ -704,38 +787,46 @@ e html>
     <!-- Leaflet JS y Archivos Propios -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- Botón flotante de WhatsApp -->
-    <!-- wa.me/34625038039 → abre WhatsApp con el número de Villalobos Logística -->
-    <a href="https://wa.me/34625038039" id="whatsappBoton" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" title="Escríbenos por WhatsApp">
+        <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/34625038039" id="whatsappBoton" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
         <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
     </a>
 
-    <!-- =====================================================
-         WIDGET DE CHAT (BURBUJA FLOTANTE)
-         Estructura: botón burbuja + panel de conversación
-         La lógica está en assets/js/chat.js
-    ====================================================== -->
+    <!-- Chat widget -->
     <div id="chatWidget">
 
-        <!-- Botón burbuja que abre/cierra el chat -->
-        <button id="chatBoton" aria-label="Abrir chat de contacto" title="¿Hablamos?">
-        <i class="fas fa-robot" id="chatIconoAbierto"></i>
-        <i class="fas fa-times" id="chatIconoCerrado" hidden></i>
-      </button>
+        <div id="chatCallout" class="chat-callout" hidden>
+            <button id="chatCalloutCerrar" class="chat-callout-cerrar" aria-label="Cerrar">&times;</button>
+            <p>&#128075; Hola! &iquest;Necesitas un presupuesto r&aacute;pido?</p>
+            <p><strong>Te respondemos al instante.</strong></p>
+        </div>
 
-        <!-- Panel del chat (oculto por defecto) -->
+        <button id="chatBoton" aria-label="Abrir chat de contacto">
+            <i class="fas fa-comments"></i>
+            <span class="chat-boton-texto">&#191;Hablamos?</span>
+            <span class="chat-badge" id="chatBadge">1</span>
+        </button>
+
         <div id="chatPanel" hidden>
-
-            <!-- Cabecera del panel -->
             <div class="chat-cabecera">
                 <img src="./assets/img/logo.png" alt="" aria-hidden="true" class="chat-logo">
                 <div>
-                    <p class="chat-nombre-empresa">Villalobos Logística</p>
-                    <p class="chat-estado">
-                        <span class="chat-punto-verde"></span> En línea
-                    </p>
+                    <p class="chat-nombre-empresa">Villalobos Log&iacute;stica</p>
+                    <p class="chat-estado"><span class="chat-punto-verde"></span> En l&iacute;nea</p>
                 </div>
+                <button id="chatCerrar" class="chat-cerrar-btn" aria-label="Cerrar chat">&times;</button>
             </div>
+            <div id="chatMensajes" class="chat-mensajes" aria-live="polite"></div>
+            <div class="chat-entrada">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Escribe aqu&iacute;..." aria-label="Escribe tu respuesta" autocomplete="off">
+                <button id="chatEnviar" class="chat-boton-enviar" aria-label="Enviar mensaje">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
 
             <!-- Zona de mensajes (aquí aparecen las preguntas y respuestas) -->
             <div id="chatMensajes" class="chat-mensajes" aria-live="polite"></div>
