@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
             <i class="fas fa-circle-check tarjeta-exito-icono"></i>
             <h4>¡Solicitud recibida!</h4>
-            <p>Le contactaremos en menos de 24 horas. Gracias por confiar en Villalobos Logística.</p>
+            <p>Le contactaremos con la mayor brevedad posible. Gracias por confiar en Villalobos Logística.</p>
             <button class="btn btn-primary" id="btnNuevoMensaje">Enviar otra solicitud</button>
         `;
         formulario.parentElement.appendChild(card);

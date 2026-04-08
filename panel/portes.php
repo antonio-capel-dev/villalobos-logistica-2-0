@@ -43,7 +43,6 @@ require_once '../backend/auth_guard.php';
                         <input type="text" id="destino" class="control-formulario" placeholder="Ej: Barcelona" required>
                     </div>
                 </div>
-                <!-- Inputs opcionales, pero valiosos para un CRUD realista -->
                 <div class="cuadricula-formulario">
                     <div>
                         <label for="kms" class="etiqueta-formulario">Kilómetros</label>

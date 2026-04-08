@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 header("Content-Type: application/json; charset=UTF-8");
 require_once '../conexion.php';
 require_once '../phpmailer/Exception.php';
@@ -14,21 +14,30 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 $data = json_decode(file_get_contents("php://input"), true);
 $nombre   = isset($data['nombre'])   ? trim($data['nombre'])   : '';
-$telefono = isset($data['telefono']) ? trim($data['telefono']) : '';
-$email    = isset($data['email'])    ? trim($data['email'])    : '';
 $servicio = isset($data['servicio']) ? trim($data['servicio']) : '';
 $origen   = isset($data['origen'])   ? trim($data['origen'])   : '';
 $destino  = isset($data['destino'])  ? trim($data['destino'])  : '';
 $mensaje  = isset($data['mensaje'])  ? trim($data['mensaje'])  : '';
 
-if (empty($nombre) || empty($telefono) || empty($email) || empty($servicio)) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Complete: nombre, telefono, email y tipo de servicio.']);
-    exit;
+// El contacto puede llegar como email (formulario) o como campo libre del chat (telefono o email)
+$contacto = isset($data['email'])    ? trim($data['email'])    : '';
+$telefono = isset($data['telefono']) ? trim($data['telefono']) : '';
+
+$esTelefono = preg_match('/^[6789]\d{8}$/', preg_replace('/\s/', '', $contacto));
+$esEmail    = filter_var($contacto, FILTER_VALIDATE_EMAIL);
+
+if ($esTelefono) {
+    $telefono = $contacto;
+    $email    = '';
+} elseif ($esEmail) {
+    $email = $contacto;
+} else {
+    $email = $contacto;
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+if (empty($nombre) || empty($contacto)) {
     http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'El formato del correo es invalido.']);
+    echo json_encode(['ok' => false, 'error' => 'Faltan nombre y datos de contacto.']);
     exit;
 }
 

@@ -1,8 +1,8 @@
-﻿# Villalobos Logistica 2.0
+# Villalobos Logistica 2.0
 
 Aplicacion web de gestion logistica desarrollada como Proyecto Integrador del ciclo DAW en DIGITECH Malaga (2026).
 
-Cliente real: **Villalobos Logistica** â€” empresa de transporte y almacenaje en Malaga con mas de 20 anos de experiencia, fundada en 2001.
+Cliente real: **Villalobos Logistica** — empresa de transporte y almacenaje en Malaga con mas de 20 anos de experiencia, fundada en 2001.
 
 ---
 
@@ -10,12 +10,13 @@ Cliente real: **Villalobos Logistica** â€” empresa de transporte y almacena
 
 | Capa | Tecnologia |
 |---|---|
-| Frontend | HTML5 semantico, CSS3 con variables, JavaScript Vanilla |
+| Frontend | HTML5 semantico, CSS3, JavaScript Vanilla |
 | Backend | PHP 8 con PDO y prepared statements |
 | Base de datos | MySQL (XAMPP) |
 | Email | PHPMailer + Mailtrap (sandbox SMTP) |
 | Mapas | Leaflet 1.9 / OpenStreetMap |
-| Reportes | Python 3 + PyMySQL |
+| Modulo Python | Calculadora de distancias (Nominatim + Haversine) y exportacion CSV a MySQL |
+| Modulo Java | EstadisticasBilling — cierre mensual via JDBC |
 | Control de versiones | Git + GitHub |
 | SEO | Schema.org JSON-LD, sitemap.xml, robots.txt, Open Graph |
 
@@ -26,50 +27,61 @@ Cliente real: **Villalobos Logistica** â€” empresa de transporte y almacena
 ```
 villalobos-logistica-2-0/
 |
-â”œâ”€â”€ public/                    # Frontend publico
-â”‚   â”œâ”€â”€ index.html             # Pagina principal
-â”‚   â”œâ”€â”€ contacto.html
-â”‚   â”œâ”€â”€ servicios.html
-â”‚   â”œâ”€â”€ quienes-somos.html
-â”‚   â”œâ”€â”€ galeria.html
-â”‚   â”œâ”€â”€ aviso-legal.html
-â”‚   â”œâ”€â”€ politica-privacidad.html
-â”‚   â”œâ”€â”€ sitemap.xml
-â”‚   â”œâ”€â”€ robots.txt
-â”‚   â””â”€â”€ assets/
-â”‚       â”œâ”€â”€ css/styles.css
-â”‚       â”œâ”€â”€ js/
-â”‚       â”‚   â”œâ”€â”€ main.js        # Formulario + validacion con regex
-â”‚       â”‚   â”œâ”€â”€ mapa.js        # Leaflet / OpenStreetMap
-â”‚       â”‚   â”œâ”€â”€ chat.js        # Chat widget guiado
-â”‚       â”‚   â”œâ”€â”€ auth.js        # Login panel privado
-â”‚       â”‚   â”œâ”€â”€ panel_portes.js
-â”‚       â”‚   â””â”€â”€ utilidades.js
-â”‚       â””â”€â”€ img/
-â”‚           â”œâ”€â”€ web-p/         # Fotos reales del cliente
-â”‚           â””â”€â”€ avatares/      # Avatares Google Reviews
++-- public/                    # Frontend publico
+|   +-- index.html             # Pagina principal
+|   +-- contacto.html
+|   +-- servicios.html
+|   +-- quienes-somos.html
+|   +-- galeria.html
+|   +-- aviso-legal.html
+|   +-- politica-privacidad.html
+|   +-- sitemap.xml
+|   +-- robots.txt
+|   +-- assets/
+|       +-- css/styles.css
+|       +-- js/
+|       |   +-- main.js        # Formulario + validacion con regex
+|       |   +-- mapa.js        # Leaflet / OpenStreetMap
+|       |   +-- chat.js        # Chat widget guiado
+|       |   +-- auth.js        # Login panel privado
+|       |   +-- panel_portes.js
+|       |   +-- utilidades.js
+|       +-- img/
+|           +-- web-p/         # Fotos reales del cliente
+|           +-- avatares/      # Avatares Google Reviews
 |
-â”œâ”€â”€ panel/                     # Panel privado (requiere login)
-â”‚   â””â”€â”€ dashboard.php
++-- panel/                     # Panel privado (requiere login)
+|   +-- dashboard.php          # Dashboard con KPIs y modulo Java
+|   +-- portes.php
+|   +-- mensajes.php
+|   +-- login.php
 |
-â”œâ”€â”€ backend/
-â”‚   â”œâ”€â”€ conexion.php           # PDO connection
-â”‚   â”œâ”€â”€ auth_guard.php         # Proteccion de rutas por rol
-â”‚   â””â”€â”€ api/
-â”‚       â”œâ”€â”€ auth.php           # Login / logout
-â”‚       â”œâ”€â”€ contacto.php       # Formulario publico + PHPMailer
-â”‚       â”œâ”€â”€ portes.php         # CRUD completo de portes
-â”‚       â”œâ”€â”€ mensajes.php       # Bandeja de mensajes
-â”‚       â”œâ”€â”€ estadisticas.php   # KPIs para dashboard
-â”‚       â””â”€â”€ logout.php
++-- backend/
+|   +-- conexion.php           # PDO connection
+|   +-- auth_guard.php         # Proteccion de rutas por rol
+|   +-- api/
+|       +-- auth.php           # Login / logout
+|       +-- contacto.php       # Formulario publico + PHPMailer
+|       +-- portes.php         # CRUD completo de portes
+|       +-- mensajes.php       # Bandeja de mensajes
+|       +-- estadisticas.php   # KPIs para dashboard
+|       +-- calcular_distancia.php   # Puente PHP -> Python
+|       +-- cierre_ejercicio.php     # Puente PHP -> Java
 |
-â”œâ”€â”€ database/
-â”‚   â””â”€â”€ schema.sql             # Estructura + datos de prueba
++-- database/
+|   +-- schema.sql             # Estructura + datos de prueba
 |
-â”œâ”€â”€ scripts/
-â”‚   â””â”€â”€ generador_reportes.py  # Exporta portes a CSV con Python
++-- modules/
+|   +-- python/
+|   |   +-- calculadora_distancias.py  # Estima km y precio via Nominatim
+|   |   +-- generador_reportes.py      # Exporta portes a CSV desde MySQL
+|   +-- java/
+|       +-- EstadisticasBilling.java   # Cierre mensual via JDBC
+|       +-- EstadisticasBilling.jar    # JAR compilado
+|       +-- compilar.sh / compilar.bat
+|       +-- libs/mysql-connector-j.jar
 |
-â””â”€â”€ README.md
++-- README.md
 ```
 
 ---
@@ -77,9 +89,10 @@ villalobos-logistica-2-0/
 ## Instalacion local
 
 ### Requisitos
-- XAMPP (Apache + MySQL) â€” version 8.x recomendada
+- XAMPP (Apache + MySQL) version 8.x
 - PHP 8.0 o superior
 - Python 3.x + pip
+- Java JDK 17 o superior
 
 ### Pasos
 
@@ -90,31 +103,30 @@ villalobos-logistica-2-0/
    ```
 
 2. **Importar la base de datos** en phpMyAdmin:
-   - Crear base de datos llamada: `villalobos_db`
+   - Crear base de datos llamada: `villalobos_logistica_2`
    - Importar el archivo: `database/schema.sql`
 
-3. **Configurar la conexion** en `backend/conexion.php`:
-   ```php
-   $host = 'localhost';
-   $db   = 'villalobos_db';
-   $user = 'root';
-   $pass = '';        // vacio por defecto en XAMPP
-   ```
-
-4. **Acceder en el navegador**:
+3. **Acceder en el navegador**:
    - Web publica: `http://localhost/villalobos-logistica-2-0/public/index.html`
-   - Panel privado: `http://localhost/villalobos-logistica-2-0/panel/dashboard.php`
+   - Panel privado: `http://localhost/villalobos-logistica-2-0/panel/login.php`
 
-5. **Instalar dependencias Python**:
+4. **Instalar dependencias Python**:
    ```bash
    pip install pymysql
    ```
 
-6. **Ejecutar el generador de reportes**:
+5. **Ejecutar el generador de reportes CSV**:
    ```bash
-   python scripts/generador_reportes.py
+   python modules/python/generador_reportes.py
    ```
-   Genera `reporte_portes.csv` en la carpeta del script.
+
+6. **Compilar el modulo Java** (requiere mysql-connector-j.jar en modules/java/libs/):
+   ```bash
+   cd modules/java
+   compilar.bat   # Windows
+   # o
+   bash compilar.sh   # Linux/Mac
+   ```
 
 ---
 
@@ -122,7 +134,7 @@ villalobos-logistica-2-0/
 
 | Rol | Email | Contrasena | Acceso |
 |---|---|---|---|
-| admin | admin@villalobos.local | 123456 | Panel completo + gestion de usuarios |
+| admin | admin@villalobos.local | 123456 | Panel completo + modulo Java |
 | editor | editor@villalobos.local | 123456 | Panel + crear y editar portes |
 | cliente | cliente@empresa.local | 123456 | Solo sus propios portes |
 | conductor | paco@villalobos.local | 123456 | Solo los portes que tiene asignados |
@@ -133,24 +145,26 @@ villalobos-logistica-2-0/
 
 ### Web publica
 - Presentacion de la empresa con contenido real del cliente
-- Mapa interactivo con Leaflet + OpenStreetMap (API externa publica)
-- Formulario de contacto con validacion en cliente (regex, `closest()`) y servidor
+- Mapa interactivo con Leaflet + OpenStreetMap
+- Formulario de contacto en 3 pasos con validacion cliente y servidor
+- Estimador de precio en vivo: calcula km y precio orientativo al rellenar origen/destino (modulo Python)
 - Email automatico con PHPMailer via Mailtrap
-- Chat widget guiado para captar leads
-- Testimonios estilo Google Reviews con avatares reales
+- Chat widget guiado con chips de servicio, typing indicator y validacion de contacto
+- Testimonios estilo Google Reviews
 - SEO tecnico: Schema.org JSON-LD, Open Graph, sitemap.xml, robots.txt
 
 ### Panel privado
-- Login con sesion PHP y `session_regenerate_id()`
+- Login con sesion PHP y session_regenerate_id()
 - Control de acceso por roles (admin / editor / cliente / conductor)
 - CRUD completo de portes via API REST con fetch()
-- Dashboard con KPIs: total portes, mensajes sin leer, portes del mes
-- Bandeja de mensajes de contacto con marcado de leido/no leido
+- Dashboard con KPIs en tiempo real
+- Cierre de ejercicio mensual ejecutado por el modulo Java (solo admin)
+- Bandeja de mensajes con marcado leido/no leido
 
-### Elementos diferenciadores
-- **Chat widget guiado**: flujo de preguntas guiadas sin backend
-- **PHPMailer**: email real al negocio en cada solicitud de presupuesto
-- **Generador de reportes Python**: conecta a MySQL y exporta CSV
+### Modulos diferenciadores
+- **Python — calculadora_distancias.py**: geocodifica con Nominatim y calcula distancia + precio estimado
+- **Python — generador_reportes.py**: conecta a MySQL y exporta portes a CSV
+- **Java — EstadisticasBilling.jar**: conecta a MySQL via JDBC y calcula cierre mensual (ingresos, km, conductor top)
 
 ---
 
@@ -163,10 +177,10 @@ Username: a5cce6e9289318
 Password: b3eecf41fef210
 ```
 
-> Solo para entorno de desarrollo. Los emails se capturan en Mailtrap, no llegan al destinatario real.
+Solo para entorno de desarrollo. Los emails se capturan en Mailtrap, no llegan al destinatario real.
 
 ---
 
 ## Autor
 
-**Antonio Capel** â€” DAW, DIGITECH Malaga, 2026
+**Antonio Capel** — DAW, DIGITECH Malaga, 2026
