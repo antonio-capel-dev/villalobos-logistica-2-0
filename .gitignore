@@ -14,6 +14,9 @@ tomar_capturas.mjs
 package.json
 *.log
 
+# Modulos Python
+__pycache__/
+*.pyc
 # Java compilado (legacy, modulo retirado)
 modules/java/*.class
 modules/java/*.jar
