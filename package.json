@@ -1,0 +1,12 @@
+{
+  "name": "capturas-villalobos",
+  "version": "1.0.0",
+  "description": "Script de capturas para memoria TFG",
+  "main": "tomar_capturas.js",
+  "scripts": {
+    "capturas": "node tomar_capturas.js"
+  },
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}

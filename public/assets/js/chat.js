@@ -86,12 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const SERVICIOS = [
-        { icono: "🚛", label: "Transporte"   },
-        { icono: "🏭", label: "Almacenaje"   },
-        { icono: "📦", label: "Distribucion" },
-        { icono: "🏗",  label: "Mudanza"      },
-        { icono: "🚨", label: "Urgente"      },
-        { icono: "?",  label: "Otro"         },
+        { icono: "fas fa-truck-moving", label: "Transporte"   },
+        { icono: "fas fa-warehouse",    label: "Almacenaje"   },
+        { icono: "fas fa-box",          label: "Distribucion" },
+        { icono: "fas fa-dolly",        label: "Mudanza"      },
+        { icono: "fas fa-bolt",         label: "Urgente"      },
+        { icono: "fas fa-ellipsis-h",   label: "Otro"         },
     ];
 
     function mostrarChipsServicio() {
@@ -101,7 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("button");
             chip.className   = "chat-chip";
             chip.type        = "button";
-            chip.textContent = s.icono + " " + s.label;
+            const i = document.createElement("i");
+            i.className = s.icono;
+            i.setAttribute("aria-hidden", "true");
+            chip.appendChild(i);
+            chip.appendChild(document.createTextNode(" " + s.label));
             chip.addEventListener("click", function() {
                 contenedor.remove();
                 manejarRespuesta(s.label);

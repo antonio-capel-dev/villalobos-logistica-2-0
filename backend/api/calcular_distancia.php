@@ -1,6 +1,12 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
-header('Access-Control-Allow-Origin: *');
+require_once __DIR__ . '/../conexion.php';
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

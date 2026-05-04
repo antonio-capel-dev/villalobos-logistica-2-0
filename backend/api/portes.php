@@ -1,12 +1,17 @@
 <?php
 // backend/api/portes.php
+require_once __DIR__ . '/../conexion.php';
 
-header("Access-Control-Allow-Origin: *");
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once '../conexion.php';
 
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);

@@ -1,4 +1,4 @@
-# Villalobos Logistica 2.0
+﻿# Villalobos Logistica 2.0
 
 Aplicacion web de gestion logistica desarrollada como Proyecto Integrador del ciclo DAW en DIGITECH Malaga (2026).
 
@@ -16,7 +16,7 @@ Cliente real: **Villalobos Logistica** — empresa de transporte y almacenaje en
 | Email | PHPMailer + Mailtrap (sandbox SMTP) |
 | Mapas | Leaflet 1.9 / OpenStreetMap |
 | Modulo Python | Calculadora de distancias (Nominatim + Haversine) y exportacion CSV a MySQL |
-| Modulo Java | EstadisticasBilling — cierre mensual via JDBC |
+| Modulo Python | EstadisticasBilling — cierre mensual via PyMySQL |
 | Control de versiones | Git + GitHub |
 | SEO | Schema.org JSON-LD, sitemap.xml, robots.txt, Open Graph |
 
@@ -51,7 +51,7 @@ villalobos-logistica-2-0/
 |           +-- avatares/      # Avatares Google Reviews
 |
 +-- panel/                     # Panel privado (requiere login)
-|   +-- dashboard.php          # Dashboard con KPIs y modulo Java
+|   +-- dashboard.php          # Dashboard con KPIs y modulo Python
 |   +-- portes.php
 |   +-- mensajes.php
 |   +-- login.php
@@ -66,20 +66,16 @@ villalobos-logistica-2-0/
 |       +-- mensajes.php       # Bandeja de mensajes
 |       +-- estadisticas.php   # KPIs para dashboard
 |       +-- calcular_distancia.php   # Puente PHP -> Python
-|       +-- cierre_ejercicio.php     # Puente PHP -> Java
+|       +-- cierre_ejercicio.php     # Puente PHP -> Python (estadisticas_billing.py)
 |
 +-- database/
 |   +-- schema.sql             # Estructura + datos de prueba
 |
 +-- modules/
 |   +-- python/
-|   |   +-- calculadora_distancias.py  # Estima km y precio via Nominatim
-|   |   +-- generador_reportes.py      # Exporta portes a CSV desde MySQL
-|   +-- java/
-|       +-- EstadisticasBilling.java   # Cierre mensual via JDBC
-|       +-- EstadisticasBilling.jar    # JAR compilado
-|       +-- compilar.sh / compilar.bat
-|       +-- libs/mysql-connector-j.jar
+|       +-- calculadora_distancias.py  # Estima km y precio via Nominatim
+|       +-- generador_reportes.py      # Exporta portes a CSV desde MySQL
+|       +-- estadisticas_billing.py    # Cierre mensual y reportes de rentabilidad
 |
 +-- README.md
 ```
@@ -92,7 +88,6 @@ villalobos-logistica-2-0/
 - XAMPP (Apache + MySQL) version 8.x
 - PHP 8.0 o superior
 - Python 3.x + pip
-- Java JDK 17 o superior
 
 ### Pasos
 
@@ -120,21 +115,13 @@ villalobos-logistica-2-0/
    python modules/python/generador_reportes.py
    ```
 
-6. **Compilar el modulo Java** (requiere mysql-connector-j.jar en modules/java/libs/):
-   ```bash
-   cd modules/java
-   compilar.bat   # Windows
-   # o
-   bash compilar.sh   # Linux/Mac
-   ```
-
 ---
 
 ## Usuarios de prueba
 
 | Rol | Email | Contrasena | Acceso |
 |---|---|---|---|
-| admin | admin@villalobos.local | 123456 | Panel completo + modulo Java |
+| admin | admin@villalobos.local | 123456 | Panel completo + modulo Python |
 | editor | editor@villalobos.local | 123456 | Panel + crear y editar portes |
 | cliente | cliente@empresa.local | 123456 | Solo sus propios portes |
 | conductor | paco@villalobos.local | 123456 | Solo los portes que tiene asignados |
@@ -158,24 +145,20 @@ villalobos-logistica-2-0/
 - Control de acceso por roles (admin / editor / cliente / conductor)
 - CRUD completo de portes via API REST con fetch()
 - Dashboard con KPIs en tiempo real
-- Cierre de ejercicio mensual ejecutado por el modulo Java (solo admin)
+- Cierre de ejercicio mensual ejecutado por el modulo Python (solo admin)
 - Bandeja de mensajes con marcado leido/no leido
 
 ### Modulos diferenciadores
 - **Python — calculadora_distancias.py**: geocodifica con Nominatim y calcula distancia + precio estimado
+- **Python — estadisticas_billing.py**: conecta a MySQL y calcula cierre mensual (ingresos, km, conductor top)
 - **Python — generador_reportes.py**: conecta a MySQL y exporta portes a CSV
-- **Java — EstadisticasBilling.jar**: conecta a MySQL via JDBC y calcula cierre mensual (ingresos, km, conductor top)
 
 ---
 
-## Credenciales SMTP (Mailtrap sandbox)
+## Configuracion SMTP (Mailtrap sandbox)
 
-```
-Host:     sandbox.smtp.mailtrap.io
-Port:     2525
-Username: a5cce6e9289318
-Password: b3eecf41fef210
-```
+Las credenciales SMTP se configuran en el archivo `.env` (no incluido en el repositorio).
+Copiar `.env.example` y rellenar con las credenciales de Mailtrap sandbox de desarrollo.
 
 Solo para entorno de desarrollo. Los emails se capturan en Mailtrap, no llegan al destinatario real.
 

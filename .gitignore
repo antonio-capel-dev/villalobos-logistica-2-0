@@ -1,0 +1,25 @@
+# Secretos y configuracion local
+.env
+.env.local
+.env.*.local
+
+# Dependencias
+node_modules/
+vendor/
+package-lock.json
+
+# Capturas y artefactos generados
+capturas/*.png
+*.log
+
+# Java compilado (legacy, modulo retirado)
+modules/java/*.class
+modules/java/*.jar
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak

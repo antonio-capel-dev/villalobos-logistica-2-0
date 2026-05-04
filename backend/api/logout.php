@@ -1,16 +1,23 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+declare(strict_types=1);
+
+require_once __DIR__ . '/../conexion.php';
+
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once '../conexion.php';
-
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['ok' => true, 'mensaje' => 'No había sesión activa.']);
+    echo json_encode(['ok' => true, 'mensaje' => 'No habia sesion activa.']);
     exit;
 }
 
-$_SESSION = array();
+$_SESSION = [];
 
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -22,5 +29,4 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-echo json_encode(['ok' => true, 'mensaje' => 'Sesión cerrada exitosamente.']);
-?>
+echo json_encode(['ok' => true, 'mensaje' => 'Sesion cerrada exitosamente.']);
