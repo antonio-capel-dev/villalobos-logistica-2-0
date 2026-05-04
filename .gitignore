@@ -9,7 +9,9 @@ vendor/
 package-lock.json
 
 # Capturas y artefactos generados
-capturas/*.png
+capturas/
+tomar_capturas.mjs
+package.json
 *.log
 
 # Java compilado (legacy, modulo retirado)
