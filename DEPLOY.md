@@ -34,9 +34,9 @@ Ejecutar EN LOCAL desde la raiz del proyecto:
 Smoke test rapido:
 ```
 cd 0Proyecto-villalobos\villalobos-logistica-2-0
-C:\xampp\php\php.exe -S 127.0.0.1:8765 -t public
+C:\xampp\php\php.exe -S localhost:8765 -t public
 ```
-Abrir http://127.0.0.1:8765/index.html y verificar:
+Abrir http://localhost:8765/index.html y verificar:
 - Carga sin errores en consola
 - Formulario valida con regex (probar email invalido)
 - Mapa Leaflet aparece

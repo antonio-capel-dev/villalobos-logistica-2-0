@@ -1,9 +1,9 @@
 :root {
   /* Premium Color Palette */
-  --primary: #2563eb; /* Royal Blue */
-  --primary-dark: #1e40af;
-  --secondary: #10b981; /* Success Green for Logistics */
-  --accent: #f59e0b; /* Amber/Gold for highlights */
+  --primary: #1A237E; /* Dark Blue */
+  --primary-dark: #000051;
+  --secondary: #00A3E0; /* Cyan */
+  --accent: #4DD0E1; /* Teal */
   --dark: #0f172a; /* Slate 900 */
   --light: #f8fafc; /* Slate 50 */
   --gray: #64748b;

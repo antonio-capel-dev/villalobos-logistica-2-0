@@ -142,11 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function enviar() {
-        const mensaje = "CHAT — Servicio: " + datos.servicio + " | Ruta: " + datos.ruta;
-        fetch("../backend/api/contacto.php", {
+        fetch("../backend/api/chat_lead.php", {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nombre: datos.nombre, email: datos.contacto, mensaje: mensaje })
+            body: JSON.stringify({ nombre: datos.nombre, contacto: datos.contacto, servicio: datos.servicio, ruta: datos.ruta, origen: 'chatbot' })
         })
         .then(function(r) { return r.json(); })
         .then(function(res) {

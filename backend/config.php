@@ -1,10 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Carga las variables de entorno desde el archivo .env (en la raiz del proyecto).
- * Si una variable ya esta definida en el entorno del sistema, se respeta.
- */
+// Función para cargar el archivo .env a mano sin usar librerías externas
 function cargarEnv(string $rutaEnv): void
 {
     if (!is_readable($rutaEnv)) {
@@ -36,9 +33,7 @@ function cargarEnv(string $rutaEnv): void
 
 cargarEnv(__DIR__ . '/../.env');
 
-/**
- * Devuelve una variable de entorno con valor por defecto opcional.
- */
+// Ayudante para sacar valores del .env o devolver uno por defecto
 function env(string $clave, ?string $defecto = null): ?string
 {
     $valor = getenv($clave);

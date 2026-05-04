@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.getElementById("formularioContacto");
     if (!formulario) return;
 
-    // ── Validación de campos ──────────────────────────────────────────────────
+    // Validación de campos del formulario con Regex
 
     const reglas = {
         nombre:   { regex: /^[a-zA-ZÀ-ÿ\s]{3,}$/,      error: 'Mínimo 3 letras, sin números' },
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (el) el.addEventListener('input', () => validarCampo(el));
     });
 
-    // ── Multi-paso ────────────────────────────────────────────────────────────
+    // Lógica para el formulario multi-paso (Siguiente/Atrás)
 
     let pasoActual = 1;
 
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener('click', () => irAPaso(parseInt(btn.dataset.anterior)));
     });
 
-    // ── Envío ─────────────────────────────────────────────────────────────────
+    // Envío del formulario de contacto mediante Fetch API
 
     const contenedorMensaje = document.getElementById("mensajeContacto");
     const botonEnviar       = document.getElementById("botonEnviarContacto");
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ── Estimador de distancia y precio (Módulo Python) ─────────────────────
+    // Módulo para estimar distancia y precio usando el script de Python
 
     const campoOrigen  = document.getElementById('origen');
     const campoDestino = document.getElementById('destino');
@@ -233,5 +233,28 @@ document.addEventListener("DOMContentLoaded", () => {
             irAPaso(1);
         });
     }
+
+    // Interceptar clics en los botones de WhatsApp para registrar el lead
+    document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.href;
+            // Registrar lead de forma silenciosa
+            fetch('../backend/api/chat_lead.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombre: 'Click WhatsApp',
+                    contacto: 'WhatsApp Redirección',
+                    servicio: 'Contacto Rápido',
+                    ruta: 'N/A',
+                    origen: 'whatsapp'
+                })
+            }).finally(() => {
+                // Redirigir a WhatsApp siempre, falle o no el tracking
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        });
+    });
 
 });
