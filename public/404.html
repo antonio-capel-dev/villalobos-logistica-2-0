@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página no encontrada – Villalobos Logística</title>
+    <meta name="robots" content="noindex, follow" />
+
+    <link rel="preload" as="font" href="./assets/fonts/inter.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="./assets/fonts/outfit-700.woff2" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./assets/css/styles.min.css" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /></noscript>
+    <script src="./assets/js/css-loader.js" defer></script>
+
+    <style>
+      .main-header:not(.scrolled){background:linear-gradient(135deg,rgba(15,23,42,.92) 0%,rgba(30,58,138,.85) 100%)}
+      @media(max-width:480px){.top-bar{display:none}}
+
+      .error-404 {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 6rem 1.5rem 4rem;
+      }
+      .error-404 .error-code {
+        font-size: clamp(5rem, 18vw, 10rem);
+        font-weight: 700;
+        line-height: 1;
+        color: var(--primary-color, #1A237E);
+        opacity: 0.15;
+        font-family: 'Outfit', sans-serif;
+      }
+      .error-404 h1 {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        color: #1e293b;
+        margin: -1.5rem 0 1rem;
+      }
+      .error-404 p {
+        color: #64748b;
+        max-width: 480px;
+        line-height: 1.75;
+        margin-bottom: 2rem;
+      }
+      .error-404 .btn-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="top-bar">
+        <div class="container" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+          <a href="tel:630518441" aria-label="Llamar al móvil 1"><i class="fas fa-phone-alt"></i> 630 518 441</a>
+          <a href="tel:625038039" aria-label="Llamar al móvil 2"><i class="fas fa-phone-alt"></i> 625 038 039</a>
+          <span style="color: white; font-size: 0.9rem; margin-top: auto; margin-bottom: auto;"><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n, 29004 Málaga</span>
+          <a href="mailto:info@villaloboslogistica.com" aria-label="Enviar correo"><i class="fas fa-envelope"></i> info@villaloboslogistica.com</a>
+        </div>
+      </div>
+      <div class="header-container">
+        <div class="logo">
+          <a href="index.html" aria-label="Inicio">
+            <img src="./assets/img/logo.webp" alt="Logotipo de Villalobos Logística" width="48" height="48" loading="eager">
+            <div class="logo-text">
+              <span class="logo-title">Villalobos</span>
+              <span class="logo-subtitle">Logística</span>
+            </div>
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="quienes-somos.html">Quiénes somos</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="galeria.html">Galería de imágenes</a></li>
+            <li><a href="contacto.html" class="btn btn-primary">Contacto</a></li>
+            <li><a href="../panel/login.php" class="btn btn-outline" title="Acceso al panel de empleados y clientes">Acceso Privado</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-toggle" aria-label="Abrir menú">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="error-404">
+        <div class="error-code" aria-hidden="true">404</div>
+        <h1>Página no encontrada</h1>
+        <p>La dirección que has introducido no existe o ha sido movida. Puede que hayas seguido un enlace desactualizado.</p>
+        <div class="btn-group">
+          <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Ir al inicio</a>
+          <a href="contacto.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Contacto</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h3>Villalobos Logística</h3>
+          <p>Tu socio de confianza en transporte y logística en Málaga.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Enlaces</h4>
+          <ul>
+            <li><a href="aviso-legal.html">Aviso Legal</a></li>
+            <li><a href="politica-privacidad.html">Política de Privacidad</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n. 29004, Málaga</p>
+          <p><i class="fas fa-phone-alt"></i> 630 518 441 | 625 038 039</p>
+          <p><i class="fas fa-envelope"></i> info@villaloboslogistica.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Villalobos Logística. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/34625038039" id="whatsappBoton" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" title="Escríbenos por WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="./assets/js/utilidades.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>

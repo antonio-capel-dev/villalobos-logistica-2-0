@@ -7,44 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- Etiquetas Meta de SEO -->
-    <title>Transporte y LogÃ­stica en MÃ¡laga | Villalobos LogÃ­stica</title>
-    <meta name="description" content="Villalobos LogÃ­stica: Soluciones de transporte y logÃ­stica integral en MÃ¡laga. GestiÃ³n de flotas, envÃ­os rÃ¡pidos y seguros." />
+    <title>Transporte y Logística en Málaga | Villalobos Logística</title>
+    <meta name="description" content="Villalobos Logística: Soluciones de transporte y logística integral en Málaga. Gestión de flotas, envíos rápidos y seguros." />
     <meta name="author" content="Antonio Capel" />
-    <meta name="keywords" content="transporte MÃ¡laga, logÃ­stica MÃ¡laga, empresa transporte mercancÃ­as, portes MÃ¡laga, almacenaje MÃ¡laga, Villalobos LogÃ­stica" />
+    <meta name="keywords" content="transporte Málaga, logística Málaga, empresa transporte mercancías, portes Málaga, almacenaje Málaga, Villalobos Logística" />
     <link rel="canonical" href="https://www.villaloboslogistica.com/" />
     <link rel="icon" type="image/png" href="./assets/img/logo.png" />
 
     <!-- Open Graph / Redes Sociales -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.villaloboslogistica.com/" />
-    <meta property="og:title" content="Villalobos LogÃ­stica 2.0 - Transporte Profesional en MÃ¡laga" />
-    <meta property="og:description" content="Expertos en logÃ­stica y transporte en la Costa del Sol." />
+    <meta property="og:title" content="Villalobos Logística 2.0 - Transporte Profesional en Málaga" />
+    <meta property="og:description" content="Expertos en logística y transporte en la Costa del Sol." />
+    <meta property="og:image" content="https://www.villaloboslogistica.com/assets/img/hero-bg.webp" />
+    <meta property="og:image:width" content="968" />
+    <meta property="og:image:height" content="399" />
+    <meta name="twitter:image" content="https://www.villaloboslogistica.com/assets/img/hero-bg.webp" />
 
     <!-- Tarjetas de Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
 
     <!-- Fuentes e Iconos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts eliminado: Inter y Outfit se sirven localmente en styles.min.css -->
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <!-- Preload fuentes locales para que el navegador las descargue cuanto antes -->
+    <link rel="preload" as="font" href="./assets/fonts/inter.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="./assets/fonts/outfit-700.woff2" type="font/woff2" crossorigin />
+    <!-- Hoja de estilos principal: local → no bloquea en servidor externo -->
+    <link rel="stylesheet" href="./assets/css/styles.min.css" />
+    <!-- Font Awesome: preload async (no bloquea FCP; iconos aparecen ~200ms después) -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /></noscript>
+    <script src="./assets/js/css-loader.js" defer></script>
 
     <!-- Schema.org: Datos estructurados para Google (LocalBusiness) -->
-    <!-- Esto le dice a Google exactamente quÃ© tipo de negocio es esta web -->
+    <!-- Esto le dice a Google exactamente qué tipo de negocio es esta web -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "Villalobos LogÃ­stica",
+        "name": "Villalobos Logística",
         "image": "https://www.villaloboslogistica.com/assets/img/logo.png",
-        "description": "Empresa de transporte y logÃ­stica en MÃ¡laga con mÃ¡s de 20 aÃ±os de experiencia. Portes, almacenaje y distribuciÃ³n en toda la penÃ­nsula.",
+        "description": "Empresa de transporte y logística en Málaga con más de 20 años de experiencia. Portes, almacenaje y distribución en toda la península.",
         "url": "https://www.villaloboslogistica.com",
         "telephone": "+34630518441",
         "email": "info@villaloboslogistica.com",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "PolÃ­gono Guadalhorce, s/n",
-            "addressLocality": "MÃ¡laga",
+            "streetAddress": "Polígono Guadalhorce, s/n",
+            "addressLocality": "Málaga",
             "postalCode": "29004",
             "addressCountry": "ES"
         },
@@ -79,7 +91,7 @@
                 "closes": "18:00"
             }
         ],
-        "priceRange": "â‚¬â‚¬",
+        "priceRange": "€€",
         "areaServed": {
             "@type": "GeoCircle",
             "geoMidpoint": {
@@ -88,65 +100,138 @@
                 "longitude": -4.4317
             },
             "geoRadius": 50000
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": 4.2,
-            "reviewCount": 25,
-            "bestRating": 5
-        },
-        "review": [{
-            "@type": "Review",
-            "author": {
-                "@type": "Person",
-                "name": "Juan Sepulveda"
-            },
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": 5
-            },
-            "reviewBody": "Muy grata experiencia en la contratacion de sus servicios"
-        }, {
-            "@type": "Review",
-            "author": {
-                "@type": "Person",
-                "name": "Sparo Jack"
-            },
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": 5
-            },
-            "reviewBody": "Competentes, serio y puntual"
-        }, {
-            "@type": "Review",
-            "author": {
-                "@type": "Person",
-                "name": "Angel Vicente"
-            },
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": 5
-            },
-            "reviewBody": "Servicio rapido y gente competente"
-        }]
+        }
     }
     </script>
 
-    <!-- Hoja de estilos de Leaflet (Mapa) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Preload hero: carga la imagen LCP lo antes posible.
+         Versión móvil (<= 768px): 24 KB | Versión escritorio: 42 KB -->
+    <link rel="preload" as="image"
+          href="./assets/img/hero-bg-mobile.webp"
+          imagesrcset="./assets/img/hero-bg-mobile.webp 768w, ./assets/img/hero-bg.webp 968w"
+          imagesizes="100vw"
+          fetchpriority="high"
+          type="image/webp" />
+    <!-- CSS crítico inline: pinta header + hero sin esperar a styles.min.css -->
+    <style>
+    :root{--primary:#1A237E;--primary-dark:#000051;--secondary:#00A3E0;--accent:#4DD0E1;--dark:#0f172a;--light:#f8fafc;--gray:#64748b;--container-width:1200px;--shadow-sm:0 4px 6px -1px rgba(0,0,0,.1);--shadow-lg:0 10px 15px -3px rgba(0,0,0,.1)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    /* === FONT FALLBACK METRICS: evita CLS al cargar Google Fonts ===
+       size-adjust hace que Arial ocupe el mismo espacio que Inter/Outfit,
+       eliminando el layout shift cuando las fuentes web llegan. */
+    @font-face {
+      font-family: 'Inter-fallback';
+      src: local('Arial');
+      size-adjust: 107%;
+      ascent-override: 90%;
+      descent-override: 22%;
+      line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: 'Outfit-fallback';
+      src: local('Arial');
+      size-adjust: 103%;
+      ascent-override: 92%;
+      descent-override: 20%;
+      line-gap-override: 0%;
+    }
+    body{font-family:"Inter",'Inter-fallback',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--dark);background-color:var(--light);line-height:1.6;overflow-x:hidden}
+    h1,h2,h3,h4{font-family:"Outfit",'Outfit-fallback',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700}
+    a{text-decoration:none;color:inherit;transition:opacity .25s ease}
+    ul{list-style:none}img{max-width:100%}
+    .container{max-width:var(--container-width);margin:0 auto;padding:0 2rem}
+    .highlight{color:var(--primary)}
+    .btn{display:inline-block;padding:.8rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;border:none;font-size:1rem}
+    .btn-primary{background-color:var(--primary);color:#fff;box-shadow:0 4px 14px 0 rgba(37,99,235,.39)}
+    .btn-primary:hover{background-color:var(--primary-dark);transform:translateY(-2px)}
+    .btn-secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.3)}
+    .btn-secondary:hover{background:rgba(255,255,255,.1);border-color:#fff}
+    .btn-outline{border:2px solid var(--primary);color:var(--primary);background:transparent}
+    .top-bar{background-color:var(--dark);color:rgba(255,255,255,.8);font-size:.85rem;padding:.5rem 0}
+    .top-bar .container{display:flex;justify-content:flex-end;gap:2rem;max-width:var(--container-width);margin:0 auto;padding:0 2rem}
+    .top-bar a{color:inherit;display:flex;align-items:center;gap:.5rem}
+    .top-bar a:hover{color:var(--accent)}
+    .main-header{height:auto;min-height:90px;background:transparent;backdrop-filter:none;position:sticky;top:0;width:100%;z-index:1000;border-bottom:1px solid transparent;display:flex;flex-direction:column;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
+    .main-header.scrolled{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+    .main-header:not(.scrolled){background:linear-gradient(135deg,rgba(15,23,42,.92) 0%,rgba(30,58,138,.85) 100%)}
+    .main-header .logo-title,.main-header .logo-subtitle{color:#fff}
+    .main-header .main-nav a:not(.btn){color:rgba(255,255,255,.92)}
+    .main-header .mobile-menu-toggle{color:#fff}
+    .header-container{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;width:100%;max-width:var(--container-width);margin:0 auto}
+    .logo a{display:flex;align-items:center;gap:1.25rem;text-decoration:none}
+    .logo img{height:65px;width:auto}
+    .logo-text{display:flex;flex-direction:column;justify-content:center}
+    .logo-title{display:block;font-family:'Outfit',sans-serif;font-weight:700;font-size:1.8rem;color:var(--dark);letter-spacing:-.5px;line-height:1}
+    .logo-subtitle{display:block;font-family:'Outfit',sans-serif;font-weight:500;font-size:1.1rem;color:var(--gray);text-transform:uppercase;letter-spacing:3px;margin-top:4px}
+    .main-nav ul{display:flex;gap:2rem;align-items:center}
+    .main-nav a{font-weight:500;font-size:.95rem}
+    .main-nav a:not(.btn):hover{color:var(--primary)}
+    .mobile-menu-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer}
+    .hero{height:100svh;min-height:600px;background:linear-gradient(135deg,rgba(15,23,42,.9) 0%,rgba(30,58,138,.8) 100%);color:#fff;padding-top:0;display:flex;align-items:center;position:relative;z-index:1;isolation:isolate;overflow:hidden}
+    .hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .hero::before{content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(37,99,235,.4) 0%,rgba(37,99,235,0) 70%);border-radius:50%;z-index:1}
+    @supports not (height:100svh){.hero{height:calc(100vh - 56px)}}
+    .hero-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2}
+    .hero-text h1,.hero-text h2{line-height:1.1;margin-bottom:1.5rem}
+    .hero-text h1{font-size:3.5rem}
+    .hero-text p{font-size:1.25rem;color:rgba(255,255,255,.8);margin-bottom:2.5rem;max-width:500px}
+    .hero-buttons{display:flex;gap:1rem}
+    .hero-visual{display:flex;justify-content:center}
+    .glass-card{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);padding:2rem;border-radius:20px;display:flex;align-items:center;gap:1rem;font-weight:600;animation:float 6s ease-in-out infinite}
+    .glass-card i{font-size:2rem;color:var(--accent)}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-20px)}100%{transform:translateY(0)}}
+    .section{padding:5rem 0}
+    /* === CLS FIX: reservar espacio antes de que cargue styles.min.css ===
+       Evita layout shift cuando el CSS async llega tarde */
+    .main-footer{background:#0b1120;color:#fff;padding-top:4rem}
+    .bg-light{background-color:#f8fafc}
+    /* Fuentes: usar system fonts como fallback para evitar FOUT */
+    body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    h1,h2,h3,h4{font-family:"Outfit",-apple-system,BlinkMacSystemFont,sans-serif}
+    /* Testimonios: fijar fondo para evitar flash de color */
+    .testimonios-seccion{background:#f8fafc}
+    /* Sección servicios */
+    .services{background:#f8fafc}
+    /* Service card foto: reservar altura para evitar reflow */
+    .service-foto{width:100%;height:200px;object-fit:cover;display:block}
+    @media(max-width:768px){
+      .top-bar .container{justify-content:center;flex-direction:row;flex-wrap:wrap;gap:1rem;padding:.4rem 1rem}
+      .top-bar a[href^="mailto"]{display:none}
+      .header-container{padding:1rem}
+      .logo img{height:50px}.logo-title{font-size:1.4rem}
+      .logo-subtitle{font-size:.8rem;letter-spacing:2px}
+      .main-header:not(.scrolled) .logo-title,.main-header:not(.scrolled) .logo-subtitle{color:#fff}
+      .main-header:not(.scrolled) .main-nav.active a:not(.btn){color:var(--dark)}
+      .main-nav{display:none;position:absolute;top:100%;left:0;width:100%;background:#fff;padding:2rem;box-shadow:var(--shadow-lg);flex-direction:column;z-index:1000;border-top:1px solid #f1f5f9}
+      .main-nav.active{display:flex}
+      .main-nav ul{flex-direction:column;width:100%;gap:1.5rem}
+      .main-nav a:not(.btn){min-height:44px;display:flex;align-items:center;padding:.5rem 0}
+      .mobile-menu-toggle{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:10px;border-radius:8px}
+      .hero{padding-top:0}
+      .hero-content{grid-template-columns:1fr;text-align:center;gap:3rem}
+      .hero-text h2,.hero-text h1{font-size:2rem}
+      .hero-buttons{justify-content:center;flex-direction:column}
+      section{padding:2rem 0}
+    }
+    @media(max-width:480px){
+      .top-bar{display:none}
+      .hero-visual{display:none}
+      .hero-text h1,.hero-text h2{font-size:1.6rem}
+    }
+    </style>
 
-    <!-- Hoja de estilos principal -->
-    <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
 <body>
+    <!-- Overlay semiopaco detrás del menú hamburguesa en móvil -->
+    <div id="navOverlay" class="nav-overlay" aria-hidden="true"></div>
     <header class="main-header">
         <!-- Barra superior de contacto -->
         <div class="top-bar">
             <div class="container" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
-                <a href="tel:630518441" aria-label="Llamar al mÃ³vil 1"><i class="fas fa-phone-alt"></i> 630 518 441</a>
-                <a href="tel:625038039" aria-label="Llamar al mÃ³vil 2"><i class="fas fa-phone-alt"></i> 625 038 039</a>
-                <span style="color: white; font-size: 0.9rem; margin-top: auto; margin-bottom: auto;"><i class="fas fa-map-marker-alt"></i> PolÃ­gono Guadalhorce, s/n, 29004 MÃ¡laga</span>
+                <a href="tel:630518441" aria-label="Llamar al móvil 1"><i class="fas fa-phone-alt"></i> 630 518 441</a>
+                <a href="tel:625038039" aria-label="Llamar al móvil 2"><i class="fas fa-phone-alt"></i> 625 038 039</a>
+                <span style="color: white; font-size: 0.9rem; margin-top: auto; margin-bottom: auto;"><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n, 29004 Málaga</span>
                 <a href="mailto:info@villaloboslogistica.com" aria-label="Enviar correo"><i class="fas fa-envelope"></i> info@villaloboslogistica.com</a>
             </div>
         </div>
@@ -154,40 +239,53 @@
         <div class="header-container">
             <div class="logo">
                 <a href="#" aria-label="Inicio">
-                    <img src="./assets/img/logo.png" alt="Logotipo de Villalobos LogÃ­stica">
+                    <img src="./assets/img/logo.webp" alt="Logotipo de Villalobos Logística" width="65" height="68" decoding="async">
                     <div class="logo-text">
                         <span class="logo-title">Villalobos</span>
-                        <span class="logo-subtitle">LogÃ­stica</span>
+                        <span class="logo-subtitle">Logística</span>
                     </div>
                 </a>
             </div>
-            <nav class="main-nav" aria-label="NavegaciÃ³n principal">
+            <nav class="main-nav" aria-label="Navegación principal">
                 <ul>
                     <li><a href="#">Inicio</a></li>
-                    <li><a href="#quienes-somos">QuiÃ©nes somos</a></li>
+                    <li><a href="#quienes-somos">Quiénes somos</a></li>
                     <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#galeria">GalerÃ­a de imÃ¡genes</a></li>
+                    <li><a href="#galeria">Galería de imágenes</a></li>
                     <li><a href="#contacto" class="btn btn-primary">Contacto</a></li>
-                    <li><a href="../panel/login.php" class="btn btn-outline" title="Acceso al panel de empleados y clientes">Acceso Privado</a></li>
+                    <li><a href="../panel/login.php" class="btn btn-primary" title="Acceso al panel de empleados y clientes">Acceso Privado</a></li>
                 </ul>
             </nav>
-            <button class="mobile-menu-toggle" aria-label="Abrir menÃº">
+            <button class="mobile-menu-toggle" aria-label="Abrir menú">
           <i class="fas fa-bars"></i>
         </button>
         </div>
     </header>
 
     <main>
-        <!-- SecciÃ³n Principal - Hero -->
+        <!-- Sección Principal - Hero -->
         <section class="hero">
+            <!-- LCP: img real con fetchpriority=high — el navegador la descubre
+                 en el HTML, no en el CSS. Visualmente idéntico al fondo anterior. -->
+            <img src="./assets/img/hero-bg.webp"
+                 srcset="./assets/img/hero-bg-mobile.webp 768w,
+                         ./assets/img/hero-bg.webp 968w"
+                 sizes="100vw"
+                 alt=""
+                 aria-hidden="true"
+                 class="hero-bg-img"
+                 fetchpriority="high"
+                 decoding="async"
+                 width="968"
+                 height="399">
             <div class="container hero-content">
                 <div class="hero-text">
                     <h1>
-                        LogÃ­stica rÃ¡pida, segura y
+                        Logística rápida, segura y
                         <span class="highlight">eficiente</span>
                     </h1>
                     <p>
-                        Conectamos su negocio con el destino. Soluciones de transporte adaptadas a sus necesidades en MÃ¡laga y toda la penÃ­nsula.
+                        Conectamos su negocio con el destino. Soluciones de transporte adaptadas a sus necesidades en Málaga y toda la península.
                     </p>
                     <div class="hero-buttons">
                         <a href="#contacto" class="btn btn-primary btn-lg boton-accion-cta">Contacto</a
@@ -200,65 +298,65 @@
           <div class="hero-visual">
             <!-- Elemento decorativo flotante -->
             <div class="glass-card">
-              <i class="fas fa-truck-moving" aria-hidden="true"></i>
-              <span>EnvÃ­os en tiempo real</span>
+              <i class="fas fa-clock" aria-hidden="true"></i>
+              <span>Respuesta garantizada&nbsp;en 24&nbsp;h</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SecciÃ³n Testimonios estilo Google Reviews -->
+      <!-- Sección Testimonios estilo Google Reviews -->
       <section class="section testimonios-seccion">
         <div class="container">
           <div class="testimonios-wrapper">
 
-            <!-- Panel izquierdo: resumen de valoraciÃ³n -->
+            <!-- Panel izquierdo: resumen de valoración -->
             <div class="testimonios-panel-izq">
-              <img src="./assets/img/logo.png" alt="Villalobos LogÃ­stica" class="testimonios-logo">
-              <p class="testimonios-empresa">Villalobos LogÃ­stica</p>
+              <img src="./assets/img/logo.webp" alt="Villalobos Logística" class="testimonios-logo" width="80" height="84" loading="lazy" decoding="async">
+              <p class="testimonios-empresa">Villalobos Logística</p>
               <div class="testimonios-rating-global">
                 <span class="testimonios-numero">4,2</span>
                 <div class="testimonios-estrellas-global">
                   <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                   <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                 </div>
-                <p class="testimonios-total">8 reseÃ±as Google</p>
+                <p class="testimonios-total">8 reseñas Google</p>
               </div>
               <a href="https://www.google.com/maps/place/Villalobos+Log%C3%ADstica+M%C3%A1laga"
                  target="_blank" rel="noopener noreferrer"
                  class="btn-resena">
-                <i class="fab fa-google"></i> Escribe una reseÃ±a
+                <i class="fab fa-google"></i> Escribe una reseña
               </a>
                     </div>
 
-                    <!-- Panel derecho: cards de reseÃ±as -->
+                    <!-- Panel derecho: cards de reseñas -->
                     <div class="testimonios-cards">
 
                         <div class="testimonio-card-google">
                             <div class="testimonio-header">
-                                <img src="./assets/img/avatares/juan-sepulveda.png" alt="Juan SepÃºlveda" class="testimonio-avatar-img">
+                                <img src="./assets/img/avatares/juan-sepulveda.webp" alt="Juan Sepúlveda" class="testimonio-avatar-img" width="44" height="44" loading="lazy" decoding="async">
                                 <div class="testimonio-meta">
-                                    <span class="testimonio-nombre">Juan SepÃºlveda</span>
-                                    <span class="testimonio-fecha">2018 Â· 13 reseÃ±as</span>
+                                    <span class="testimonio-nombre">Juan Sepúlveda</span>
+                                    <span class="testimonio-fecha">2018 · 13 reseñas</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-check-circle testimonio-verificado"></i>
                             </div>
-                            <p class="testimonio-texto">"Muy grata experiencia en la contrataciÃ³n de sus servicios"</p>
+                            <p class="testimonio-texto">"Muy grata experiencia en la contratación de sus servicios"</p>
                         </div>
 
                         <div class="testimonio-card-google">
                             <div class="testimonio-header">
-                                <img src="./assets/img/avatares/sparo-jack.png" alt="Sparo Jack" class="testimonio-avatar-img">
+                                <img src="./assets/img/avatares/sparo-jack.webp" alt="Sparo Jack" class="testimonio-avatar-img" width="44" height="44" loading="lazy" decoding="async">
                                 <div class="testimonio-meta">
                                     <span class="testimonio-nombre">Sparo Jack</span>
-                                    <span class="testimonio-fecha">2024 Â· Local Guide Â· 27 reseÃ±as</span>
+                                    <span class="testimonio-fecha">2024 · Local Guide · 27 reseñas</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -270,19 +368,19 @@
 
                         <div class="testimonio-card-google">
                             <div class="testimonio-header">
-                                <img src="./assets/img/avatares/angelVicente.png" alt="Angel Vicente" class="testimonio-avatar-img">
+                                <img src="./assets/img/avatares/angelVicente.webp" alt="Angel Vicente" class="testimonio-avatar-img" width="44" height="44" loading="lazy" decoding="async">
                                 <div class="testimonio-meta">
                                     <span class="testimonio-nombre">Angel Vicente</span>
-                                    <span class="testimonio-fecha">2020 Â· Local Guide Â· 89 reseÃ±as</span>
+                                    <span class="testimonio-fecha">2020 · Local Guide · 89 reseñas</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-check-circle testimonio-verificado"></i>
                             </div>
-                            <p class="testimonio-texto">"Servicio rÃ¡pido y gente competente"</p>
+                            <p class="testimonio-texto">"Servicio rápido y gente competente"</p>
                         </div>
 
 
@@ -290,10 +388,10 @@
                             <div class="testimonio-header">
                                 <div class="testimonio-avatar" style="background:#6366f1;">A</div>
                                 <div class="testimonio-meta">
-                                    <span class="testimonio-nombre">Anto GarcÃ­a MartÃ­nez</span>
-                                    <span class="testimonio-fecha">2022 Â· 1 reseÃ±a</span>
+                                    <span class="testimonio-nombre">Anto García Martínez</span>
+                                    <span class="testimonio-fecha">2022 · 1 reseña</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -307,9 +405,9 @@
                                 <div class="testimonio-avatar" style="background:#f59e0b;">J</div>
                                 <div class="testimonio-meta">
                                     <span class="testimonio-nombre">Jose Luis Calvo</span>
-                                    <span class="testimonio-fecha">2022 Â· Local Guide Â· 109 reseÃ±as</span>
+                                    <span class="testimonio-fecha">2022 · Local Guide · 109 reseñas</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -322,10 +420,10 @@
                             <div class="testimonio-header">
                                 <div class="testimonio-avatar" style="background:#10b981;">J</div>
                                 <div class="testimonio-meta">
-                                    <span class="testimonio-nombre">Javier NuÃ±ez</span>
-                                    <span class="testimonio-fecha">2022 Â· 1 reseÃ±a</span>
+                                    <span class="testimonio-nombre">Javier Nuñez</span>
+                                    <span class="testimonio-fecha">2022 · 1 reseña</span>
                                 </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png" alt="Google" class="testimonio-google-icon">
+                                <img src="./assets/img/google-g.svg" alt="Google" class="testimonio-google-icon" width="24" height="24" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonio-stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -342,7 +440,7 @@
         </section>
 
 
-        <!-- SecciÃ³n QuiÃ©nes Somos -->
+        <!-- Sección Quiénes Somos -->
         <section id="quienes-somos" class="section quienes-somos-seccion">
             <div class="container">
 
@@ -351,22 +449,22 @@
 
                     <!-- Columna texto -->
                     <div class="quienes-texto">
-                        <p class="quienes-pretitulo">Empresa familiar de transporte en MÃ¡laga</p>
-                        <h2 class="quienes-titulo">MÃ¡s de 20 aÃ±os con tradiciÃ³n familiar en el transporte</h2>
-                        <p>En <strong>Villalobos LogÃ­stica</strong> contamos con una amplia experiencia en el servicio de transporte de mercancÃ­as. Procedemos de una familia con mÃ¡s de cuatro dÃ©cadas de tradiciÃ³n dedicada al transporte, aunque nuestra compaÃ±Ã­a
-                            fue creada en el aÃ±o 2001.</p>
-                        <p>No escatimamos ni esfuerzos ni medios en crecer dÃ­a a dÃ­a y dar el mejor servicio posible, el mismo que hoy dÃ­a nos hace estar orgullosos de nuestra cartera de clientes, por la que crecemos y luchamos a diario. Desde nuestras instalaciones
-                            en el <strong>PolÃ­gono Guadalhorce de MÃ¡laga</strong>, gestionamos cualquier tipo de transporte con tonelajes desde 1 t hasta las 24 t.</p>
-                        <p>Nuestros clientes pueden disponer de carretillas elevadoras, transpaletas y estanterÃ­as para almacenar las mercancÃ­as que necesiten. Destacamos por la <strong>puntualidad, la atenciÃ³n personalizada</strong> y la resoluciÃ³n rÃ¡pida
+                        <p class="quienes-pretitulo">Empresa familiar de transporte en Málaga</p>
+                        <h2 class="quienes-titulo">Más de 20 años con tradición familiar en el transporte</h2>
+                        <p>En <strong>Villalobos Logística</strong> contamos con una amplia experiencia en el servicio de transporte de mercancías. Procedemos de una familia con más de cuatro décadas de tradición dedicada al transporte, aunque nuestra compañía
+                            fue creada en el año 2001.</p>
+                        <p>No escatimamos ni esfuerzos ni medios en crecer día a día y dar el mejor servicio posible, el mismo que hoy día nos hace estar orgullosos de nuestra cartera de clientes, por la que crecemos y luchamos a diario. Desde nuestras instalaciones
+                            en el <strong>Polígono Guadalhorce de Málaga</strong>, gestionamos cualquier tipo de transporte con tonelajes desde 1 t hasta las 24 t.</p>
+                        <p>Nuestros clientes pueden disponer de carretillas elevadoras, transpaletas y estanterías para almacenar las mercancías que necesiten. Destacamos por la <strong>puntualidad, la atención personalizada</strong> y la resolución rápida
                             y eficaz de cualquier tipo de transporte o almacenaje.</p>
 
                         <!-- Checkmarks de diferenciadores -->
                         <ul class="quienes-checks">
-                            <li><i class="fas fa-check-circle"></i> Flota propia: camiones grÃºa, caja abierta y cerrada</li>
-                            <li><i class="fas fa-check-circle"></i> AlmacÃ©n con carretillas elevadoras y transpaletas elÃ©ctricas</li>
-                            <li><i class="fas fa-check-circle"></i> Entregas en el centro histÃ³rico de MÃ¡laga</li>
-                            <li><i class="fas fa-check-circle"></i> Ãmbito local, provincial y nacional</li>
-                            <li><i class="fas fa-check-circle"></i> Transportes urgentes y servicios rÃ¡pidos</li>
+                            <li><i class="fas fa-check-circle"></i> Flota propia: camiones grúa, caja abierta y cerrada</li>
+                            <li><i class="fas fa-check-circle"></i> Almacén con carretillas elevadoras y transpaletas eléctricas</li>
+                            <li><i class="fas fa-check-circle"></i> Entregas en el centro histórico de Málaga</li>
+                            <li><i class="fas fa-check-circle"></i> Ámbito local, provincial y nacional</li>
+                            <li><i class="fas fa-check-circle"></i> Transportes urgentes y servicios rápidos</li>
                         </ul>
 
                         <a href="#contacto" class="btn btn-primary quienes-cta">
@@ -376,7 +474,7 @@
 
                     <!-- Columna foto -->
                     <div class="quienes-foto-wrap">
-                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota de camiones Villalobos LogÃ­stica MÃ¡laga" class="quienes-foto" loading="lazy">
+                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota de camiones Villalobos Logística Málaga" class="quienes-foto" loading="lazy" decoding="async" width="600" height="450">
                     </div>
 
                 </div>
@@ -386,19 +484,19 @@
                 <div class="quienes-cifras">
                     <div class="cifra-item">
                         <span class="cifra-numero">+20</span>
-                        <span class="cifra-label">aÃ±os de experiencia</span>
+                        <span class="cifra-label">años de experiencia</span>
                     </div>
                     <div class="cifra-item">
-                        <span class="cifra-numero">1â€“24 t</span>
+                        <span class="cifra-numero">1–24 t</span>
                         <span class="cifra-label">capacidad de carga</span>
                     </div>
                     <div class="cifra-item">
-                        <span class="cifra-numero">MÃ¡laga</span>
-                        <span class="cifra-label">y toda la penÃ­nsula</span>
+                        <span class="cifra-numero">Málaga</span>
+                        <span class="cifra-label">y toda la península</span>
                     </div>
                     <div class="cifra-item">
                         <span class="cifra-numero">2001</span>
-                        <span class="cifra-label">aÃ±o de fundaciÃ³n</span>
+                        <span class="cifra-label">año de fundación</span>
                     </div>
                 </div>
 
@@ -408,7 +506,7 @@
                     <div class="sectores-grid">
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-helmet-safety"></i></div>
-                            <span>ConstrucciÃ³n</span>
+                            <span>Construcción</span>
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-elevator"></i></div>
@@ -416,11 +514,11 @@
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-droplet"></i></div>
-                            <span>Suministros hidrÃ¡ulicos</span>
+                            <span>Suministros hidráulicos</span>
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-pallet"></i></div>
-                            <span>PaqueterÃ­a y palets</span>
+                            <span>Paquetería y palets</span>
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-screwdriver-wrench"></i></div>
@@ -428,7 +526,7 @@
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-utensils"></i></div>
-                            <span>AlimentaciÃ³n seca</span>
+                            <span>Alimentación seca</span>
                         </div>
                         <div class="sector-card">
                             <div class="sector-icono"><i class="fas fa-store"></i></div>
@@ -440,12 +538,12 @@
             </div>
         </section>
 
-        <!-- SecciÃ³n de Servicios -->
-        <!-- SecciÃ³n CÃ³mo Trabajamos -->
+        <!-- Sección de Servicios -->
+        <!-- Sección Cómo Trabajamos -->
         <section class="section proceso-seccion">
             <div class="container">
                 <div class="proceso-header">
-                    <h2 class="proceso-titulo">Â¿CÃ³mo trabajamos?</h2>
+                    <h2 class="proceso-titulo">¿Cómo trabajamos?</h2>
                 </div>
                 <div class="proceso-pasos">
 
@@ -476,8 +574,8 @@
                             <i class="fas fa-boxes-stacked"></i>
                             <span class="proceso-numero">3</span>
                         </div>
-                        <h3>Recogemos tu mercancÃ­a</h3>
-                        <p>Nuestra flota se desplaza hasta tu ubicaciÃ³n en MÃ¡laga o cualquier punto de la penÃ­nsula.</p>
+                        <h3>Recogemos tu mercancía</h3>
+                        <p>Nuestra flota se desplaza hasta tu ubicación en Málaga o cualquier punto de la península.</p>
                     </div>
 
                     <div class="proceso-flecha"><i class="fas fa-chevron-right"></i></div>
@@ -507,38 +605,38 @@
                 <div class="services-grid" style="margin-bottom: 3rem;">
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacenaje y GestiÃ³n Villalobos LogÃ­stica" class="service-foto" loading="eager">
+                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacenaje y Gestión Villalobos Logística" class="service-foto" loading="lazy" decoding="async" width="470" height="343">
                         <div class="service-card-contenido">
-                            <h4><i class="fas fa-warehouse"></i> Almacenaje y GestiÃ³n</h4>
+                            <h3><i class="fas fa-warehouse"></i> Almacenaje y Gestión</h3>
                             <ul class="service-features">
-                                <li><i class="fas fa-check-circle"></i> Almacenajes por dÃ­as, semanas o por tiempo indefinido.</li>
-                                <li><i class="fas fa-check-circle"></i> GestiÃ³n documental de la mercancÃ­a.</li>
+                                <li><i class="fas fa-check-circle"></i> Almacenajes por días, semanas o por tiempo indefinido.</li>
+                                <li><i class="fas fa-check-circle"></i> Gestión documental de la mercancía.</li>
                             </ul>
                             <a href="#contacto" class="btn btn-primary service-cta">Solicitar Presupuesto</a>
                         </div>
                     </article>
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="DistribuciÃ³n y Reparto Villalobos LogÃ­stica" class="service-foto" loading="eager">
+                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="Distribución y Reparto Villalobos Logística" class="service-foto" loading="lazy" decoding="async" width="470" height="232">
                         <div class="service-card-contenido">
-                            <h4><i class="fas fa-truck"></i> DistribuciÃ³n y Reparto</h4>
+                            <h3><i class="fas fa-truck"></i> Distribución y Reparto</h3>
                             <ul class="service-features">
-                                <li><i class="fas fa-check-circle"></i> DistribuciÃ³n general y transporte de palets.</li>
-                                <li><i class="fas fa-check-circle"></i> Servicio de reparto al centro histÃ³rico de MÃ¡laga.</li>
-                                <li><i class="fas fa-check-circle"></i> Transporte y entrega de la mercancÃ­a.</li>
-                                <li><i class="fas fa-check-circle"></i> Transportes pequeÃ±os, rÃ¡pidos y servicios urgentes.</li>
+                                <li><i class="fas fa-check-circle"></i> Distribución general y transporte de palets.</li>
+                                <li><i class="fas fa-check-circle"></i> Servicio de reparto al centro histórico de Málaga.</li>
+                                <li><i class="fas fa-check-circle"></i> Transporte y entrega de la mercancía.</li>
+                                <li><i class="fas fa-check-circle"></i> Transportes pequeños, rápidos y servicios urgentes.</li>
                             </ul>
                             <a href="#contacto" class="btn btn-primary service-cta">Solicitar Presupuesto</a>
                         </div>
                     </article>
 
                     <article class="service-card service-card-con-foto">
-                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Flota Especializada Villalobos LogÃ­stica" class="service-foto" loading="eager">
+                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Flota Especializada Villalobos Logística" class="service-foto" loading="lazy" decoding="async" width="400" height="300">
                         <div class="service-card-contenido">
-                            <h4><i class="fas fa-dolly"></i> Flota Especializada</h4>
+                            <h3><i class="fas fa-dolly"></i> Flota Especializada</h3>
                             <ul class="service-features">
                                 <li><i class="fas fa-check-circle"></i> Camiones de caja abierta y cerrada equipados con plataforma elevadora.</li>
-                                <li><i class="fas fa-check-circle"></i> Portes de todo tipo con camiones plataforma elevadora y grÃºa.</li>
+                                <li><i class="fas fa-check-circle"></i> Portes de todo tipo con camiones plataforma elevadora y grúa.</li>
                                 <li><i class="fas fa-check-circle"></i> Carga lateral, trasera y techo.</li>
                             </ul>
                             <a href="#contacto" class="btn btn-primary service-cta">Solicitar Presupuesto</a>
@@ -550,13 +648,13 @@
             </div>
         </section>
 
-        <!-- SecciÃ³n de GalerÃ­a de ImÃ¡genes -->
+        <!-- Sección de Galería de Imágenes -->
         <!-- Franja CTA urgente -->
         <section class="cta-urgente-seccion">
             <div class="container cta-urgente-inner">
                 <div class="cta-urgente-texto">
-                    <h2>Â¿Necesitas un porte hoy?</h2>
-                    <p>Servicio urgente disponible en MÃ¡laga y provincia. Llama ahora y te damos soluciÃ³n inmediata.</p>
+                    <h2>¿Necesitas un porte hoy?</h2>
+                    <p>Servicio urgente disponible en Málaga y provincia. Llama ahora y te damos solución inmediata.</p>
                 </div>
                 <div class="cta-urgente-botones">
                     <a href="tel:+34630518441" class="cta-btn-tel">
@@ -573,48 +671,48 @@
             <div class="container">
                 <div class="section-header">
                     <h2>Nuestra Flota y Servicios</h2>
-                    <p>ImÃ¡genes reales de nuestros vehÃ­culos e instalaciones en MÃ¡laga</p>
+                    <p>Imágenes reales de nuestros vehículos e instalaciones en Málaga</p>
                 </div>
                 <div class="galeria-masonry">
 
                     <div class="galeria-item galeria-grande">
-                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota completa de camiones Villalobos LogÃ­stica MÃ¡laga" loading="lazy">
+                        <img src="./assets/img/web-p/flota-camiones.webp" alt="Flota completa de camiones Villalobos Logística Málaga" loading="lazy" decoding="async" width="600" height="450">
                         <div class="galeria-overlay"><span>Flota completa</span></div>
                     </div>
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="AlmacÃ©n con carretilla elevadora" loading="lazy">
-                        <div class="galeria-overlay"><span>AlmacÃ©n PolÃ­gono Guadalhorce</span></div>
+                        <img src="./assets/img/web-p/almacen-con-torito.webp" alt="Almacén con carretilla elevadora" loading="lazy" decoding="async" width="470" height="343">
+                        <div class="galeria-overlay"><span>Almacén Polígono Guadalhorce</span></div>
                     </div>
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="CamiÃ³n Villalobos LogÃ­stica" loading="lazy">
+                        <img src="./assets/img/web-p/camion-grande-lateral.webp" alt="Camión Villalobos Logística" loading="lazy" decoding="async" width="400" height="300">
                         <div class="galeria-overlay"><span>Transporte nacional</span></div>
                     </div>
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="Descarga de mercancÃ­as" loading="lazy">
-                        <div class="galeria-overlay"><span>DistribuciÃ³n y reparto</span></div>
+                        <img src="./assets/img/web-p/descargando-cajas.webp" alt="Descarga de mercancías" loading="lazy" decoding="async" width="470" height="232">
+                        <div class="galeria-overlay"><span>Distribución y reparto</span></div>
                     </div>
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/camion-grua.webp" alt="CamiÃ³n grÃºa autocargante" loading="lazy">
-                        <div class="galeria-overlay"><span>CamiÃ³n grÃºa</span></div>
+                        <img src="./assets/img/web-p/camion-grua.webp" alt="Camión grúa autocargante" loading="lazy" decoding="async" width="280" height="500">
+                        <div class="galeria-overlay"><span>Camión grúa</span></div>
                     </div>
 
                     <div class="galeria-item galeria-grande">
-                        <img src="./assets/img/web-p/almacen-cajas.webp" alt="AlmacÃ©n con mercancÃ­as" loading="lazy">
+                        <img src="./assets/img/web-p/almacen-cajas.webp" alt="Almacén con mercancías" loading="lazy" decoding="async" width="470" height="342">
                         <div class="galeria-overlay"><span>Almacenaje flexible</span></div>
                     </div>
 
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/dos-comiones-grandes.webp" alt="Dos camiones grandes" loading="lazy">
+                        <img src="./assets/img/web-p/dos-comiones-grandes.webp" alt="Dos camiones grandes" loading="lazy" decoding="async" width="968" height="399">
                         <div class="galeria-overlay"><span>Flota de gran tonelaje</span></div>
                     </div>
 
                     <div class="galeria-item">
-                        <img src="./assets/img/web-p/torito-elevador.webp" alt="Torito elevador en almacÃ©n" loading="lazy">
+                        <img src="./assets/img/web-p/torito-elevador.webp" alt="Torito elevador en almacén" loading="lazy" decoding="async" width="450" height="600">
                         <div class="galeria-overlay"><span>Equipamiento propio</span></div>
                     </div>
 
@@ -711,13 +809,13 @@
                                         <input type="text" id="destino" class="control-formulario" placeholder="Ciudad de entrega">
                                     </div>
                                 </div>
-                                <!-- Estimador de precio (MÃ³dulo Python) -->
+                                <!-- Estimador de precio (Módulo Python) -->
                                 <div id="precio-estimado" class="precio-estimado" hidden>
                                     <div class="precio-estimado-inner">
-                                        <span class="precio-est-label"><i class="fas fa-route"></i> EstimaciÃ³n orientativa</span>
+                                        <span class="precio-est-label"><i class="fas fa-route"></i> Estimación orientativa</span>
                                         <span class="precio-est-km" id="precioKm"></span>
                                         <span class="precio-est-precio" id="precioValor"></span>
-                                        <span class="precio-est-nota">Precio final segÃºn peso y tipo de carga</span>
+                                        <span class="precio-est-nota">Precio final según peso y tipo de carga</span>
                                     </div>
                                 </div>
                                 <div id="precio-cargando" class="precio-cargando" hidden>
@@ -791,36 +889,57 @@
     <footer class="main-footer">
         <div class="container footer-grid">
             <div class="footer-col">
-                <p class="footer-brand">Villalobos LogÃ­stica</p>
-                <p>Tu socio de confianza en transporte y logÃ­stica en MÃ¡laga.</p>
+                <p class="footer-brand">Villalobos Logística</p>
+                <p>Tu socio de confianza en transporte y logística en Málaga.</p>
             </div>
             <div class="footer-col">
-                <h4>Enlaces</h4>
+                <h3>Enlaces</h3>
                 <ul>
                     <li><a href="./aviso-legal.html">Aviso Legal</a></li>
-                    <li><a href="./politica-privacidad.html">PolÃ­tica de Privacidad</a></li>
+                    <li><a href="./politica-privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="./politica-cookies.html">Política de Cookies</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contacto</h4>
-                <p><i class="fas fa-map-marker-alt"></i> PolÃ­gono Guadalhorce, s/n. 29004, MÃ¡laga</p>
-                <p><i class="fas fa-phone-alt"></i> 630 518 441 | 625 038 039</p>
-                <p><i class="fas fa-envelope"></i> info@villaloboslogistica.com</p>
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Polígono Guadalhorce, s/n. 29004, Málaga</p>
+                <p><i class="fas fa-phone-alt"></i> <a href="tel:630518441" style="color:inherit">630 518 441</a> | <a href="tel:625038039" style="color:inherit">625 038 039</a></p>
+                <p><a href="mailto:info@villaloboslogistica.com"><i class="fas fa-envelope"></i> info@villaloboslogistica.com</a></p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Villalobos LogÃ­stica. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Villalobos Logística. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <!-- Leaflet JS y Archivos Propios -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-        <!-- BotÃ³n flotante WhatsApp -->
-    <a href="https://wa.me/34625038039" id="whatsappBoton" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-        <span>WhatsApp</span>
-    </a>
+    <!-- Leaflet se carga en mapa.js con IntersectionObserver (lazy) -->
+    <div id="waWidget">
+        <div id="waPanel" hidden>
+            <div class="wa-panel-cabecera">
+                <div class="wa-avatar"><i class="fab fa-whatsapp"></i></div>
+                <div class="wa-info">
+                    <p class="wa-nombre">Villalobos Log&iacute;stica</p>
+                    <p class="wa-estado"><span class="wa-punto"></span> Normalmente respondemos en minutos</p>
+                </div>
+                <button id="waCerrar" class="wa-cerrar" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="wa-cuerpo">
+                <div class="wa-burbuja">
+                    <p>&#128075; &iHola! &iquest;En qu&eacute; podemos ayudarte? Escr&iacute;benos y te respondemos en minutos.</p>
+                </div>
+                <div class="wa-input-wrap">
+                    <textarea id="waMensaje" class="wa-input" placeholder="Escribe tu mensaje..." rows="2" aria-label="Mensaje para WhatsApp"></textarea>
+                </div>
+            </div>
+            <button class="wa-btn-abrir" id="waEnviar">
+                <i class="fab fa-whatsapp"></i> Enviar mensaje
+            </button>
+        </div>
+        <button id="waBoton" aria-label="Contactar por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
 
     <!-- Chat widget -->
     <div id="chatWidget">
@@ -831,20 +950,19 @@
             <p><strong>Te respondemos al instante.</strong></p>
         </div>
 
-        <button id="chatBoton" aria-label="Abrir chat de contacto">
+        <button id="chatBoton" aria-label="Abrir chat de contacto — Presupuesto gratis">
             <i class="fas fa-comments"></i>
-            <span class="chat-boton-texto">&#191;Hablamos?</span>
+            <span class="chat-boton-texto">¡Pide presupuesto!</span>
             <span class="chat-badge" id="chatBadge">1</span>
         </button>
 
         <div id="chatPanel" hidden>
             <div class="chat-cabecera">
-                <img src="./assets/img/logo.png" alt="" aria-hidden="true" class="chat-logo">
+                <img src="./assets/img/logo.webp" alt="" aria-hidden="true" class="chat-logo" width="36" height="36">
                 <div>
                     <p class="chat-nombre-empresa">Villalobos Log&iacute;stica</p>
                     <p class="chat-estado"><span class="chat-punto-verde"></span> En l&iacute;nea</p>
                 </div>
-                <button id="chatReiniciar" class="chat-reiniciar-btn" aria-label="Reiniciar chat" title="Reiniciar conversaci&oacute;n">ðŸ”„</button>
                 <button id="chatCerrar" class="chat-cerrar-btn" aria-label="Cerrar chat">&times;</button>
             </div>
             <div id="chatMensajes" class="chat-mensajes" aria-live="polite"></div>
@@ -860,19 +978,10 @@
 
 
 
-    <!-- Optimizar carga de imÃ¡genes -->
-    <script>
-        document.querySelectorAll('img:not([loading])').forEach(img => {
-            if (!img.src.includes('logo') && !img.src.includes('avatar')) {
-                img.loading = 'lazy';
-            }
-        });
-    </script>
-
-    <script src="./assets/js/mapa.js"></script>
-    <script src="./assets/js/utilidades.js"></script>
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/chat.js"></script>
+    <script src="./assets/js/mapa.js" defer></script>
+    <script src="./assets/js/utilidades.js" defer></script>
+    <script src="./assets/js/main.js" defer></script>
+    <script src="./assets/js/chat.js" defer></script>
 </body>
 
-</html>
+</html>                                                                                                                                                                                                                                                                                                

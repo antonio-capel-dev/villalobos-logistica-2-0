@@ -1,9 +1,18 @@
 <?php
 declare(strict_types=1);
 
-header("Content-Type: application/json; charset=UTF-8");
 require_once __DIR__ . '/../conexion.php';
 require_once __DIR__ . '/../mailer.php';
+
+// CORS restringido al dominio de produccion (configurable via .env)
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -11,17 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Rate limit basico: 5 envios / 10 minutos por sesion
+$ahora = time();
+$_SESSION['contacto_envios'] = array_filter(
+    $_SESSION['contacto_envios'] ?? [],
+    fn($t) => $t > $ahora - 600
+);
+if (count($_SESSION['contacto_envios']) >= 5) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'error' => 'Demasiadas solicitudes. Inténtalo en unos minutos.']);
+    exit;
+}
+
 $data = json_decode(file_get_contents("php://input"), true) ?: [];
 
-$nombre   = isset($data['nombre'])   ? trim((string) $data['nombre'])   : '';
-$servicio = isset($data['servicio']) ? trim((string) $data['servicio']) : '';
-$origen   = isset($data['origen'])   ? trim((string) $data['origen'])   : '';
-$destino  = isset($data['destino'])  ? trim((string) $data['destino'])  : '';
-$mensaje  = isset($data['mensaje'])  ? trim((string) $data['mensaje'])  : '';
+// Límites de longitud para evitar payloads masivos
+$nombre   = mb_substr(trim((string) ($data['nombre']   ?? '')), 0, 100);
+$servicio = mb_substr(trim((string) ($data['servicio'] ?? '')), 0, 60);
+$origen   = mb_substr(trim((string) ($data['origen']   ?? '')), 0, 120);
+$destino  = mb_substr(trim((string) ($data['destino']  ?? '')), 0, 120);
+$mensaje  = mb_substr(trim((string) ($data['mensaje']  ?? '')), 0, 1000);
 
 // El contacto puede llegar como email (formulario) o como campo libre del chat (telefono o email)
-$contacto = isset($data['email'])    ? trim((string) $data['email'])    : '';
-$telefono = isset($data['telefono']) ? trim((string) $data['telefono']) : '';
+$contacto = mb_substr(trim((string) ($data['email']    ?? '')), 0, 120);
+$telefono = mb_substr(trim((string) ($data['telefono'] ?? '')), 0, 20);
 
 $esTelefono = preg_match('/^[6789]\d{8}$/', preg_replace('/\s/', '', $contacto));
 $esEmail    = filter_var($contacto, FILTER_VALIDATE_EMAIL);
@@ -35,11 +57,25 @@ if ($esTelefono) {
     $email = $contacto;
 }
 
-if (empty($nombre) || empty($contacto)) {
+// Normalización backend (segunda línea de defensa por si el JS fue saltado)
+$nombre   = preg_replace('/\s+/', ' ', $nombre);          // colapsar espacios múltiples
+$email    = strtolower($email);                           // email siempre en minúsculas
+$telefono = preg_replace('/[\s\-().]/', '', $telefono);   // limpiar teléfono
+
+if (empty($nombre) || mb_strlen($nombre) < 2) {
     http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Faltan nombre y datos de contacto.']);
+    echo json_encode(['ok' => false, 'error' => 'El nombre debe tener al menos 2 caracteres.']);
     exit;
 }
+
+if (empty($contacto)) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'Faltan datos de contacto.']);
+    exit;
+}
+
+// Registrar envio en sesion (rate limiting)
+$_SESSION['contacto_envios'][] = $ahora;
 
 $mensajeCompleto = "Servicio: $servicio\n";
 if ($origen)  $mensajeCompleto .= "Origen: $origen\n";

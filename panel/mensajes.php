@@ -12,6 +12,7 @@ require_once '../backend/auth_guard.php';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../public/assets/css/styles.css">
+    <link rel="stylesheet" href="../public/assets/css/styles-panel.css">
 </head>
 <body class="fondo-panel">
     <div class="contenedor-principal">
@@ -113,7 +114,7 @@ require_once '../backend/auth_guard.php';
             } else {
                 badge.textContent = 'LEÍDO';
                 badge.style.background = '#f1f5f9';
-                badge.style.color = '#94a3b8';
+                badge.style.color = '#64748b'; /* #94a3b8 = 2.45:1 sobre #f1f5f9 — falla WCAG AA. #64748b ✓ */
             }
             tdEstado.appendChild(badge);
 

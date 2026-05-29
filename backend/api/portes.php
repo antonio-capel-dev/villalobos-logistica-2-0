@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 // backend/api/portes.php
 require_once __DIR__ . '/../conexion.php';
 
@@ -45,6 +46,9 @@ switch ($method) {
                 $stmt = $pdo->prepare($query);
                 $stmt->execute();
             } else {
+                // Conductor ve sus propios portes asignados; cliente ve los suyos como remitente
+                $esConductor = ($_SESSION['rol'] ?? '') === 'conductor';
+                $filtro = $esConductor ? 'p.conductor_id = :uid' : 'p.cliente_id = :uid';
                 $query = "
                     SELECT p.*,
                            c.nombre as cliente_nombre,
@@ -52,7 +56,7 @@ switch ($method) {
                     FROM portes p
                     LEFT JOIN usuarios c ON p.cliente_id = c.id
                     LEFT JOIN usuarios d ON p.conductor_id = d.id
-                    WHERE p.cliente_id = :uid
+                    WHERE $filtro
                     ORDER BY p.id DESC
                 ";
                 $stmt = $pdo->prepare($query);
@@ -130,9 +134,9 @@ switch ($method) {
         }
 
         $data = json_decode(file_get_contents("php://input"), true);
-        $id   = isset($data['id']) ? $data['id'] : null;
+        $id   = isset($data['id']) ? (int) $data['id'] : null;
 
-        if (!$id) {
+        if (!$id || $id <= 0) {
             http_response_code(400);
             echo json_encode(['ok' => false, 'error' => 'Falta el ID del porte a actualizar.']);
             exit;
@@ -194,9 +198,9 @@ switch ($method) {
         }
 
         $data = json_decode(file_get_contents("php://input"), true);
-        $id   = isset($data['id']) ? $data['id'] : (isset($_GET['id']) ? $_GET['id'] : null);
+        $id   = isset($data['id']) ? (int) $data['id'] : (isset($_GET['id']) ? (int) $_GET['id'] : null);
 
-        if (!$id) {
+        if (!$id || $id <= 0) {
             http_response_code(400);
             echo json_encode(['ok' => false, 'error' => 'Falta el ID del porte a eliminar.']);
             exit;

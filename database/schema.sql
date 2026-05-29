@@ -93,13 +93,14 @@ CREATE TABLE IF NOT EXISTS `chat_leads` (
 --
 -- Volcado de datos para la tabla `usuarios`
 --
--- Nota: La contraseña para todos los usuarios es '123456'
--- El hash corresponde a password_hash('123456', PASSWORD_DEFAULT)
+-- Nota: La contraseña para todos los usuarios demo es '123456'
+-- (cada hash es distinto porque bcrypt usa salt aleatorio).
+-- IMPORTANTE: en produccion, regenerar con password_hash() y hacer UPDATE.
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password_hash`, `rol`, `creado_en`) VALUES
-(1, 'Admin', 'admin@villalobos.local', '$2y$10$5MNmjB2v2q9H6b0J6b7j/OSJ5o2tQmRkzC8ht9mH9e6XzV3iM0j6a', 'admin', CURRENT_TIMESTAMP),
-(2, 'Editor Contenido', 'editor@villalobos.local', '$2y$10$5MNmjB2v2q9H6b0J6b7j/OSJ5o2tQmRkzC8ht9mH9e6XzV3iM0j6a', 'editor', CURRENT_TIMESTAMP),
-(3, 'Empresa Cliente', 'cliente@empresa.local', '$2y$10$5MNmjB2v2q9H6b0J6b7j/OSJ5o2tQmRkzC8ht9mH9e6XzV3iM0j6a', 'cliente', CURRENT_TIMESTAMP),
-(4, 'Paco Conductor', 'paco@villalobos.local', '$2y$10$5MNmjB2v2q9H6b0J6b7j/OSJ5o2tQmRkzC8ht9mH9e6XzV3iM0j6a', 'conductor', CURRENT_TIMESTAMP);
+(1, 'Admin', 'admin@villalobos.local', '$2y$10$JypzOtwzReH/5RDdJ0f.ZOYUBMTsMIQMhdcbYU4bgv3UW1v.84pxu', 'admin', CURRENT_TIMESTAMP),
+(2, 'Editor Contenido', 'editor@villalobos.local', '$2y$10$CPhxpP8sqHkFXBxjvCQvkumWODTMXbViH8JO46xTLfSq9WcJP1Qim', 'editor', CURRENT_TIMESTAMP),
+(3, 'Empresa Cliente', 'cliente@empresa.local', '$2y$10$cDhNd/iJUxMWMSTZZVbRUO.WiDMbeky2OHPkD2Q3yU0gDgd0W.al.', 'cliente', CURRENT_TIMESTAMP),
+(4, 'Paco Conductor', 'paco@villalobos.local', '$2y$10$yvkhrE.nGujfFLi060JHIuAv4tsmVJe/6unVbH9LPLEevOrjUOdtS', 'conductor', CURRENT_TIMESTAMP);
 
 --
 -- Volcado de datos para la tabla `mensajes_contacto`

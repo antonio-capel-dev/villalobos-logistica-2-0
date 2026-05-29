@@ -1,0 +1,6 @@
+# Dependencias Python – Villalobos Logística 2.0
+# Instalar con: pip install -r requirements.txt
+
+pymysql>=1.1.0        # Conector MySQL puro Python (estadisticas_billing.py, generador_reportes.py)
+
+# Nota: calculadora_distancias.py solo usa stdlib (urllib, json, math, time) — sin dependencias externas.

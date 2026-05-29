@@ -11,12 +11,21 @@
     
     <link rel="canonical" href="https://www.villaloboslogistica.com/galeria.html" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <!-- Fuentes locales -->
+    <link rel="preload" as="font" href="./assets/fonts/inter.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="./assets/fonts/outfit-700.woff2" type="font/woff2" crossorigin />
+    <!-- CSS principal local (no bloquea en servidor externo) -->
+    <link rel="stylesheet" href="./assets/css/styles.min.css" />
+    <!-- Font Awesome async -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /></noscript>
+    <script src="./assets/js/css-loader.js" defer></script>
 
-    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <style>
+      .main-header:not(.scrolled){background:linear-gradient(135deg,rgba(15,23,42,.92) 0%,rgba(30,58,138,.85) 100%)}
+      @media(max-width:480px){.top-bar{display:none}}
+    </style>
   </head>
   <body>
     <header class="main-header">
@@ -32,7 +41,7 @@
       <div class="header-container">
         <div class="logo">
           <a href="index.html" aria-label="Inicio">
-            <img src="./assets/img/logo.png" alt="Logotipo de Villalobos Logística">
+            <img src="./assets/img/logo.webp" alt="Logotipo de Villalobos Logística" width="48" height="48" loading="eager">
             <div class="logo-text">
                 <span class="logo-title">Villalobos</span>
                 <span class="logo-subtitle">Logística</span>
@@ -64,15 +73,24 @@
               </div>
               <div class="services-grid">
                   <div class="service-card" style="padding: 1rem;">
-                      <img src="./assets/img/truck-1.png" alt="Camión Rígido Villalobos Logística" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;">
+                      <picture>
+                        <source srcset="./assets/img/truck-1.webp" type="image/webp">
+                        <img src="./assets/img/truck-1.png" alt="Camión Rígido Villalobos Logística" width="900" height="600" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
+                      </picture>
                       <h2 style="margin-top: 1rem;">Camiones Rígidos</h2>
                   </div>
                   <div class="service-card" style="padding: 1rem;">
-                      <img src="./assets/img/truck-2.jpg" alt="Furgoneta Express Villalobos Logística" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;">
+                      <picture>
+                        <source srcset="./assets/img/truck-2.webp" type="image/webp">
+                        <img src="./assets/img/truck-2.jpg" alt="Furgoneta Express Villalobos Logística" width="900" height="600" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
+                      </picture>
                       <h2 style="margin-top: 1rem;">Furgonetas Express</h2>
                   </div>
                   <div class="service-card" style="padding: 1rem;">
-                      <img src="./assets/img/truck-3.jpg" alt="Transporte Especial Villalobos Logística" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;">
+                      <picture>
+                        <source srcset="./assets/img/truck-3.webp" type="image/webp">
+                        <img src="./assets/img/truck-3.jpg" alt="Transporte Especial Villalobos Logística" width="900" height="600" style="border-radius: 8px; width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
+                      </picture>
                       <h2 style="margin-top: 1rem;">Transporte Especial</h2>
                   </div>
               </div>
@@ -110,7 +128,7 @@
     <div id="chatWidget">
       <button id="chatBoton" aria-label="Abrir chat de contacto" title="¿Hablamos?"><i class="fas fa-robot" id="chatIconoAbierto"></i><i class="fas fa-times" id="chatIconoCerrado" hidden></i></button>
       <div id="chatPanel" hidden>
-        <div class="chat-cabecera"><img src="./assets/img/logo.png" alt="" aria-hidden="true" class="chat-logo"><div><p class="chat-nombre-empresa">Villalobos Logística</p><p class="chat-estado"><span class="chat-punto-verde"></span> En línea</p></div></div>
+        <div class="chat-cabecera"><img src="./assets/img/logo.webp" alt="" aria-hidden="true" class="chat-logo" width="40" height="40" loading="lazy"><div><p class="chat-nombre-empresa">Villalobos Logística</p><p class="chat-estado"><span class="chat-punto-verde"></span> En línea</p></div></div>
         <div id="chatMensajes" class="chat-mensajes" aria-live="polite"></div>
         <div class="chat-entrada"><input type="text" id="chatInput" class="chat-input" placeholder="Escribe aquí..." aria-label="Escribe tu respuesta" autocomplete="off"><button id="chatEnviar" class="chat-boton-enviar" aria-label="Enviar mensaje"><i class="fas fa-paper-plane"></i></button></div>
       </div>

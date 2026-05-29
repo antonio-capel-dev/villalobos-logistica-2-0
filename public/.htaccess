@@ -1,0 +1,95 @@
+# ============================================================
+# .htaccess /public - Villalobos Logistica 2.0
+# ============================================================
+# - HTTPS forzado.
+# - URLs limpias: /servicios en lugar de /servicios.html.
+# - Cabeceras basicas de seguridad.
+# - Compresion y cache de estaticos.
+# - Bloquear archivos de respaldo (.bak, .swp, ~) y dotfiles.
+# ============================================================
+
+# --- 1. HTTPS forzado ---
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Saltar HTTPS en localhost (desarrollo)
+    RewriteCond %{HTTP_HOST} !^localhost [NC]
+    RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+    # --- 2. URLs limpias ---
+    # Quitar .html final: /servicios -> servicios.html (sin redirect)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^([^.]+)$ $1.html [L]
+
+    # Si llega con .html explicito, redirigir a la version sin extension (canonical)
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
+</IfModule>
+
+# --- 3. Cabeceras de seguridad ---
+<IfModule mod_headers.c>
+    # Evitar que el navegador adivine el tipo de contenido
+    Header set X-Content-Type-Options "nosniff"
+    # No permitir que la web se cargue en un iframe ajeno
+    Header set X-Frame-Options "SAMEORIGIN"
+    # Politica de referrer minimalista
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    # Politica de permisos restrictiva
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # HSTS: avisa al navegador de usar siempre HTTPS (1 anio)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    # Content Security Policy
+    # - script-src: 'self' + unpkg.com (Leaflet cargado dinámicamente en mapa.js)
+    # - style-src:  'unsafe-inline' necesario por estilos inline en HTML + Leaflet CSS desde unpkg
+    # - img-src:    https: cubre los tiles de OpenStreetMap (*.tile.openstreetmap.org)
+    # - frame-src:  eliminado google.com (no se usa Google Maps; se usa OpenStreetMap/Leaflet)
+    # - upgrade-insecure-requests: fuerza HTTPS en subrecursos
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://unpkg.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    # X-XSS-Protection desactivado explícitamente: los navegadores modernos lo ignoran y la
+    # implementación antigua de Chrome tenía vulnerabilidades propias. La CSP lo reemplaza.
+    Header set X-XSS-Protection "0"
+</IfModule>
+
+# --- 4b. Cache-Control para páginas del panel (datos sensibles) ---
+# El panel se sirve desde /panel/, fuera de /public/, pero por si se accede
+# a través de esta configuración, forzamos no-store en rutas de administración.
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m|/panel/|">
+        Header set Cache-Control "no-store, no-cache, must-revalidate"
+        Header set Pragma "no-cache"
+    </If>
+</IfModule>
+
+# --- 4. Bloquear archivos de respaldo y dotfiles ---
+<FilesMatch "(^\.|\.bak$|\.swp$|~$)">
+    Require all denied
+</FilesMatch>
+
+# --- 5. Compresion gzip de estaticos ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- 6. Cache de estaticos (1 mes para imagenes/css/js) ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg  "access plus 1 month"
+    ExpiresByType image/png   "access plus 1 month"
+    ExpiresByType image/webp  "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType font/woff2   "access plus 1 year"
+    ExpiresByType font/woff    "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType text/css    "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/html   "access plus 1 hour"
+</IfModule>
+
+# --- 7. Pagina de error 404 personalizada (opcional) ---
+ErrorDocument 404 /404.html

@@ -1,3 +1,29 @@
+/* =====================================================================
+   FUENTES AUTOHOSPEDADAS — Inter (variable 300-700) + Outfit 700
+   Elimina dependencia externa de Google Fonts → mejora FCP
+   ===================================================================== */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../fonts/inter.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/outfit-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   /* Premium Color Palette */
   --primary: #1A237E; /* Dark Blue */
@@ -53,7 +79,9 @@ h4 {
 a {
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  /* Solo opacity: es la única propiedad compositable por el GPU.
+     Eliminar 'color' de la transición resuelve los 44 elementos no compuestos de Lighthouse. */
+  transition: opacity 0.25s ease;
 }
 
 ul {
@@ -159,17 +187,53 @@ img {
 
 /* Header */
 .main-header {
-  height: auto; /* Allow auto height for content */
+  height: auto;
   min-height: 90px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  position: absolute;
+  background: transparent;
+  -webkit-backdrop-filter: none; /* Safari iOS */
+  backdrop-filter: none;
+
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid transparent;
   display: flex;
   flex-direction: column;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header scroll-aware: siempre azul oscuro, más opaco al hacer scroll */
+.main-header.scrolled {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  -webkit-backdrop-filter: blur(10px); /* Safari iOS */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Fondo azul oscuro semitransparente sobre el hero */
+.main-header:not(.scrolled) {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 58, 138, 0.85) 100%);
+}
+
+/* Texto siempre blanco: header siempre es azul oscuro */
+.main-header .logo-title,
+.main-header .logo-subtitle {
+  color: #fff;
+}
+.main-header .main-nav a:not(.btn) {
+  color: rgba(255, 255, 255, 0.92);
+}
+.main-header .main-nav a:not(.btn):hover {
+  color: #fff;
+}
+.main-header .mobile-menu-toggle {
+  color: #fff;
+}
+/* Menú móvil desplegable: fondo blanco → links oscuros */
+.main-header .main-nav.active a:not(.btn) {
+  color: var(--dark);
 }
 
 .header-container {
@@ -230,6 +294,11 @@ img {
 .main-nav a {
   font-weight: 500;
   font-size: 0.95rem;
+  /* Área táctil mínima 44px — WCAG 2.5.5 (incluye tablets táctiles en desktop) */
+  padding: 0.5rem 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .main-nav a:not(.btn):hover {
@@ -246,21 +315,35 @@ img {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
+    height: 100vh;   /* Fallback: Safari < 15.4, Chrome < 108, Firefox < 101 */
+    height: 100svh;  /* svh = Small Viewport Height (excluye barra de dirección iOS) */
     min-height: 600px;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.8) 100%), url('../img/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    /* Solo el gradient — la imagen la gestiona .hero-bg-img (<img> real para LCP) */
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.8) 100%);
     color: white;
-    padding-top: var(--header-height);
+    padding-top: 0;
     display: flex;
     align-items: center;
     position: relative;
+    z-index: 1;          /* Aislar el stacking context del hero */
+    isolation: isolate;  /* Evitar que elementos de secciones adyacentes se filtren visualmente */
     overflow: hidden;
 }
 
-/* Abstract Background Shapes */
+/* Imagen de fondo del hero: <img> real con fetchpriority=high
+   El navegador la descubre en el HTML → LCP óptimo.
+   Visualmente idéntico al background-image anterior. */
+.hero-bg-img {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0; /* Fallback Safari < 14.1 */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Abstract Background Shape (z-index 1, sobre la imagen) */
 .hero::before {
   content: "";
   position: absolute;
@@ -276,6 +359,9 @@ img {
   border-radius: 50%;
   z-index: 1;
 }
+
+/* Nota: el fallback para svh se gestiona por cascade (height: 100vh arriba),
+   no con @supports — más compacto y equivalente en todos los navegadores. */
 
 .hero-content {
   display: grid;
@@ -311,6 +397,7 @@ img {
 
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px); /* Safari iOS */
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 2rem;
@@ -320,6 +407,7 @@ img {
   gap: 1rem;
   font-weight: 600;
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .glass-card i {
@@ -358,10 +446,11 @@ img {
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
   border: 1px solid #f1f5f9;
+}
+.service-card:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .service-card:hover {
@@ -448,6 +537,19 @@ img {
   color: white;
 }
 
+/* Email del footer: tap-area mínima en móvil */
+.footer-col a[href^="mailto"] {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.footer-col a[href^="mailto"]:hover {
+  color: white;
+}
+
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2rem 0;
@@ -471,29 +573,46 @@ img {
 
 /* Responsive */
 @media (max-width: 768px) {
+  /* Top-bar: solo teléfonos en una línea */
   .top-bar .container {
       justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0.4rem 1rem;
   }
-  
+  /* Ocultar dirección y email en móvil, solo teléfonos */
+  .top-bar .container > span:not([class*="phone"]),
+  .top-bar a[href^="mailto"] {
+      display: none;
+  }
+
   .header-container {
       padding: 1rem;
   }
 
   .logo img {
-      height: 50px; /* Smaller on mobile */
+      height: 50px;
   }
-  
+
   .logo-title {
       font-size: 1.4rem;
   }
-  
+
   .logo-subtitle {
-     font-size: 0.8rem; 
+     font-size: 0.8rem;
      letter-spacing: 2px;
+  }
+
+  /* Header siempre azul: logo siempre blanco */
+  .main-header .logo-title,
+  .main-header .logo-subtitle {
+    color: #fff;
+  }
+
+  /* Menú móvil abierto: fondo blanco → links oscuros (ambos estados) */
+  .main-header .main-nav.active a:not(.btn) {
+    color: var(--dark);
   }
 
   .main-nav {
@@ -520,12 +639,27 @@ img {
     gap: 1.5rem;
   }
 
+  /* Nav links: área táctil mínima 44px */
+  .main-nav a:not(.btn) {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+
+  /* Hamburger: área táctil 44×44 */
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+    border-radius: 8px;
   }
 
   .hero {
-      padding-top: 150px; /* Extra space for taller mobile header */
+      padding-top: 0;
   }
 
   .hero-content {
@@ -534,8 +668,9 @@ img {
     gap: 3rem;
   }
 
-  .hero-text h2 {
-    font-size: 2.5rem;
+  .hero-text h2,
+  .hero-text h1 {
+    font-size: 2rem;
   }
 
   .hero-buttons {
@@ -554,70 +689,12 @@ img {
 }
 
 /* =========================================
-   ESTILOS REFACTORIZADOS DEL PANEL (CASTELLANO)
+   ESTILOS DEL PANEL — movidos a styles-panel.css
+   Los estilos de login, tablas, modales, KPIs y
+   botones del panel NO se cargan en la landing.
    ========================================= */
 
-/* Utilidades generales */
-.fondo-panel {
-    background-color: #f1f5f9;
-}
-
-.alineacion-izquierda {
-    text-align: left;
-}
-
-.alineacion-derecha {
-    text-align: right;
-}
-
-.alineacion-centro {
-    text-align: center;
-}
-
-.texto-secundario {
-    color: #64748b;
-}
-
-.margen-inferior-doble {
-    margin-bottom: 2rem;
-}
-
-.margen-superior-simple {
-    margin-top: 1.5rem;
-}
-
-.texto-pequeno {
-    font-size: 0.85rem;
-}
-
-.enlace-primario {
-    color: var(--primary);
-    text-decoration: underline;
-}
-
-/* Auth / Login */
-.contenedor-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-}
-
-.tarjeta-login {
-    background: white;
-    padding: 3rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.tarjeta-login img {
-    width: 180px;
-    margin-bottom: 1.5rem;
-}
+/* Auth/Login — ver styles-panel.css */
 
 /* Formularios */
 .grupo-formulario {
@@ -661,338 +738,167 @@ img {
     background-color: #d1fae5;
 }
 
-/* Panel Layout / Dashboard */
-.contenedor-principal {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
+/* Panel layout, botones del panel — ver styles-panel.css */
 
-.cabecera-panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.cabecera-tarjeta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.tarjeta {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-}
-
-.insignia-rol {
-    background: var(--primary);
-    color: white;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-
-.separador-panel {
-    margin: 2rem 0;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-.grupo-botones {
-    display: flex;
-    gap: 1rem;
-}
-
-/* Botones Adicionales */
-.boton {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    font-size: 1rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.boton-ancho {
-    width: 100%;
-    margin-top: 0.5rem;
-}
-
-.boton-primario {
-    background-color: var(--primary);
-    color: white;
-}
-.boton-primario:hover {
-    background-color: var(--primary-dark);
-}
-
-.boton-secundario {
-    background-color: transparent;
-    color: var(--dark);
-    border: 2px solid var(--dark);
-}
-.boton-secundario:hover {
-    background: rgba(0,0,0,0.05);
-}
-
-.boton-contorno {
-    background-color: transparent;
-    color: var(--dark);
-    border: 1px solid #cbd5e1;
-}
-.boton-contorno:hover {
-    background-color: #f1f5f9;
-}
-
-.boton-pequeno {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-    border-radius: 4px;
-}
-
-.boton-peligro {
-    background-color: #ef4444;
-    color: white;
-}
-.boton-peligro:hover {
-    background-color: #dc2626;
-}
-
-/* Cuadrículas Formularios Panel */
-.cuadricula-formulario {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* Tablas Data */
-.contenedor-tabla {
-    overflow-x: auto;
-}
-
-.tabla-datos {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    color: #334155;
-}
-
-.tabla-datos th, .tabla-datos td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.tabla-datos th {
-    background-color: #f1f5f9;
-    font-weight: 600;
-}
-
-.tabla-datos tr:hover {
-    background-color: #f8fafc;
-}
-
-/* Insignias Estado */
-.insignia-estado {
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.estado-pendiente {
-    background-color: #fef3c7;
-    color: #d97706;
-}
-
-.estado-entregado {
-    background-color: #d1fae5;
-    color: #059669;
-}
-
-.estado-en_ruta {
-    background-color: #dbeafe;
-    color: #2563eb;
-}
-
-.estado-cancelado {
-    background-color: #fee2e2;
-    color: #dc2626;
-}
-
-/* =========================================================
-   MODAL DE EDICIÓN
-   ========================================================= */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(15, 23, 42, 0.6);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
-
-.modal-overlay[hidden] {
-    display: none;
-}
-
-.modal-contenido {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 680px;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: modalEntrada 0.2s ease-out;
-}
-
-@keyframes modalEntrada {
-    from { opacity: 0; transform: scale(0.95) translateY(-10px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.modal-cabecera h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #1e293b;
-}
-
-.boton-cerrar-modal {
-    background: none;
-    border: none;
-    font-size: 1.6rem;
-    line-height: 1;
-    color: #94a3b8;
-    cursor: pointer;
-    padding: 0 0.25rem;
-    transition: color 0.2s;
-}
-
-.boton-cerrar-modal:hover {
-    color: #ef4444;
-}
-
-.modal-cuerpo {
-    padding: 1.5rem;
-}
-
-/* Botón Editar en tabla */
-.boton-editar {
-    background-color: #3b82f6;
-    color: white;
-    margin-right: 0.4rem;
-}
-
-.boton-editar:hover {
-    background-color: #2563eb;
-}
-
-/* =========================================================
-   TARJETAS KPI - DASHBOARD
-   ========================================================= */
-.grid-kpi {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.tarjeta-kpi {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.kpi-icono {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-}
-
-.kpi-etiqueta {
-    margin: 0;
-    font-size: 0.8rem;
-    color: #64748b;
-    font-weight: 500;
-}
-
-.kpi-valor {
-    margin: 0.1rem 0 0;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #1e293b;
-    line-height: 1.2;
-}
+/* Tablas, modales, KPIs del panel — ver styles-panel.css */
 
 /* =========================================================
    WIDGET DE CHAT FLOTANTE
    ========================================================= */
 
 
-/* ===== BOTÓN WHATSAPP FLOTANTE ===== */
-#whatsappBoton {
+/* ===== WIDGET WHATSAPP FLOTANTE ===== */
+#waWidget {
     position: fixed;
     bottom: 1.5rem;
-    right: 1.5rem;
+    left: 1.5rem;
     z-index: 998;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+#waBoton {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: none;
+    background: #25d366;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+    transition: transform .2s; /* box-shadow no compositable — eliminado */
+    animation: pulsarWa 3.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+#waBoton i { font-size: 1.8rem; line-height: 1; }
+
+#waBoton:hover {
+    transform: translateY(-3px) scale(1.07);
+    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.65);
+}
+
+/* Panel mini */
+#waPanel {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    width: 300px;
+    overflow: hidden;
+    animation: waSlide .25s ease;
+    order: -1;
+}
+
+@keyframes waSlide {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.wa-panel-cabecera {
+    background: #075e54;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.wa-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #25d366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.wa-nombre {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.wa-estado {
+    margin: 0;
+    font-size: 0.78rem;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.wa-punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #25d366;
+    display: inline-block;
+}
+
+.wa-cerrar {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin-left: auto;
+    line-height: 1;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.wa-cuerpo {
+    background: #e5ddd5;
+    padding: 1rem;
+}
+
+.wa-burbuja {
+    background: #fff;
+    border-radius: 0 12px 12px 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    max-width: 90%;
+}
+
+.wa-burbuja p { margin: 0; }
+
+.wa-btn-abrir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background: #25d366;
     color: #fff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 50px;
-    padding: 0.7rem 1.3rem 0.7rem 1rem;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
-    transition: transform .2s, box-shadow .2s;
-    animation: pulsarWa 3.5s ease-in-out infinite;
+    font-size: 0.95rem;
+    padding: 0.9rem;
+    transition: background .2s;
 }
 
-#whatsappBoton i {
-    font-size: 1.4rem;
-}
-
-#whatsappBoton:hover {
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6);
-}
+.wa-btn-abrir:hover { background: #1ebe5d; color: #fff; }
+.wa-btn-abrir i { font-size: 1.2rem; }
 
 @keyframes pulsarWa {
-    0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45); }
-    50%       { box-shadow: 0 4px 32px rgba(37, 211, 102, 0.7), 0 0 0 10px rgba(37, 211, 102, 0.08); }
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.06); }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    #waWidget { bottom: 0.75rem; left: 0.75rem; }
+    #waBoton  { width: 50px; height: 50px; }
+    #waPanel  { width: calc(100vw - 1.5rem); }
 }
 
 /* ===== CHAT WIDGET ===== */
@@ -1050,7 +956,7 @@ img {
     background: none;
     border: none;
     font-size: 1rem;
-    color: #94a3b8;
+    color: #64748b; /* #94a3b8 sobre blanco = 2.45:1 — falla AA. #64748b = 4.6:1 ✓ */
     cursor: pointer;
     line-height: 1;
     padding: 0 2px;
@@ -1065,42 +971,65 @@ img {
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Botón pill del chat */
+/* Botón pill del chat — diseñado para llamar la atención */
 #chatBoton {
     border: none;
     cursor: pointer;
     font-family: inherit;
-    background: var(--primary);
+    /* Gradiente naranja-cálido: contrasta con el azul corporativo y llama a la acción */
+    background: linear-gradient(135deg, #FF6B35 0%, #FF3D00 100%);
     color: #fff;
     border-radius: 50px;
-    padding: 0 1.4rem 0 1rem;
-    height: 52px;
+    padding: 0 1.8rem 0 1.4rem;
+    height: 62px;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 20px rgba(37,99,235,.45);
-    transition: transform .2s, box-shadow .2s;
-    animation: chatBounce 7s ease-in-out infinite;
+    gap: 0.5rem;
+    box-shadow: 0 6px 28px rgba(255, 61, 0, 0.55);
+    transition: transform .2s; /* box-shadow no compositable — eliminado */
+    animation: chatBounce 6s ease-in-out infinite;
     position: relative;
     white-space: nowrap;
+    will-change: transform;
+}
+
+/* Halo pulsante — refuerza la sensación de "activo/disponible" */
+#chatBoton::before {
+    content: '';
+    position: absolute;
+    top: -6px; right: -6px; bottom: -6px; left: -6px; /* Fallback Safari < 14.1 */
+    inset: -6px;
+    border-radius: 50px;
+    background: transparent;
+    border: 3px solid rgba(255, 107, 53, 0.7);
+    animation: chatHalo 2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes chatHalo {
+    0%   { opacity: 1;   transform: scale(1); }
+    70%  { opacity: 0;   transform: scale(1.22); }
+    100% { opacity: 0;   transform: scale(1.22); }
 }
 
 #chatBoton:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 28px rgba(37,99,235,.55);
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 12px 36px rgba(255, 61, 0, 0.7);
 }
 
 .chat-boton-texto {
-    font-size: 0.92rem;
-    font-weight: 700;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
 
-/* Bounce atencional cada 7 segundos */
+/* Bounce atencional cada 6 segundos */
 @keyframes chatBounce {
-    0%, 82%, 100% { transform: translateY(0); }
-    85%           { transform: translateY(-8px); }
+    0%, 80%, 100% { transform: translateY(0); }
+    84%           { transform: translateY(-9px); }
     88%           { transform: translateY(-2px); }
-    91%           { transform: translateY(-6px); }
-    94%           { transform: translateY(0); }
+    92%           { transform: translateY(-6px); }
+    96%           { transform: translateY(0); }
 }
 
 /* Notificación roja */
@@ -1317,7 +1246,7 @@ img {
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1400,7 +1329,7 @@ img {
     font-size: 0.82rem;
     font-weight: 600;
     margin-top: 0.75rem;
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
     width: 100%;
 }
 
@@ -1493,7 +1422,8 @@ img {
     font-size: 1rem;
     font-weight: 700;
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-    transition: all 0.3s ease;
+    /* Solo transform: compositable por GPU. box-shadow se elimina de la transición. */
+    transition: transform 0.3s ease;
 }
 
 .service-cta:hover {
@@ -1536,6 +1466,7 @@ img {
 
 /* Select con mismo estilo que los inputs */
 select.control-formulario {
+    -webkit-appearance: none; /* Safari iOS — sin esto muestra la flecha nativa del SO */
     appearance: none;
     background-image: url(data:image/svg+xml,%3Csvg xmlns=http://www.w3.org/2000/svg width=12 height=12 viewBox=0 0 12 12%3E%3Cpath fill=%236b7280 d=M6 8L1 3h10z/%3E%3C/svg%3E);
     background-repeat: no-repeat;
@@ -1676,7 +1607,7 @@ select.control-formulario {
   font-weight: 600;
   font-size: 0.85rem;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s;
   margin-top: 0.5rem;
 }
 .btn-resena:hover {
@@ -1726,9 +1657,10 @@ select.control-formulario {
   font-size: 0.9rem;
   color: #1e293b;
 }
+/* #94a3b8 sobre blanco = 2.45:1 — falla WCAG AA. #64748b = 4.6:1 ✓ */
 .testimonio-fecha {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #64748b;
 }
 .testimonio-google-icon {
   width: 20px;
@@ -1794,6 +1726,7 @@ select.control-formulario {
   margin-bottom: 0.5rem;
 }
 .quienes-titulo {
+  font-size: 1.8rem;                     /* Fallback Safari < 13.1 */
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 800;
   color: #1e293b;
@@ -1897,7 +1830,7 @@ select.control-formulario {
   border-radius: 14px;
   padding: 1.5rem 1rem;
   cursor: default;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease; /* Solo transform. border/shadow cambian al instante (no compositable). */
 }
 .sector-card:hover {
   transform: translateY(-4px);
@@ -1914,7 +1847,7 @@ select.control-formulario {
   justify-content: center;
   font-size: 1.4rem;
   color: #fff;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease; /* background no compositable — cambio instantáneo */
 }
 .sector-card:hover .sector-icono {
   background: var(--primary-dark);
@@ -1965,7 +1898,7 @@ select.control-formulario {
   font-size: 0.95rem !important;
   border-radius: 8px !important;
   border: 1.5px solid #e2e8f0 !important;
-  transition: border-color 0.2s, box-shadow 0.2s !important;
+  transition: box-shadow 0.2s !important;
 }
 .control-formulario:focus {
   border-color: var(--primary-color, #e63946) !important;
@@ -2008,7 +1941,8 @@ select.control-formulario {
   display: block;
   min-height: 1rem;
 }
-.helper-error { color: #ef4444; }
+/* #ef4444 sobre blanco = 3.63:1 — falla WCAG AA. #b91c1c = 7.5:1 ✓ */
+.helper-error { color: #b91c1c; }
 .helper-ok    { color: #16a34a; }
 
 /* Shake al intentar enviar con errores */
@@ -2077,6 +2011,7 @@ select.control-formulario {
   margin-bottom: 0.5rem;
 }
 .proceso-titulo {
+  font-size: 1.8rem;                     /* Fallback Safari < 13.1 */
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 800;
   color: #fff;
@@ -2162,6 +2097,7 @@ select.control-formulario {
   flex-wrap: wrap;
 }
 .cta-urgente-texto h2 {
+  font-size: 1.7rem;                      /* Fallback Safari < 13.1 */
   font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 800;
   color: #fff;
@@ -2189,7 +2125,7 @@ select.control-formulario {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: transform .15s, box-shadow .15s;
+  transition: transform .15s;
   box-shadow: 0 4px 16px rgba(0,0,0,.15);
 }
 .cta-btn-tel:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
@@ -2204,7 +2140,7 @@ select.control-formulario {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: transform .15s, box-shadow .15s;
+  transition: transform .15s;
   box-shadow: 0 4px 16px rgba(0,0,0,.15);
 }
 .cta-btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
@@ -2229,6 +2165,9 @@ select.control-formulario {
 }
 .galeria-item img {
   width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   display: block;
   transition: transform .35s ease;
   border-radius: 12px;
@@ -2236,6 +2175,7 @@ select.control-formulario {
 .galeria-item:hover img { transform: scale(1.06); }
 .galeria-overlay {
   position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0; /* Fallback Safari < 14.1 */
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%);
   opacity: 0;
@@ -2492,7 +2432,6 @@ select.control-formulario {
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: .05em;
-    transition: color .3s;
 }
 
 .progreso-circulo {
@@ -2506,7 +2445,7 @@ select.control-formulario {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background .3s, color .3s, box-shadow .3s;
+    transition: transform .3s; /* Solo transform: compositable. color/bg/shadow cambian instantáneo. */
 }
 
 .form-progreso-paso.activo .progreso-circulo {
@@ -2588,7 +2527,7 @@ select.control-formulario {
     border-radius: 12px;
     background: #fff;
     cursor: pointer;
-    transition: border-color .2s, background .2s, transform .15s, box-shadow .2s;
+    transition: transform .15s ease; /* Solo transform: compositable. border/bg/shadow cambian al instante. */
     font-size: 0.78rem;
     font-weight: 600;
     color: #475569;
@@ -2597,8 +2536,8 @@ select.control-formulario {
 
 .servicio-opcion i {
     font-size: 1.4rem;
-    color: #94a3b8;
-    transition: color .2s;
+    color: #64748b; /* #94a3b8 sobre blanco = 2.45:1 — falla WCAG AA. #64748b = 4.6:1 ✓ */
+    /* Sin transition: color no es compositable y los iconos son pequeños — cambio instante es aceptable */
 }
 
 .servicio-opcion:hover {
@@ -2696,7 +2635,7 @@ select.control-formulario {
     box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .servicio-selector {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2753,7 +2692,8 @@ select.control-formulario {
 .precio-est-label  { grid-area: label;  font-size: .8rem; color: #15803d; font-weight: 600; }
 .precio-est-km     { grid-area: km;     font-size: .85rem; color: #166534; }
 .precio-est-precio { grid-area: precio; font-size: 1.25rem; font-weight: 700; color: #15803d; white-space: nowrap; }
-.precio-est-nota   { grid-area: nota;   font-size: .72rem; color: #4ade80; font-style: italic; }
+/* #4ade80 sobre #f0fdf4 = ~1.8:1 — falla WCAG AA. #166534 = 7.9:1 ✓ */
+.precio-est-nota   { grid-area: nota;   font-size: .72rem; color: #166534; font-style: italic; }
 .precio-cargando {
     font-size: .85rem;
     color: #64748b;
@@ -2777,7 +2717,7 @@ select.control-formulario {
   font-size: .8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background .15s, color .15s;
+  transition: background .15s;
   white-space: nowrap;
 }
 .chat-chip:hover {
@@ -2799,11 +2739,13 @@ select.control-formulario {
   height: 7px;
   border-radius: 50%;
   background: #94a3b8;
-  animation: chatBounce .9s infinite ease-in-out;
+  animation: chatTypingBounce .9s infinite ease-in-out;
 }
 .chat-typing span:nth-child(2) { animation-delay: .15s; }
 .chat-typing span:nth-child(3) { animation-delay: .30s; }
-@keyframes chatBounce {
+/* Renombrado de chatBounce a chatTypingBounce para evitar conflicto
+   con la animacion del boton #chatBoton */
+@keyframes chatTypingBounce {
   0%, 60%, 100% { transform: translateY(0); opacity: .5; }
   30%            { transform: translateY(-5px); opacity: 1; }
 }
@@ -2908,11 +2850,24 @@ select.control-formulario {
     padding: 0 0.8rem;
   }
 
-  /* Callout responsivo */
+  /* Callout oculto en móvil — molesta más que ayuda */
   .chat-callout {
-    max-width: 85vw;
-    font-size: 0.8rem;
-    padding: 0.8rem 1rem;
+    display: none !important;
+  }
+
+  /* Botón chat como círculo en móvil */
+  #chatBoton .chat-boton-texto {
+    display: none;
+  }
+  #chatBoton {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+  }
+  #chatBoton i {
+    font-size: 1.5rem;
   }
 
   /* Grid responsive */
@@ -2968,6 +2923,11 @@ select.control-formulario {
 
 /* Móviles pequeños (hasta 480px) */
 @media (max-width: 480px) {
+  /* Top-bar: ocultar completamente en pantallas muy pequeñas para ganar espacio */
+  .top-bar {
+    display: none;
+  }
+
   :root {
     --header-height: 60px;
     --container-width: 100%;
@@ -2977,6 +2937,45 @@ select.control-formulario {
     font-size: 14px;
     line-height: 1.6;
   }
+
+  /* Hero h1 en móvil pequeño */
+  .hero-text h1, .hero-text h2 {
+    font-size: 1.6rem;
+  }
+  .hero-visual {
+    display: none;
+  }
+
+  /* Footer gap reducido */
+  .footer-grid {
+    gap: 1.5rem;
+  }
+
+  /* Service card más compacta */
+  .service-card {
+    padding: 1rem;
+  }
+  .service-card img {
+    height: 160px;
+  }
+
+  /* waWidget z-index y panel fijo */
+  #waWidget { z-index: 9998; }
+  #waPanel {
+    position: fixed;
+    bottom: 80px;
+    left: 0.75rem;
+    width: calc(100vw - 1.5rem);
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  /* ruta-campos en columna en móvil */
+  .ruta-campos {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .ruta-flecha { display: none; }
 
   /* Mejor contraste */
   .chat-burbuja-bot {
@@ -3084,11 +3083,9 @@ select.control-formulario {
     font-size: 0.75rem;
   }
 
-  /* Callout */
-  .chat-callout {
-    max-width: 90vw;
-    font-size: 0.75rem;
-    padding: 0.7rem 0.9rem;
+  #chatBoton {
+    width: 50px;
+    height: 50px;
   }
 
   .chat-resumen {
@@ -3212,5 +3209,594 @@ select.control-formulario {
 
   a {
     text-decoration: underline;
+  }
+}
+
+/* =====================================================================
+   CONTENT-VISIBILITY: SKIP-RENDER para secciones fuera del viewport
+   Reduce drásticamente el Style & Layout work en carga inicial (~648ms).
+   contain-intrinsic-size evita CLS cuando la sección entra al viewport.
+   ===================================================================== */
+/* content-visibility solo si el navegador lo soporta; sin soporte, sin penalización */
+@supports (content-visibility: auto) {
+  .quienes-somos-seccion,
+  .galeria-seccion,
+  .testimonios-seccion,
+  .ruta-section,
+  .main-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+}
+
+/* =====================================================================
+   FONT-DISPLAY OVERRIDE para Font Awesome desde CDN
+   Por defecto usa 'block' (invisible durante carga). 'swap' muestra
+   el carácter de fallback en su lugar hasta que la fuente llega.
+   ===================================================================== */
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-display: swap;
+}
+
+/* =====================================================================
+   ACCESIBILIDAD — FOCUS VISIBLE
+   Sin esto, los usuarios de teclado no ven dónde están.
+   :focus-visible solo activa el anillo cuando el usuario navega con
+   teclado/switch, no cuando hace clic — no molesta a los usuarios de ratón.
+   ===================================================================== */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Los inputs ya tienen box-shadow de foco — solo desactivamos el outline duplicado */
+.control-formulario:focus-visible,
+.chat-input:focus-visible {
+  outline: none;
+}
+
+/* Botones del chat con fondo oscuro: anillo blanco */
+#chatBoton:focus-visible,
+#waBoton:focus-visible,
+.chat-boton-enviar:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* =====================================================================
+   ACCESIBILIDAD — CONTRASTE
+   --gray: #64748b sobre #f8fafc = 4.46:1 (falla 4.5:1 por 0.04)
+   Ajuste mínimo a #5e6e82 = 4.52:1 ✓
+   ===================================================================== */
+:root {
+  --gray: #5e6e82;
+}
+
+/* =====================================================================
+   PREFERS-REDUCED-MOTION
+   Deshabilita todas las animaciones/transiciones para usuarios que
+   tienen activada la opción "Reducir movimiento" en su SO.
+   Cumple WCAG 2.1 — criterio 2.3.3 (AAA) y es buena práctica AA.
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =====================================================================
+   FIXES RESPONSIVIDAD — pantallas ≤480px
+   ===================================================================== */
+
+/* Fix 1: .precio-estimado-inner — grid 3 col desborda en 320px */
+@media (max-width: 480px) {
+  .precio-estimado-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "km"
+      "precio"
+      "nota";
+  }
+  .precio-est-precio {
+    font-size: 1.1rem;
+  }
+}
+
+/* Fix 2: .contacto-cabecera h2 — 2rem sin override móvil */
+@media (max-width: 480px) {
+  .contacto-cabecera h2 {
+    font-size: 1.35rem;
+  }
+}
+
+/* Fix 3: .servicio-selector — 2 col demasiado estrecho en 360px */
+@media (max-width: 400px) {
+  .servicio-selector {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   AUDITORÍA RESPONSIVIDAD — Samsung Galaxy S (360×740 DPR4)
+   17/05/2026
+   ============================================================ */
+
+/* Fix A: H1 line-height — ratio 1.10 demasiado ajustado, mínimo 1.3 */
+@media (max-width: 768px) {
+  .hero-text h1,
+  .hero-text h2 {
+    line-height: 1.3;
+  }
+}
+
+/* Fix B: Footer links — área táctil mínima 44px (WCAG 2.5.5) */
+@media (max-width: 768px) {
+  .footer-col ul li a,
+  .footer-col a[href^="tel"] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+  }
+  .footer-col ul li {
+    margin-bottom: 0;
+  }
+}
+
+/* Fix C: Galería — 2 columnas en móvil en vez de 1 (reduce altura a la mitad) */
+@media (max-width: 540px) {
+  .galeria-masonry {
+    columns: 2;
+    column-gap: 0.5rem;
+  }
+  .galeria-item {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Fix D: Botones de navegación formulario — mínimo 48px táctil */
+@media (max-width: 768px) {
+  .form-paso-nav .btn-siguiente,
+  .form-paso-nav .btn-cta-final,
+  .form-paso-nav .btn-anterior {
+    min-height: 48px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* Fix E: Servicio-opcion font-size — de 0.78rem (12.5px) a 14px mínimo */
+@media (max-width: 768px) {
+  .servicio-opcion {
+    font-size: 0.875rem;
+  }
+}
+
+/* Fix F: Textos por debajo de 14px — elevar al mínimo de legibilidad */
+@media (max-width: 768px) {
+  .testimonios-total {
+    font-size: 0.875rem;
+  }
+  .quienes-pretitulo {
+    font-size: 0.875rem;
+  }
+  .sector-nombre,
+  .sector-card span {
+    font-size: 0.875rem;
+  }
+}
+
+/* Fix G: Quiénes Somos — gap excesivo en móvil (3.5rem → 1.5rem) */
+@media (max-width: 768px) {
+  .quienes-wrapper {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Fix H: Mapa Leaflet — altura mínima más cómoda en móvil */
+@media (max-width: 768px) {
+  #mapa,
+  .leaflet-container {
+    height: 300px !important;
+    min-height: 300px;
+  }
+}
+
+/* Fix I: Overlay semiopaco detrás del menú hamburguesa */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.nav-overlay.activo {
+  display: block;
+}
+
+/* Fix J: Testimonios total — también en pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .testimonio-nombre {
+    font-size: 0.82rem;
+  }
+  .testimonio-fecha {
+    font-size: 0.72rem;
+  }
+}
+
+/* ============================================================
+   AUDITORÍA VISUAL MÓVIL — 2ª ronda · Mayo 2026
+   Fixes K–S basados en snippet de imágenes + computedStyle
+   ============================================================ */
+
+/* Fix K: Services grid — 1 columna + padding card corregido + foto landscape */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+  }
+  .service-card-contenido {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+  .service-foto {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* El H3 del card deja de estar en columna de 43px */
+  .service-card-contenido h4 {
+    font-size: 1.05rem;
+  }
+  .service-cta {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Fix L: Testimonios cards — forzar 1fr (minmax(240px,1fr) desborda en ~300px contenedor) */
+@media (max-width: 768px) {
+  .testimonios-cards {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+    min-width: 0;
+  }
+  .testimonio-card-google {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .testimonios-panel-izq {
+    flex: unset;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  /* Número de rating: 2.5rem demasiado grande en panel comprimido */
+  .testimonios-numero {
+    font-size: 2rem;
+  }
+}
+
+/* Fix M: Quiénes somos — foto no debe crecer a 400px de alto en móvil */
+@media (max-width: 768px) {
+  .quienes-foto-wrap {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .quienes-foto {
+    max-height: 220px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+  /* Cifras: 4 columnas → 2×2 para que los números sean legibles */
+  .quienes-cifras {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 1.25rem 1rem;
+    margin-bottom: 2rem;
+  }
+  .cifra-numero {
+    font-size: 1.5rem;
+  }
+  .cifra-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Fix N: Proceso pasos — columna explícita (flex-wrap no basta en todos los navegadores) */
+@media (max-width: 768px) {
+  .proceso-pasos {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .proceso-paso {
+    flex: none;
+    max-width: 100%;
+    padding: 1.25rem 0.5rem;
+  }
+}
+
+/* Fix O: Footer — 1 columna con mayor especificidad; links con área táctil 44px */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  footer a,
+  .footer-col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 4px 0;
+  }
+}
+
+/* Fix P: Hero — degradé opaco compensa hero-bg.webp pixelado en servidor;
+          line-height y gap ajustados para lectura en móvil               */
+@media (max-width: 768px) {
+  .hero {
+    /* Gradiente completamente opaco — la imagen no es fiable en servidor */
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  }
+  .hero-bg-img {
+    /* Desvanece imagen borrosa: el gradiente oscuro cubre el 80% */
+    opacity: 0.18;
+  }
+  .hero-content {
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
+  .hero h1,
+  .hero-text h1,
+  .hero-text h2 {
+    line-height: 1.35;
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+  }
+}
+
+/* Fix Q: CTA urgente — botones en columna con altura consistente */
+@media (max-width: 640px) {
+  .cta-urgente-botones {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .cta-btn-tel,
+  .cta-btn-wa {
+    width: 100%;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0.85rem 1.5rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Fix R: Galería — 2 columnas en móvil (override del columns:1 anterior) */
+@media (max-width: 540px) {
+  .galeria-masonry {
+    columns: 2 !important;
+    column-gap: 0.4rem;
+  }
+  .galeria-item {
+    margin-bottom: 0.4rem;
+  }
+}
+
+/* Fix S: Contacto — stacking con mayor especificidad que la regla de 900px */
+@media (max-width: 768px) {
+  .contacto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+  }
+  .contacto-col-info,
+  .contacto-col-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .contacto-col-form {
+    padding: 1.25rem 1rem;
+  }
+  /* Botones de selección de servicio: aumentar tap target */
+  .servicio-opcion {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+  }
+  /* Datos de contacto: no se truncan */
+  .contacto-dato-item {
+    flex-wrap: wrap;
+  }
+  .contacto-dato-item span,
+  .contacto-dato-item a {
+    overflow-wrap: break-word; /* break-word deprecado → overflow-wrap es el estándar */
+  }
+}
+
+/* ============================================================
+   AUDITORÍA VISUAL MÓVIL — 3ª ronda · Mayo 2026
+   Fixes T–Y: problemas residuales que grid/flex override no resolvía
+   Estrategia: display:block en contenedores críticos para cortar
+   la cadena de sizing heredada de flex:1 y minmax().
+   ============================================================ */
+
+/* Fix T: Testimonios — display:block corta la herencia flex:1 del wrapper */
+@media (max-width: 768px) {
+  .testimonios-wrapper {
+    display: block !important;
+  }
+  .testimonios-panel-izq {
+    width: 100% !important;
+    box-sizing: border-box;
+    flex: none;
+    margin-bottom: 1.5rem;
+  }
+  .testimonios-cards {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .testimonio-card-google {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    display: flex;        /* mantener layout interno de la card */
+    flex-direction: column;
+  }
+}
+
+/* Fix U: Contacto — display:block garantiza stacking sin depender de grid */
+@media (max-width: 768px) {
+  .contacto-grid {
+    display: block !important;
+  }
+  .contacto-col-info,
+  .contacto-col-form {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .contacto-col-info { margin-bottom: 1.5rem; }
+  .contacto-col-form { padding: 1.25rem 1rem !important; }
+
+  /* Formulario y descendientes: ninguno puede desbordarse */
+  #formularioContacto,
+  .form-progreso,
+  .form-paso,
+  .servicio-selector,
+  .ruta-campos,
+  .grupo-formulario,
+  .form-paso-nav {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+/* Fix V: service-card-contenido — !important sobre la regla base de desktop */
+@media (max-width: 768px) {
+  .service-card-contenido {
+    padding: 1.25rem 1rem 1.5rem !important;
+  }
+  .service-cta {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Fix W: quienes-foto — height fijo landscape en vez de max-height portrait */
+@media (max-width: 768px) {
+  .quienes-foto {
+    height: 200px !important;
+    max-height: 200px !important;
+    width: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+  /* Cifras: igualar columnas explícitamente */
+  .quienes-cifras {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .cifra-label {
+    font-size: 0.875rem !important;   /* ≥14px */
+  }
+}
+
+/* Fix X: Tap targets y fuentes por debajo del mínimo */
+@media (max-width: 768px) {
+  /* Botón Siguiente: aún 38px → mínimo 48px */
+  .btn-siguiente {
+    min-height: 48px !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  /* Botón Reseña: 43px → mínimo 44px */
+  .btn-resena {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.5rem 1.1rem;
+  }
+  /* Proceso — texto descriptivo por debajo de 14px */
+  .proceso-paso p {
+    font-size: 0.875rem;
+  }
+  /* Subtítulo hero: desproporcionado respecto al H1 */
+  .hero-text p,
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* Fix Y: CTA urgente — altura igual en ambos botones */
+@media (max-width: 640px) {
+  .cta-btn-tel,
+  .cta-btn-wa {
+    min-height: 52px !important;
+    height: auto;
+    padding: 0.875rem 1.5rem;
+    box-sizing: border-box;
+  }
+}
+
+/* ============================================================
+   AUDITORÍA VISUAL MÓVIL — 4ª ronda · Mayo 2026
+   Fix Z1: Hero deja de ser 100svh en móvil (el usuario veía
+            solo botones sin heading porque el hero ocupaba
+            740px y el contenido quedaba centrado a mitad).
+   Fix Z2: Leaflet popup — desborda 74px en viewports estrechos.
+   ============================================================ */
+
+/* Fix Z1: Hero — altura automática en móvil para mostrar contenido + siguiente sección */
+@media (max-width: 768px) {
+  .hero {
+    height: auto !important;      /* cancela height:100svh del base */
+    min-height: 85svh;            /* al menos 85% de pantalla */
+    min-height: 85vh;             /* fallback para Safari < 15.4 */
+    /* padding-top cubre el header fijo (--header-height: 70px en móvil) */
+    padding-top: max(5rem, calc(var(--header-height, 70px) + 1.5rem)) !important;
+    padding-bottom: 2.5rem;
+    display: flex;
+    align-items: flex-start;      /* contenido desde arriba (bajo el header) en vez de centrado */
+    justify-content: center;
+  }
+  .hero-content {
+    padding-top: 0;
+    align-self: center;
+  }
+}
+
+/* Fix Z2: Leaflet popup — max-width relativo al viewport en cualquier pantalla */
+@media (max-width: 768px) {
+  .leaflet-popup {
+    max-width: calc(100vw - 2.5rem) !important;
+  }
+  .leaflet-popup-content-wrapper {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .leaflet-popup-content {
+    max-width: 100% !important;
+    margin: 0.75rem 1rem !important;
+    overflow-wrap: break-word; /* break-word deprecado → overflow-wrap es el estándar */
   }
 }

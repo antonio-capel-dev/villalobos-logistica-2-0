@@ -2,9 +2,17 @@
 // backend/api/estadisticas.php
 // Devuelve KPIs del negocio para el dashboard del panel
 
-header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . '/../conexion.php';
 
-require_once '../conexion.php';
+// CORS restringido al dominio de produccion (configurable via .env)
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json; charset=UTF-8");
 
 // Esta API es privada
 if (!isset($_SESSION['user_id'])) {

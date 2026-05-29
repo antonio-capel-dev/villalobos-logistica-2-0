@@ -2,9 +2,18 @@
 // backend/api/mensajes.php
 // API privada para gestionar los mensajes de contacto recibidos
 
-header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . '/../conexion.php';
 
-require_once '../conexion.php';
+// CORS restringido al dominio de produccion (configurable via .env)
+$origenPermitido = env('CORS_ORIGIN', 'https://www.villaloboslogistica.com');
+$origenSolicitud = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origenSolicitud === $origenPermitido || str_starts_with($origenSolicitud, 'http://localhost')) {
+    header("Access-Control-Allow-Origin: $origenSolicitud");
+    header("Vary: Origin");
+}
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: GET, PUT");
+header("Content-Type: application/json; charset=UTF-8");
 
 // Solo accesible si hay sesión activa
 if (!isset($_SESSION['user_id'])) {
@@ -32,9 +41,9 @@ switch ($method) {
     case 'PUT':
         // Marca un mensaje como leído
         $data = json_decode(file_get_contents("php://input"), true);
-        $id   = isset($data['id']) ? $data['id'] : null;
+        $id   = isset($data['id']) ? (int) $data['id'] : null;
 
-        if (!$id) {
+        if (!$id || $id <= 0) {
             http_response_code(400);
             echo json_encode(['ok' => false, 'error' => 'Falta el ID del mensaje.']);
             exit;

@@ -1,0 +1,39 @@
+# ============================================================
+# .htaccess RAIZ - Villalobos Logistica 2.0
+# ============================================================
+# Objetivo:
+#   1. Redirigir cualquier peticion a la carpeta /public (DocumentRoot virtual).
+#   2. Bloquear acceso publico a /backend, /database, /modules, .env, .git, etc.
+#   3. Reglas validas en Apache 2.4 (mod_rewrite y mod_authz_core habilitados).
+#
+# Si el panel del hosting permite cambiar el DocumentRoot directamente a
+# /public, este archivo se vuelve redundante (preferible). Mientras tanto,
+# este .htaccess deja la web funcionando con el DocumentRoot por defecto.
+# ============================================================
+
+# 1) Bloquear archivos sensibles por nombre
+<FilesMatch "^(\.env|\.env\..*|\.gitignore|\.htaccess|composer\.(json|lock)|package\.json|package-lock\.json|README\.md|DEPLOY\.md)$">
+    Require all denied
+</FilesMatch>
+
+# 2) Bloquear archivos internos del backend (NO la API publica)
+RewriteEngine On
+
+# Bloquear archivos internos sensibles de backend (conexion, config, mailer, auth_guard)
+RewriteRule ^backend/(conexion|config|mailer|auth_guard)\.php$ - [F,L]
+# Bloquear phpmailer y otros directorios internos del backend
+RewriteRule ^backend/phpmailer(/|$) - [F,L]
+# Bloquear database, modules y git completos
+RewriteRule ^(database|modules|\.git)(/|$) - [F,L]
+
+# 3) Redireccion silenciosa al documento raiz virtual /public
+#    Cualquier peticion que no exista como archivo o directorio fisico fuera
+#    de /public se reescribe a /public/ sin cambiar la URL en el navegador.
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_URI} !^/panel/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# 4) Si la peticion es a la raiz "/", servir public/index.html
+RewriteRule ^$ /public/index.html [L]

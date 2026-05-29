@@ -1,20 +1,141 @@
+// Activa los preloads de CSS sin necesitar onload inline (evita 'unsafe-inline' en CSP)
+(function () {
+    function activarPreloads() {
+        document.querySelectorAll('link[rel="preload"][as="style"]').forEach(function (l) {
+            l.rel = 'stylesheet';
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', activarPreloads);
+    } else {
+        activarPreloads();
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const btnMenu = document.querySelector('.mobile-menu-toggle');
     const navPrincipal = document.querySelector('.main-nav');
-    if (btnMenu && navPrincipal) {
-        btnMenu.addEventListener('click', () => navPrincipal.classList.toggle('active'));
+    const navOverlay = document.getElementById('navOverlay');
+
+    function toggleNav() {
+        const abierto = navPrincipal.classList.toggle('active');
+        if (navOverlay) {
+            navOverlay.classList.toggle('activo', abierto);
+            navOverlay.setAttribute('aria-hidden', String(!abierto));
+        }
+        btnMenu.setAttribute('aria-expanded', String(abierto));
     }
+
+    if (btnMenu && navPrincipal) {
+        btnMenu.addEventListener('click', toggleNav);
+        // Cerrar menú al pulsar el overlay
+        if (navOverlay) {
+            navOverlay.addEventListener('click', toggleNav);
+        }
+        // Cerrar menú al pulsar Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navPrincipal.classList.contains('active')) {
+                toggleNav();
+                btnMenu.focus();
+            }
+        });
+    }
+
+    // ===== HEADER SCROLL-AWARE (rAF throttled) =====
+    // No llamamos onScroll() en DOMContentLoaded: el estado inicial sin .scrolled
+    // ya es correcto (header transparente sobre el hero). Llamarlo aquí fuerza un
+    // reflow porque styles.min.css todavía puede estar cargándose de forma async.
+    const header = document.querySelector('.main-header');
+    if (header) {
+        let rafPendiente = false;
+        const onScroll = () => {
+            if (rafPendiente) return;
+            rafPendiente = true;
+            requestAnimationFrame(() => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+                rafPendiente = false;
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
+    // ================================================
+
+    // ===== WIDGET WHATSAPP =====
+    // localStorage con TTL 24h: si el usuario cerró el panel, no lo reabrimos
+    // automáticamente hasta el día siguiente.
+
+    const WA_CERRADO_KEY = "vll_waCerrado";
+    const WA_TTL_MS      = 24 * 60 * 60 * 1000; // 24 horas
+
+    function waCerradoReciente() {
+        try {
+            const ts = parseInt(localStorage.getItem(WA_CERRADO_KEY) || "0", 10);
+            return ts && Date.now() - ts < WA_TTL_MS;
+        } catch (_) { return false; }
+    }
+
+    const waBoton  = document.getElementById("waBoton");
+    const waPanel  = document.getElementById("waPanel");
+    const waCerrar = document.getElementById("waCerrar");
+    const waEnviar = document.getElementById("waEnviar");
+
+    if (waBoton && waPanel) {
+        // Si el usuario cerró el panel recientemente, arrancamos con él oculto
+        if (waCerradoReciente()) waPanel.hidden = true;
+
+        waBoton.addEventListener("click", () => {
+            waPanel.hidden = !waPanel.hidden;
+            if (!waPanel.hidden) {
+                // Abrió el panel → limpiar el flag de cerrado
+                try { localStorage.removeItem(WA_CERRADO_KEY); } catch (_) {}
+                const inp = document.getElementById("waMensaje");
+                if (inp) setTimeout(() => inp.focus(), 100);
+            }
+        });
+        if (waCerrar) {
+            waCerrar.addEventListener("click", () => {
+                waPanel.hidden = true;
+                // Recordar que el usuario lo cerró durante 24h
+                try { localStorage.setItem(WA_CERRADO_KEY, String(Date.now())); } catch (_) {}
+            });
+        }
+        if (waEnviar) {
+            waEnviar.addEventListener("click", () => {
+                const inp = document.getElementById("waMensaje");
+                const texto = inp ? inp.value.trim() : "";
+                const msg = texto || "Hola, me gustaría solicitar información sobre vuestros servicios de transporte.";
+                window.open("https://wa.me/34625038039?text=" + encodeURIComponent(msg), "_blank");
+            });
+        }
+    }
+    // ===========================
 
     const formulario = document.getElementById("formularioContacto");
     if (!formulario) return;
 
+    // ─── Normalización de datos ───────────────────────────────────────────
+    // Normalizar antes de validar y antes de enviar asegura consistencia
+    // entre lo que el usuario ve y lo que llega al backend.
+
+    function normalizarNombre(v) {
+        // Colapsa espacios múltiples y capitaliza cada palabra
+        return v.trim().replace(/\s+/g, ' ');
+    }
+    function normalizarTelefono(v) {
+        // Elimina espacios, guiones y paréntesis → "612 34-56 78" → "612345678"
+        return v.replace(/[\s\-().]/g, '');
+    }
+    function normalizarEmail(v) {
+        return v.trim().toLowerCase();
+    }
+
     // Validación de campos del formulario con Regex
 
     const reglas = {
-        nombre:   { regex: /^[a-zA-ZÀ-ÿ\s]{3,}$/,      error: 'Mínimo 3 letras, sin números' },
-        telefono: { regex: /^[6789]\d{8}$/,              error: 'Teléfono español no válido (9 dígitos)' },
-        correo:   { regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, error: 'Formato de email no válido' }
+        nombre:   { regex: /^[a-zA-ZÀ-ÿ\s]{3,}$/,      error: 'Mínimo 3 letras, sin números',         normalizar: normalizarNombre },
+        telefono: { regex: /^[6789]\d{8}$/,              error: 'Teléfono español no válido (9 dígitos)', normalizar: normalizarTelefono },
+        correo:   { regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, error: 'Formato de email no válido',            normalizar: normalizarEmail }
     };
 
     function validarCampo(input) {
@@ -23,7 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const msg   = grupo ? grupo.querySelector('.mensaje') : null;
         if (!regla || !msg) return true;
 
-        const valido = regla.regex.test(input.value.trim());
+        // Normalizar el valor antes de validar (sin modificar lo que el usuario ve)
+        const valorNormalizado = regla.normalizar ? regla.normalizar(input.value) : input.value.trim();
+        const valido = regla.regex.test(valorNormalizado);
         input.classList.toggle('campo-error', !valido);
         input.classList.toggle('campo-ok', valido);
         msg.textContent = valido ? '✓ Correcto' : regla.error;
@@ -48,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
         actual.classList.remove('activo');
         destino.classList.add('activo');
         pasoActual = nuevo;
+        try { sessionStorage.setItem('vll_formPaso', String(nuevo)); } catch (_) {}
 
         actualizarProgreso();
         formulario.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -63,6 +187,23 @@ document.addEventListener("DOMContentLoaded", () => {
             el.classList.toggle('completada', i + 1 < pasoActual);
         });
     }
+
+    // Restaurar paso guardado en sessionStorage al recargar la página
+    // sessionStorage se borra al cerrar la pestaña, por lo que solo persiste recargas
+    // (no reaparece el paso 2 en visitas nuevas — comportamiento esperado).
+    try {
+        const pasoGuardado = parseInt(sessionStorage.getItem('vll_formPaso') || '1', 10);
+        if (pasoGuardado > 1) {
+            const pasoDestino = document.getElementById('form-paso-' + pasoGuardado);
+            const pasoBase    = document.getElementById('form-paso-1');
+            if (pasoDestino && pasoBase) {
+                pasoBase.classList.remove('activo');
+                pasoDestino.classList.add('activo');
+                pasoActual = pasoGuardado;
+                actualizarProgreso();
+            }
+        }
+    } catch (_) {}
 
     // Selección de servicio con cards
     const inputServicio = document.getElementById('tipoServicio');
@@ -129,10 +270,14 @@ document.addEventListener("DOMContentLoaded", () => {
         botonEnviar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
         botonEnviar.disabled = true;
 
+        // Normalizamos cada campo antes de enviar al backend:
+        // - teléfono: sin espacios/guiones → coincide con regex del backend
+        // - email: minúsculas → evita duplicados en BD ("Juan@Gmail.com" = "juan@gmail.com")
+        // - nombre: espacios colapsados → "  Juan   García  " → "Juan García"
         const datos = {
-            nombre:   document.getElementById("nombre").value.trim(),
-            telefono: document.getElementById("telefono").value.trim(),
-            email:    document.getElementById("correo").value.trim(),
+            nombre:   normalizarNombre(document.getElementById("nombre").value),
+            telefono: normalizarTelefono(document.getElementById("telefono").value),
+            email:    normalizarEmail(document.getElementById("correo").value),
             servicio: inputServicio ? inputServicio.value : '',
             origen:   (document.getElementById("origen")         || {value:''}).value.trim(),
             destino:  (document.getElementById("destino")        || {value:''}).value.trim(),
@@ -207,6 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (campoDestino) campoDestino.addEventListener('change', lanzarEstimacion);
 
     function mostrarExito() {
+        try { sessionStorage.removeItem('vll_formPaso'); } catch (_) {}
         formulario.style.display = 'none';
         const card = document.createElement('div');
         card.className = 'tarjeta-exito';

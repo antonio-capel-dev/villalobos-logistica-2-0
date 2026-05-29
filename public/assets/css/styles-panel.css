@@ -1,0 +1,93 @@
+/* =======================================================
+   styles-panel.css — Estilos exclusivos del panel admin
+   Solo se carga en panel/*.php, nunca en la landing.
+   ======================================================= */
+
+/* Utilidades generales del panel */
+.fondo-panel { background-color: #f1f5f9; }
+.alineacion-izquierda { text-align: left; }
+.alineacion-derecha { text-align: right; }
+.alineacion-centro { text-align: center; }
+.texto-secundario { color: #64748b; }
+.margen-inferior-doble { margin-bottom: 2rem; }
+.margen-superior-simple { margin-top: 1.5rem; }
+.texto-pequeno { font-size: 0.85rem; }
+.enlace-primario { color: #1A237E; text-decoration: underline; }
+
+/* Auth / Login */
+.contenedor-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.tarjeta-login {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.tarjeta-login img { width: 180px; margin-bottom: 1.5rem; }
+
+/* Panel Layout */
+.contenedor-principal { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.cabecera-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.cabecera-tarjeta { display: flex; justify-content: space-between; align-items: center; }
+.tarjeta { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+.insignia-rol { background: #1A237E; color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; }
+.separador-panel { margin: 2rem 0; border: 0; border-top: 1px solid #eee; }
+.grupo-botones { display: flex; gap: 1rem; }
+
+/* Botones del panel */
+.boton { display: inline-block; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; text-align: center; transition: all 0.3s ease; text-decoration: none; }
+.boton-ancho { width: 100%; margin-top: 0.5rem; }
+.boton-primario { background-color: #1A237E; color: white; }
+.boton-primario:hover { background-color: #000051; }
+.boton-secundario { background-color: transparent; color: #0f172a; border: 2px solid #0f172a; }
+.boton-secundario:hover { background: rgba(0,0,0,0.05); }
+.boton-contorno { background-color: transparent; color: #0f172a; border: 1px solid #cbd5e1; }
+.boton-contorno:hover { background-color: #f1f5f9; }
+.boton-pequeno { padding: 0.4rem 0.8rem; font-size: 0.85rem; border-radius: 4px; }
+.boton-peligro { background-color: #ef4444; color: white; }
+.boton-peligro:hover { background-color: #dc2626; }
+.boton-editar { background-color: #3b82f6; color: white; margin-right: 0.4rem; }
+.boton-editar:hover { background-color: #2563eb; }
+
+/* Cuadrículas de formularios del panel */
+.cuadricula-formulario { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+
+/* Tablas de datos */
+.contenedor-tabla { overflow-x: auto; }
+.tabla-datos { width: 100%; border-collapse: collapse; margin-top: 1rem; color: #334155; }
+.tabla-datos th, .tabla-datos td { padding: 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+.tabla-datos th { background-color: #f1f5f9; font-weight: 600; }
+.tabla-datos tr:hover { background-color: #f8fafc; }
+
+/* Insignias de estado */
+.insignia-estado { padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; display: inline-block; }
+.estado-pendiente { background-color: #fef3c7; color: #d97706; }
+.estado-entregado { background-color: #d1fae5; color: #059669; }
+.estado-en_ruta   { background-color: #dbeafe; color: #2563eb; }
+.estado-cancelado { background-color: #fee2e2; color: #dc2626; }
+
+/* Modal de edición */
+.modal-overlay { position: fixed; inset: 0; background-color: rgba(15,23,42,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.modal-overlay[hidden] { display: none; }
+.modal-contenido { background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; animation: modalEntrada 0.2s ease-out; }
+@keyframes modalEntrada { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.modal-cabecera { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid #e2e8f0; }
+.modal-cabecera h3 { margin: 0; font-size: 1.1rem; color: #1e293b; }
+.boton-cerrar-modal { background: none; border: none; font-size: 1.6rem; line-height: 1; color: #94a3b8; cursor: pointer; padding: 0 0.25rem; transition: color 0.2s; }
+.boton-cerrar-modal:hover { color: #ef4444; }
+.modal-cuerpo { padding: 1.5rem; }
+
+/* KPI Cards del dashboard */
+.grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.tarjeta-kpi { background: #fff; border-radius: 12px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 1rem; }
+.kpi-icono { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.kpi-etiqueta { margin: 0; font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.kpi-valor { margin: 0.1rem 0 0; font-size: 1.6rem; font-weight: 700; color: #1e293b; line-height: 1.2; }

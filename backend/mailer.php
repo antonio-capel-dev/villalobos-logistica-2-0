@@ -23,8 +23,11 @@ function enviarEmail(string $asunto, string $cuerpo): bool
         $mail->SMTPAuth   = true;
         $mail->Username   = env('SMTP_USER', '');
         $mail->Password   = env('SMTP_PASS', '');
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = (int) env('SMTP_PORT', '587');
+        // El puerto 465 implica SSL/TLS implicito (SMTPS); 587 implica STARTTLS.
+        $mail->SMTPSecure = ($mail->Port === 465)
+            ? PHPMailer::ENCRYPTION_SMTPS
+            : PHPMailer::ENCRYPTION_STARTTLS;
         $mail->CharSet    = 'UTF-8';
 
         $mail->setFrom(

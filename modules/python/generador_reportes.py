@@ -1,32 +1,50 @@
 #!/usr/bin/env python3
 """
-generador_reportes.py — Villalobos Logística
+generador_reportes.py - Villalobos Logistica
 Exporta los portes de la base de datos a un CSV.
+
+Lee credenciales de BD desde variables de entorno (DB_HOST, DB_NAME,
+DB_USER, DB_PASS) o desde el archivo .env en la raiz del proyecto.
 """
 
 import csv
 import datetime
+import os
+from pathlib import Path
+
 import pymysql
 
-DB_HOST = 'localhost'
-DB_NAME = 'villalobos_logistica_2'
-DB_USER = 'root'
-DB_PASS = ''
+
+def cargar_env(ruta_env: Path) -> None:
+    """Carga variables del archivo .env en os.environ si no estan ya definidas."""
+    if not ruta_env.is_file():
+        return
+    for linea in ruta_env.read_text(encoding='utf-8').splitlines():
+        linea = linea.strip()
+        if not linea or linea.startswith('#') or '=' not in linea:
+            continue
+        clave, valor = linea.split('=', 1)
+        clave = clave.strip()
+        valor = valor.strip().strip('"').strip("'")
+        os.environ.setdefault(clave, valor)
+
+
+cargar_env(Path(__file__).resolve().parents[2] / '.env')
 
 
 def conectar():
     return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASS,
-        database=DB_NAME,
+        host=os.environ.get('DB_HOST', 'localhost'),
+        user=os.environ.get('DB_USER', 'root'),
+        password=os.environ.get('DB_PASS', ''),
+        database=os.environ.get('DB_NAME', 'villalobos_logistica_2'),
         charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor
+        cursorclass=pymysql.cursors.DictCursor,
     )
 
 
 def generar_reporte():
-    print("Iniciando generador de reportes — Villalobos Logística")
+    print("Iniciando generador de reportes - Villalobos Logistica")
 
     conexion = conectar()
 
@@ -56,7 +74,7 @@ def generar_reporte():
         print("No hay portes en la base de datos.")
         return
 
-    fecha_hoy     = datetime.date.today().strftime('%Y-%m-%d')
+    fecha_hoy = datetime.date.today().strftime('%Y-%m-%d')
     nombre_fichero = f'reporte_{fecha_hoy}.csv'
 
     with open(nombre_fichero, mode='w', newline='', encoding='utf-8') as archivo:

@@ -28,3 +28,8 @@ Thumbs.db
 .idea/
 *.swp
 *.bak
+# Worktrees y datos internos de Claude
+.claude/
+
+# Config de produccion con secretos (NO versionar)
+.env.produccion
